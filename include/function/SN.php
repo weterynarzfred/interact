@@ -8,13 +8,12 @@ class SN {
   public function set_view($view) {
     $this->view = $view;
   }
-  public function get_view($view = NULL) {
+  private function _get_view($view = NULL, $data = NULL) {
     if(!$view) {
       if(!$this->view) $this->view = '404';
       $view = $this->view;
     }
     $url = HOME_DIR . '/view/' . $view . '.php';
-    ob_start();
     if(file_exists($url)) {
       include $url;
     }
@@ -22,21 +21,14 @@ class SN {
       $this->create_error('file ' . $url . ' not found');
     }
     $this->display_errors();
+  }
+  public function get_view($view = NULL, $data = NULL) {
+    ob_start();
+    $this->_get_view($view, $data);
     return ob_get_clean();
   }
-  public function display_view($view = NULL) {
-    if(!$view) {
-      if(!$this->view) $this->view = '404';
-      $view = $this->view;
-    }
-    $url = HOME_DIR . '/view/' . $view . '.php';
-    if(file_exists($url)) {
-      include $url;
-    }
-    else {
-      $this->create_error('file ' . $url . ' not found');
-    }
-    $this->display_errors();
+  public function display_view($view = NULL, $data = NULL) {
+    $this->_get_view($view, $data);
   }
 
 
@@ -56,6 +48,7 @@ class SN {
 
 
   // database connection
+  private $conn;
   public function test_db_connection($host, $name, $user, $pass) {
 		try {
 			$conn = new PDO("mysql:host=".$host.";dbname=".$name.";charset=utf8", $user, $pass);
@@ -130,8 +123,10 @@ class SN {
   		}
   		catch(PDOException $e) {
   			$this->create_error("MySQL Connection failed: " . $e->getMessage());
+        return false;
   		}
   	}
+    return $this->conn;
   }
 
 
