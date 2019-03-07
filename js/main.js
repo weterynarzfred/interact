@@ -25,6 +25,9 @@ function handleFragments(data) {
 			case 'location':
 				window.history.pushState({}, '', f[fragment].url);
 				break;
+			case 'message':
+				createMessage(f[fragment].html);
+				break;
 			}
 		}
 	}

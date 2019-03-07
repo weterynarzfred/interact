@@ -14,7 +14,7 @@ call_user_func(function() {
 	}
 });
 
-if(file_exists(HOME_DIR. '/config.php')) {
+if(file_exists(HOME_DIR. '/config.json')) {
   $SN->set_view('home');
 }
 else {
@@ -22,7 +22,9 @@ else {
 }
 
 if(CONNECTION_TYPE === 'manual') {
+	$SN->display_view('header');
 	$SN->display_view();
+	$SN->display_view('footer');
 }
 elseif(CONNECTION_TYPE === 'ajax') {
 	if(isset($_POST['action'])) {

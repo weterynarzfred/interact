@@ -1,0 +1,6 @@
+.message {
+	transition:.3s;
+}
+.message.removing {
+	opacity:0;
+}
