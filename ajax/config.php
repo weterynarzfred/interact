@@ -69,5 +69,4 @@ if($tables_just_created) {
   );
 }
 
-
 echo json_encode($response);

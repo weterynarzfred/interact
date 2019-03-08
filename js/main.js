@@ -78,9 +78,31 @@ $(document).on('submit', '.ajax-form', function(e) {
 
   doQuery({
     data  : {
-      action  : action,
-      values  : values,
+      action,
+      values,
     }
   });
 
+});
+
+
+// adding entries
+$(document).on('click', '.add-entry', function() {
+	doQuery({
+    data  : {
+      action  : 'add_entry',
+    }
+  });
+});
+
+
+// removing entries
+$(document).on('click', '.remove-entry', function() {
+	const id = $(this).parents('.entry').data('id');
+	doQuery({
+    data  : {
+      action  : 'remove_entry',
+			values	:	{id},
+    }
+  });
 });

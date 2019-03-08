@@ -30,12 +30,10 @@ function get_entries() {
 			SELECT `ID`, `name`, `date`
 			FROM `interact_entries`
       ORDER BY `date` DESC
-      LIMIT 5 OFFSET 0;
+      LIMIT 5 OFFSET 0
 		";
 
 		$sql = SN()->db_connect()->prepare($sql);
-
-		$sql->bindParam(':id', $event);
 
 		$sql->execute();
 		$result = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -48,4 +46,24 @@ function get_entries() {
 	catch(Exception $e) {
 		SN()->create_error('could not retrieve entries: ' . $e->getMessage());
 	}
+}
+
+function get_entry($ID) {
+  try {
+    $sql = "
+      SELECT `ID`, `name`, `date`
+      FROM `interact_entries`
+      WHERE `ID` = :id
+    ";
+
+    $sql = SN()->db_connect()->prepare($sql);
+    $sql->bindParam(':id', $ID);
+
+    $sql->execute();
+    $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    return new Entry($result[0]);
+  }
+  catch(Exception $e) {
+    SN()->create_error('could not retrieve entries: ' . $e->getMessage());
+  }
 }

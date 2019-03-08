@@ -1,0 +1,23 @@
+done:
+- save db config from user
+- display entries
+- add entries
+- remove entries
+
+to do:
+- edit entries
+- entry attr: type, read, ready, last_checked
+- entry meta and plugins
+- anilist: fetch manga read progress
+- reader: connect folder with entry
+- reader: read manga
+- anilist: fetch cover image
+- mangaupdates: fetch manga ready count
+- madokami: search for manga page
+- styles huehuehue
+- anilist: sync manga read progress
+- anilist: search for id
+- alternative titles
+- mangaupdates: search for page
+- reader: autoupdate read progress
+- options and disabling plugins
