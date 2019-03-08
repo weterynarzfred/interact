@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700&subset=latin-ext');
+html, body {height:100%;}
+* {box-sizing:border-box;}
+body {
+	background-color:#eee;
+	color:#333;
+	margin:0;
+	font-family: 'Lato', sans-serif;
+}
+.clear {clear:both;}
+.r {clear:both;height:3em;}
+.rmin {clear:both;height:1.5em;}
+.rmik {clear:both;height:.75em;}
+.rel {position:relative;}
+.abs {
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-weight:400;
+  margin:0;
+  padding:.33em 0;
+}
+.small {font-size:.79em;}
+.big {font-size:1.29em;}
+.bigger {font-size:1.62em;}
+
+.full {
+  display:block;
+  width:100%;
+}
+
+.text-justify {text-align:justify;}
+.text-center {text-align:center;}
+.text-left {text-align:left;}
+.text-right {text-align:right;}
+
+.cake {
+  height:0;
+  padding-bottom:100%;
+  background-position:center;
+  background-size:cover;
+}
+.cake-3-1 {padding-bottom:33.3333%;}
+.cake-2-1 {padding-bottom:50%;}
+.cake-16-9 {padding-bottom:56.25%;}
+.cake-16-10 {padding-bottom:62.5%;}
+.cake-4-3 {padding-bottom:75%;}
+.cake-5-4 {padding-bottom:80%;}
+.cake-4-5 {padding-bottom:125%;}
+.cake-3-4 {padding-bottom:133.3333%;}
+.cake-10-16 {padding-bottom:160%;}
+.cake-9-16 {padding-bottom:177.7777%;}
+.cake-1-2 {padding-bottom:200%;}
+
+.flex {display:flex;}
+.flex-wrap {flex-wrap:wrap;}
+.flex-no-shrink {flex-shrink:0;}
+.flex-no-grow {flex-grow:0;}
+.flex-column {flex-direction:column;}
+.flex-justify-start {justify-content:flex-start;}
+.flex-justify-end {justify-content:flex-end;}
+.flex-justify-center {justify-content:center;}
+.flex-justify-space-between {justify-content:space-between;}
+.flex-justify-space-evenly {justify-content:space-evenly;}
+.flex-align-start {align-items:flex-start;}
+.flex-align-end {align-items:flex-end;}
+.flex-align-center {align-items:center;}
+.flex-align-stretch {align-items:stretch;}
+.col2 {width:50%;}
+.col3 {width:33.3333%;}
+.col3-2 {width:66.6667%;}
+.col4 {width:25%;}
+.col4-3 {width:75%;}
+.col5 {width:20%;}
+.col5-2 {width:40%;}
+.col5-3 {width:60%;}
+.col5-4 {width:80%;}
+.col6 {width:16.6667%;}
+.col6-5 {width:83.3333%;}

@@ -106,3 +106,30 @@ $(document).on('click', '.remove-entry', function() {
     }
   });
 });
+
+// editing entries
+$(document).on('click', '.edit-entry', function() {
+	const id = $(this).parents('.entry').data('id');
+	doQuery({
+    data  : {
+      action  : 'display_view',
+			values	:	{
+				name	:	'edit_entry',
+				data	:	{id},
+			},
+    }
+  });
+});
+
+// navigation links
+$(document).on('click', '.navigation-link', function() {
+	const target = $(this).data('target');
+	doQuery({
+    data  : {
+      action  : 'display_view',
+			values	:	{
+				name	:	target,
+			},
+    }
+  });
+});

@@ -1,6 +1,83 @@
+#content {
+	width:20em;
+	margin:3em auto;
+	background-color:#fff;
+	padding:2em;
+	border-bottom:.3em solid #f55;
+	transition:1s;
+}
+
+.title {
+	font-weight:700;
+	font-size:1.62em;
+	color:#555;
+	text-align:center;
+}
+
+.button {
+	display:inline-block;
+	width:auto;
+	border:none;
+	background-color:#555;
+	color:#fff;
+	padding:.2em .5em;
+	cursor:pointer;
+	text-transform:uppercase;
+	font-size:.62em;
+	letter-spacing:.1em;
+	transition:.2s;
+	margin:.1em;
+	box-shadow:none;
+}
+.button:hover {
+	background-color:#f55;
+}
+
+#messages {
+	padding:2em;
+	width:30em;
+	position:fixed;
+	bottom:0;
+	left:0;
+}
 .message {
+	background-color:#fff;
+	padding:.25em 1em;
+	border-bottom:.2em solid #f55;
+	display:inline-block;
+	margin:.25em 0;
 	transition:.3s;
 }
 .message.removing {
 	opacity:0;
+}
+
+/*----- forms -----*/
+.input-line {
+	padding:.25em 0;
+}
+input {
+	background-color:transparent;
+	border:none;
+	box-shadow:0 .1em 0 0 #f55;
+	width:100%;
+	margin:0;
+	padding:.25em .5em;
+	transition:.2s;
+}
+input:focus,
+input:hover {
+	background-color:#f8f8f8;
+	box-shadow:0 .2em 0 0 #f55;
+	outline:none;
+}
+
+/*----- entry list -----*/
+.entry-name {
+	font-weight:700;
+	border-bottom:1px solid #ccc;
+}
+.entry-date {
+	text-align:right;
+	font-size:.62em;
 }

@@ -3,9 +3,9 @@ done:
 - display entries
 - add entries
 - remove entries
+- edit entries
 
 to do:
-- edit entries
 - entry attr: type, read, ready, last_checked
 - entry meta and plugins
 - anilist: fetch manga read progress

@@ -11,8 +11,9 @@ try {
   $sql = SN()->db_connect()->prepare($sql);
   $name = 'tempname';
   $sql->bindParam(':name', $name);
-
   $sql->execute();
+
+  $entry = get_entry(SN()->db_connect()->lastInsertId());
   $success = true;
 }
 catch(Exception $e) {
@@ -25,7 +26,6 @@ $response = array(
 );
 
 if($success) {
-  $entry = get_entry(SN()->db_connect()->lastInsertId());
   $response['fragments'] = array(
     array(
       'type'  =>  'append',

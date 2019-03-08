@@ -4,29 +4,35 @@ $values = $_POST['values'];
 $success = false;
 
 try {
-  if(!isset($values['id'])) {
+  if(
+    !isset($values['id']) ||
+    !isset($values['name'])
+  ) {
     throw new Exception('correct data not provided');
   }
 }
 catch(Exception $e) {
-  SN()->create_error('ajax failed performing action "remove_entry"; ' . $e);
+  SN()->create_error('ajax failed performing action "update_entry"; ' . $e);
 }
 
 try {
   $sql = "
-    DELETE FROM `interact_entries`
+    UPDATE `interact_entries`
+    SET `name` = :name
     WHERE `ID` = (:id)
   ";
 
   $sql = SN()->db_connect()->prepare($sql);
-  $name = 'tempname';
   $sql->bindParam(':id', $values['id']);
-
+  $sql->bindParam(':name', $values['name']);
   $sql->execute();
+
+  $html = SN()->get_view('home');
+
   $success = true;
 }
 catch(Exception $e) {
-  SN()->create_error('could not delete the entry: ' . $e->getMessage());
+  SN()->create_error('could not update the entry: ' . $e->getMessage());
 }
 
 $response = array(
@@ -37,12 +43,13 @@ $response = array(
 if($success) {
   $response['fragments'] = array(
     array(
-      'type'  =>  'delete',
-      'element' =>  '#entry-' . $values['id'],
+      'type'  =>  'update',
+      'element' =>  '#content',
+      'html'  => $html,
     ),
     array(
       'type'  =>  'message',
-      'html'  =>  'the entry was removed from the database',
+      'html'  =>  'the entry was updated',
     ),
   );
 }
@@ -50,7 +57,7 @@ else {
   $response['fragments'] = array(
     array(
       'type'  =>  'message',
-      'html'  =>  'could not remove the entry from the database',
+      'html'  =>  'could not update the entry in the database',
     ),
   );
 }
