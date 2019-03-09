@@ -16,16 +16,16 @@ call_user_func(function() {
 
 if(file_exists(HOME_DIR. '/config.json')) {
 	SN()->test_db_tables();
-  $SN->set_view('home');
+  set_view('home');
 }
 else {
-  $SN->set_view('config');
+  set_view('config');
 }
 
 if(CONNECTION_TYPE === 'manual') {
-	$SN->display_view('header');
-	$SN->display_view();
-	$SN->display_view('footer');
+	display_view('part/header');
+	display_view();
+	display_view('part/footer');
 }
 elseif(CONNECTION_TYPE === 'ajax') {
 	if(isset($_POST['action'])) {

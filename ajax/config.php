@@ -34,6 +34,7 @@ if(SN()->test_db_connection(
   if($success) {
     $tables_just_created = SN()->test_db_tables();
   }
+  $html = get_view('home');
 }
 
 $response = array(
@@ -46,7 +47,7 @@ if($success) {
     array(
       'type'  =>  'update',
       'element' =>  '#content',
-      'html'  =>  SN()->get_view('home'),
+      'html'  =>  $html,
     ),
     array(
       'type'  =>  'message',
@@ -65,7 +66,7 @@ else {
 if($tables_just_created) {
   $response['fragments'][] = array(
     'type'  =>  'message',
-    'html'  =>  'tables were created',
+    'html'  =>  'tables were created in the database',
   );
 }
 

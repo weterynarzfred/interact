@@ -33,7 +33,7 @@ try {
   $sql->bindParam(':ready', $values['ready']);
   $sql->execute();
 
-  $html = SN()->get_view('home');
+  $html = get_view('home');
 
   $success = true;
 }

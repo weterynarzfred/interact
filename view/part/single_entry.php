@@ -1,7 +1,7 @@
 <div class="entry" id="entry-<?php echo $data->get_ID(); ?>" data-id="<?php echo $data->get_ID(); ?>">
   <div class="flex flex-justify-space-between flex-wrap entry-main-line">
     <div class="entry-name"><?php echo $data->get_name(); ?></div>
-    <?php SN()->display_view('single_entry_progress', $data); ?>
+    <?php display_view('part/single_entry_progress', $data); ?>
   </div>
   <div class="flex flex-justify-space-between flex-wrap">
     <div class="entry-type"><?php echo $data->get_type(); ?></div>

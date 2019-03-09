@@ -14,6 +14,7 @@ try {
   $sql->execute();
 
   $entry = get_entry(SN()->db_connect()->lastInsertId());
+  $html = get_view('single_entry', $entry);
   $success = true;
 }
 catch(Exception $e) {
@@ -30,7 +31,7 @@ if($success) {
     array(
       'type'  =>  'append',
       'element' =>  '.entries',
-      'html'  =>  SN()->get_view('single_entry', $entry),
+      'html'  =>  $html,
     ),
     array(
       'type'  =>  'message',

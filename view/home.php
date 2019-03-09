@@ -4,5 +4,5 @@
 <div class="rmin"></div>
 <?php
 $entries = get_entries();
-SN()->display_view('entry_list', $entries);
+display_view('part/entry_list', $entries);
 ?>

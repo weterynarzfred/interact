@@ -2,7 +2,7 @@
   <?php
   if($data) {
     foreach ($data as $entry) {
-      SN()->display_view('single_entry', $entry); ?>
+      display_view('part/single_entry', $entry); ?>
       <div class="rmik"></div>
     <?php }
   }
