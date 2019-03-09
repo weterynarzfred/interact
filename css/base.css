@@ -1,5 +1,5 @@
 #content {
-	width:20em;
+	width:30em;
 	margin:3em auto;
 	background-color:#fff;
 	padding:2em;
@@ -55,6 +55,12 @@
 /*----- forms -----*/
 .input-line {
 	padding:.25em 0;
+	display:flex;
+	align-items:center;
+}
+.input-label {
+	min-width:5em;
+	font-size:.62em;
 }
 input {
 	background-color:transparent;
@@ -64,6 +70,7 @@ input {
 	margin:0;
 	padding:.25em .5em;
 	transition:.2s;
+	font:inherit;
 }
 input:focus,
 input:hover {
@@ -73,11 +80,15 @@ input:hover {
 }
 
 /*----- entry list -----*/
-.entry-name {
-	font-weight:700;
+.entry-main-line {
 	border-bottom:1px solid #ccc;
 }
-.entry-date {
+.entry-name {
+	font-weight:700;
+}
+.entry-date,
+.entry-type {
 	text-align:right;
 	font-size:.62em;
+	text-transform:uppercase;
 }

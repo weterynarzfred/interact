@@ -6,7 +6,10 @@ $success = false;
 try {
   if(
     !isset($values['id']) ||
-    !isset($values['name'])
+    !isset($values['name']) ||
+    !isset($values['type']) ||
+    !isset($values['read']) ||
+    !isset($values['ready'])
   ) {
     throw new Exception('correct data not provided');
   }
@@ -18,13 +21,16 @@ catch(Exception $e) {
 try {
   $sql = "
     UPDATE `interact_entries`
-    SET `name` = :name
-    WHERE `ID` = (:id)
+    SET `name` = :name, `type` = :type, `read` = :read, `ready` = :ready
+    WHERE `ID` = :id
   ";
 
   $sql = SN()->db_connect()->prepare($sql);
   $sql->bindParam(':id', $values['id']);
   $sql->bindParam(':name', $values['name']);
+  $sql->bindParam(':type', $values['type']);
+  $sql->bindParam(':read', $values['read']);
+  $sql->bindParam(':ready', $values['ready']);
   $sql->execute();
 
   $html = SN()->get_view('home');

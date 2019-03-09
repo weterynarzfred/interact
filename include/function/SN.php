@@ -39,11 +39,13 @@ class SN {
   }
   public function get_errors() {
     return $this->errors;
+    $this->errors = array();
   }
   public function display_errors() {
     array_map(function($e) {
       echo '<div class="sn-error">'.$e.'</div>';
     }, $this->errors);
+    $this->errors = array();
   }
 
 
@@ -74,10 +76,10 @@ class SN {
   }
   public function test_db_tables() {
     $this->db_connect();
-    $tables_need_to_be_created;
+    $tables_need_to_be_created = false;
     try {
       $sql = "
-  			SHOW tables like \"interact_options\"
+  			SHOW tables like 'interact_options'
   		";
       $sql = SN()->conn->prepare($sql);
       $sql->execute();
@@ -88,26 +90,31 @@ class SN {
   		SN()->create_error('could not retrieve table from db: ' . $e->getMessage());
   	}
     // create tables
-    try {
-  		$sql ="CREATE TABLE IF NOT EXISTS `interact_options` (
-  			`ID` INT NOT NULL AUTO_INCREMENT,
-  			`key` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  			PRIMARY KEY (`ID`),
-  			INDEX `key` (`key`(255))
-  		)";
-  		SN()->conn->exec($sql);
-      $sql ="CREATE TABLE IF NOT EXISTS `interact_entries` (
-  			`ID` INT NOT NULL AUTO_INCREMENT,
-  			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  			`date` TIMESTAMP NOT NULL,
-  			PRIMARY KEY (`ID`),
-  			INDEX `date` (`date`)
-  		)";
-  		SN()->conn->exec($sql);
-  	} catch(PDOException $e) {
-  		SN()->create_error($e->getMessage());
-  	}
+    if($tables_need_to_be_created) {
+      try {
+    		$sql ="CREATE TABLE IF NOT EXISTS `interact_options` (
+    			`ID` INT NOT NULL AUTO_INCREMENT,
+    			`key` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    			PRIMARY KEY (`ID`),
+    			INDEX `key` (`key`(255))
+    		)";
+    		SN()->conn->exec($sql);
+        $sql ="CREATE TABLE IF NOT EXISTS `interact_entries` (
+    			`ID` INT NOT NULL AUTO_INCREMENT,
+    			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    			`date` TIMESTAMP NOT NULL,
+          `type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+          `read` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
+          `ready` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
+    			PRIMARY KEY (`ID`),
+    			INDEX `date` (`date`)
+    		)";
+    		SN()->conn->exec($sql);
+    	} catch(PDOException $e) {
+    		SN()->create_error($e->getMessage());
+    	}
+    }
 
     return $tables_need_to_be_created;
   }
