@@ -14,6 +14,16 @@ call_user_func(function() {
 	}
 });
 
+SN()->options = new Options(array(
+	'entry_attributes'	=>	array(
+		'name',
+		'date',
+		'type',
+		'read',
+		'ready',
+	),
+));
+
 if(file_exists(HOME_DIR. '/config.json')) {
 	SN()->test_db_tables();
   set_view('home');

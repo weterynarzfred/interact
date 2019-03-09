@@ -14,7 +14,7 @@ try {
   $sql->execute();
 
   $entry = get_entry(SN()->db_connect()->lastInsertId());
-  $html = get_view('single_entry', $entry);
+  $html = get_view('part/single_entry', $entry);
   $success = true;
 }
 catch(Exception $e) {

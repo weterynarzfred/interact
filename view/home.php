@@ -6,3 +6,25 @@
 $entries = get_entries();
 display_view('part/entry_list', $entries);
 ?>
+
+<div class="r"></div>
+<pre>
+<?php
+
+add_to_hook('get_option_entry_attributes', function($a) {
+  $a[] = 'a';
+  return $a;
+});
+
+function add_b($a) {
+  $a[] = 'b';
+  return $a;
+}
+add_to_hook('get_option_entry_attributes', 'add_b');
+
+print_r(SN()->options);
+
+print_r(get_option('entry_attributes'));
+
+?>
+</pre>

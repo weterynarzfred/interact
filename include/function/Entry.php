@@ -6,6 +6,7 @@ class Entry {
   private $ID;
   private $name;
   private $date;
+  private $type;
   private $read;
   private $ready;
 
