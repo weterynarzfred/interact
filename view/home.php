@@ -6,16 +6,3 @@
 $entries = get_entries();
 display_view('part/entry_list', $entries);
 ?>
-
-<div class="r"></div>
-<pre>
-<?php
-
-print_r(SN()->options);
-
-print_r(get_option('entry_properties'));
-
-print_r($entries);
-
-?>
-</pre>
