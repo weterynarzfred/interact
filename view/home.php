@@ -11,20 +11,11 @@ display_view('part/entry_list', $entries);
 <pre>
 <?php
 
-add_to_hook('get_option_entry_attributes', function($a) {
-  $a[] = 'a';
-  return $a;
-});
-
-function add_b($a) {
-  $a[] = 'b';
-  return $a;
-}
-add_to_hook('get_option_entry_attributes', 'add_b');
-
 print_r(SN()->options);
 
-print_r(get_option('entry_attributes'));
+print_r(get_option('entry_properties'));
+
+print_r($entries);
 
 ?>
 </pre>

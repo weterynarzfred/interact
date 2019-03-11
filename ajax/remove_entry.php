@@ -19,10 +19,20 @@ try {
   ";
 
   $sql = SN()->db_connect()->prepare($sql);
-  $name = 'tempname';
   $sql->bindParam(':id', $values['id']);
 
   $sql->execute();
+
+  $sql = "
+    DELETE FROM `interact_entries_meta`
+    WHERE `entry_ID` = (:id)
+  ";
+
+  $sql = SN()->db_connect()->prepare($sql);
+  $sql->bindParam(':id', $values['id']);
+
+  $sql->execute();
+
   $success = true;
 }
 catch(Exception $e) {

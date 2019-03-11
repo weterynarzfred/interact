@@ -29,3 +29,20 @@ function register_hook($name) {
 function add_to_hook($name, $callback) {
   SN()->hooks[$name]->add_callback($callback);
 }
+
+function apply_hook($name, $data = NULL) {
+  return SN()->hooks[$name]->apply($data);
+}
+
+
+/*
+usage:
+first call
+register_hook('[hook name]');
+
+then add callbacks (eg in plugins)
+add_to_hook('[hook name]', [callback function]);
+
+and finally apply when needed
+$result = SN()->hooks['[hook name]']->apply($result);
+*/

@@ -1,6 +1,6 @@
 #content {
 	width:30em;
-	margin:3em auto;
+	margin:0 auto;
 	background-color:#fff;
 	padding:2em;
 	border-bottom:.3em solid #f55;
@@ -44,7 +44,6 @@
 	background-color:#fff;
 	padding:.25em 1em;
 	border-bottom:.2em solid #f55;
-	display:inline-block;
 	margin:.25em 0;
 	transition:.3s;
 }
