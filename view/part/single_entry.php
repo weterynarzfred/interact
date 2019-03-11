@@ -11,4 +11,5 @@
     <div class="entry-remove"><div class="button remove-entry">remove</div></div>
     <div class="entry-edit"><div class="button edit-entry">edit</div></div>
   </div>
+  <?php apply_hook('after_single_entry', $data); ?>
 </div>

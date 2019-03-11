@@ -1,8 +1,6 @@
 <?php
 SN()->test_db_tables();
 
-register_hook('init');
-
 set_option('entry_properties', array(), false);
 
 try {

@@ -5,20 +5,19 @@ function isset_option($name) {
   return isset(SN()->options[$name]);
 }
 
-function get_option($name) {
+function get_option($name, $data = NULL) {
     if(!isset_option($name)) {
       SN()->create_error('option named ' . $name . ' does not exist');
       return false;
     }
     $result = SN()->options[$name];
-    $result = apply_hook('get_option_' . $name, $result);
+
+    // todo: apply different hooks based on passed $data
+    $result = apply_hook('get_option_' . $name, $result, $data);
     return $result;
 }
 
 function set_option($name, $value, $save = true) {
-  if(!isset(SN()->hooks['get_option_' . $name])) {
-    register_hook('get_option_' . $name);
-  }
   SN()->options[$name] = $value;
   if($save) {
     try {

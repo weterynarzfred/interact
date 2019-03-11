@@ -126,12 +126,14 @@ $(document).on('click', '.edit-entry', function() {
 
 // navigation links
 $(document).on('click', '.navigation-link', function() {
-	const target = $(this).data('target');
+	const name = $(this).data('target');
+	const value = $(this).data('value');
 	doQuery({
     data  : {
       action  : 'display_view',
 			values	:	{
-				name	:	target,
+				name,
+				value,
 			},
     }
   });

@@ -10,9 +10,9 @@ done:
 - hooks
 
 to do:
-- anilist: fetch manga read progress
 - reader: connect folder with entry
 - reader: read manga
+- anilist: fetch manga read progress
 - entry list - load more
 - anilist: fetch cover image
 - mangaupdates: fetch manga ready count

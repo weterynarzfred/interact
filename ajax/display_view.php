@@ -8,7 +8,7 @@ try {
     throw new Exception('correct data not provided');
   }
 
-  $view = get_view($values['name'], isset($values['data']) ? $values['data'] : NULL);
+  $view = get_view($values['name'], isset($values['value']) ? $values['value'] : NULL);
   $success = true;
 }
 catch(Exception $e) {

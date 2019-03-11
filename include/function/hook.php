@@ -22,27 +22,26 @@ class Hook {
 
 }
 
-function register_hook($name) {
-  SN()->hooks[$name] = new Hook($name);
-}
-
 function add_to_hook($name, $callback) {
+  if(!isset(SN()->hooks[$name])) {
+    SN()->hooks[$name] = new Hook($name);
+  }
   SN()->hooks[$name]->add_callback($callback);
 }
 
 function apply_hook($name, $data = NULL) {
+  if(!isset(SN()->hooks[$name])) {
+    SN()->hooks[$name] = new Hook($name);
+  }
   return SN()->hooks[$name]->apply($data);
 }
 
 
 /*
 usage:
-first call
-register_hook('[hook name]');
-
-then add callbacks (eg in plugins)
+add callbacks (eg in plugins)
 add_to_hook('[hook name]', [callback function]);
 
-and finally apply when needed
-$result = SN()->hooks['[hook name]']->apply($result);
+and apply when needed
+$result = apply_hook('[hook name]', $data);
 */

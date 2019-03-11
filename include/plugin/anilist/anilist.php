@@ -1,8 +1,8 @@
 <?php
 
-add_to_hook('get_option_entry_properties', function($a) {
-  $a[] = 'anilist_ID';
-  return $a;
+add_to_hook('get_option_entry_properties', function($data) {
+  $data[] = 'anilist_ID';
+  return $data;
 });
 
 add_to_hook('init', function() {
