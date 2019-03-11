@@ -21,6 +21,21 @@ $entry = get_entry($data['id']);
     <div class="input-label">ready:</div>
     <input type="text" name="ready" value="<?php echo $entry->get_ready(); ?>">
   </div>
+
+<?php // entry properties
+
+$entry_properties = get_option('entry_properties');
+for ($i=0; $i < count($entry_properties); $i++) { ?>
+  <div class="input-line">
+    <div class="input-label"><?php echo $entry_properties[$i]; ?></div>
+    <input
+      type="text"
+      name="<?php echo $entry_properties[$i]; ?>"
+      value="<?php echo $entry->get_prop($entry_properties[$i]); ?>"
+    >
+  </div>
+<?php } ?>
+
   <div class="text-right">
     <input type="submit" value="save" class="button">
   </div>

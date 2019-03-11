@@ -34,7 +34,6 @@ if(SN()->test_db_connection(
   if($success) {
     $tables_just_created = SN()->test_db_tables();
   }
-  $html = get_view('home');
 }
 
 $response = array(
@@ -45,13 +44,7 @@ $response = array(
 if($success) {
   $response['fragments'] = array(
     array(
-      'type'  =>  'update',
-      'element' =>  '#content',
-      'html'  =>  $html,
-    ),
-    array(
-      'type'  =>  'message',
-      'html'  =>  'database credentials saved succesfully',
+      'type'  =>  'refresh',
     ),
   );
 }

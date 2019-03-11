@@ -50,13 +50,12 @@ class SN {
     return true;
   }
   public function test_db_tables() {
-    $this->db_connect();
     $tables_need_to_be_created = false;
     try {
       $sql = "
   			SHOW tables like 'interact_options'
   		";
-      $sql = SN()->conn->prepare($sql);
+      $sql = $this->db_connect()->prepare($sql);
       $sql->execute();
       $result = $sql->fetchAll(PDO::FETCH_ASSOC);
       $tables_need_to_be_created = count($result) === 0;
@@ -69,10 +68,10 @@ class SN {
       try {
     		$sql ="CREATE TABLE IF NOT EXISTS `interact_options` (
     			`ID` INT NOT NULL AUTO_INCREMENT,
-    			`key` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
     			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
     			PRIMARY KEY (`ID`),
-    			INDEX `key` (`key`(255))
+    			UNIQUE `name` (`name`(95))
     		)";
     		SN()->conn->exec($sql);
         $sql ="CREATE TABLE IF NOT EXISTS `interact_entries` (
@@ -84,6 +83,15 @@ class SN {
           `ready` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
     			PRIMARY KEY (`ID`),
     			INDEX `date` (`date`)
+    		)";
+    		SN()->conn->exec($sql);
+        $sql ="CREATE TABLE IF NOT EXISTS `interact_entries_meta` (
+    			`ID` INT NOT NULL AUTO_INCREMENT,
+          `entry_ID` INT NOT NULL,
+    			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
+    			PRIMARY KEY (`ID`),
+    			UNIQUE `entry_meta` (`entry_ID`, `name`(95))
     		)";
     		SN()->conn->exec($sql);
     	} catch(PDOException $e) {

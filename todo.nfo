@@ -6,13 +6,14 @@ done:
 - edit entries
 - entry attr: type, read, ready
 - streamline get_view()
-
-to do:
 - entry meta and plugins
 - hooks
+
+to do:
 - anilist: fetch manga read progress
 - reader: connect folder with entry
 - reader: read manga
+- entry list - load more
 - anilist: fetch cover image
 - mangaupdates: fetch manga ready count
 - madokami: search for manga page

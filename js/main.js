@@ -28,6 +28,9 @@ function handleFragments(data) {
 			case 'message':
 				createMessage(f[fragment].html);
 				break;
+			case 'refresh':
+				location.reload();
+				break;
 			}
 		}
 	}

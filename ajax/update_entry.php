@@ -33,6 +33,36 @@ try {
   $sql->bindParam(':ready', $values['ready']);
   $sql->execute();
 
+  // todo: change entry properties query to use parameters
+
+  $entry_properties = get_option('entry_properties');
+  if($entry_properties) {
+    $set = array();
+    for ($i=0; $i < count($entry_properties); $i++) {
+      if(isset($values[$entry_properties[$i]])) {
+        $set[] = '(\'' . $values['id'] . '\', \'' . $entry_properties[$i] . '\', :' . $entry_properties[$i] . ')';
+      }
+    }
+
+    if(count($set)) {
+      $set_string = 'VALUES ' . implode(', ', $set);
+      $sql = "
+        INSERT INTO interact_entries_meta (`entry_ID`, `name`, `value`)
+        " . $set_string . "
+        ON DUPLICATE KEY UPDATE
+        `value` = VALUES(`value`)
+      ";
+      $sql = SN()->db_connect()->prepare($sql);
+      for ($i=0; $i < count($entry_properties); $i++) {
+        if(isset($values[$entry_properties[$i]])) {
+          $sql->bindParam(':' . $entry_properties[$i], $values[$entry_properties[$i]]);
+        }
+      }
+
+      $sql->execute();
+    }
+  }
+
   $html = get_view('home');
 
   $success = true;

@@ -15,7 +15,8 @@ call_user_func(function() {
 });
 
 if(file_exists(HOME_DIR. '/config.json')) {
-	SN()->test_db_tables();
+	include HOME_DIR . '/include/config.php';
+
   set_view('home');
 }
 else {
