@@ -1,6 +1,11 @@
     </div>
     <div id="messages"></div>
-    <script src="./js/main.js"></script>
-    <script src="./js/messages.js"></script>
+<?php
+$scripts = get_option('scripts');
+foreach ($scripts as $script) { ?>
+  <script src=".<?php echo $script; ?>"></script>
+<?php
+}
+?>
   </body>
 </html>

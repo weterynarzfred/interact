@@ -8,9 +8,9 @@ done:
 - streamline get_view()
 - entry meta and plugins
 - hooks
+- reader: connect folder with entry
 
 to do:
-- reader: connect folder with entry
 - reader: read manga
 - anilist: fetch manga read progress
 - entry list - load more

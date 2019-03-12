@@ -2,6 +2,11 @@
 SN()->test_db_tables();
 
 set_option('entry_properties', array(), false);
+set_option('scripts', array(
+	'/js/main.js',
+	'/js/messages.js',
+), false);
+
 
 try {
 	$sql = "
