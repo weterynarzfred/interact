@@ -1,4 +1,8 @@
+<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+
 <div class="container">
+  <div class="button navigation-link" data-target="home">return</div>
+  <div class="rmin"></div>
   <p>here you will be able to read your manga</p>
   <?php
   $entry = get_entry($data);
@@ -11,7 +15,7 @@
     foreach ($files as $file) {
       $url = explode('/', $file); ?>
       <div
-        class="navigation-link button"
+        class="navigation-link reader-manga-file"
         data-target="reader_manga"
         data-value='<?php
         echo json_encode(array(
@@ -25,9 +29,4 @@
     <?php }
   }
   ?>
-  <pre>
-  <?php
-  var_dump($files);
-  ?>
-  </pre>
 </div>

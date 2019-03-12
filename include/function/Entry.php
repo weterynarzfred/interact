@@ -109,6 +109,7 @@ function get_entry($ID) {
 
     $sql->execute();
     $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    if(!$result) return false;
     return new Entry($result[0]);
   }
   catch(Exception $e) {

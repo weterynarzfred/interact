@@ -9,9 +9,11 @@ done:
 - entry meta and plugins
 - hooks
 - reader: connect folder with entry
+- reader: read manga
 
 to do:
-- reader: read manga
+- add conditional view change to add new and update entry
+- add popups
 - anilist: fetch manga read progress
 - entry list - load more
 - anilist: fetch cover image
@@ -25,3 +27,4 @@ to do:
 - mangaupdates: search for page
 - reader: autoupdate read progress
 - options and disabling plugins
+- reader: reading settings

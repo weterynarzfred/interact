@@ -1,5 +1,25 @@
-const ajax_url = $('body').data('ajax-url');
+const ajaxUrl = $('body').data('ajax-url');
 
+function throttle(ms, callback) {
+	var lastCall=0;
+	var timeout;
+	return function(a) {
+		var now = new Date().getTime(),
+			diff = now - lastCall;
+		if (diff >= ms) {
+			lastCall = now;
+			callback(a);
+		}
+		else {
+			clearTimeout(timeout);
+			timeout=setTimeout((function(a) {
+				return function(){
+					callback(a);
+				}
+			})(a), ms);
+		}
+	};
+}
 
 // update the DOM based on the ajax response
 function handleFragments(data) {
@@ -34,9 +54,6 @@ function handleFragments(data) {
 			}
 		}
 	}
-	if(data.message !== void 0) {
-		console.log(data.message);
-	}
 }
 
 
@@ -44,19 +61,21 @@ function handleFragments(data) {
 let currentQueryIds = {};
 function doQuery(p) {
 	if(p.data !== void 0) {
-		const queryId = (currentQueryIds[p.data.action]===void 0)?0:currentQueryIds[p.data.action]+1;
+		const queryId = (currentQueryIds[p.data.action] === void 0)
+			? 0 : currentQueryIds[p.data.action] + 1;
 		currentQueryIds[p.data.action] = queryId;
 		let request = $.ajax({
 			method   : 'post',
-			url      : ajax_url,
+			url      : ajaxUrl,
 			data     : p.data,
 			dataType : 'json',
 		});
 		request.done(function(data) {
 			// prevent calling an action if a more recent query was issued
 			if(currentQueryIds[p.data.action] === queryId) {
-				if(p.callback !== void 0) p.callback(data);
+				if(p.filter !== void 0) p.filter(data);
 				handleFragments(data);
+				if(p.callback !== void 0) p.callback(data);
 			}
 		});
 	}
@@ -110,19 +129,6 @@ $(document).on('click', '.remove-entry', function() {
   });
 });
 
-// editing entries
-$(document).on('click', '.edit-entry', function() {
-	const id = $(this).parents('.entry').data('id');
-	doQuery({
-    data  : {
-      action  : 'display_view',
-			values	:	{
-				name	:	'edit_entry',
-				data	:	{id},
-			},
-    }
-  });
-});
 
 // navigation links
 $(document).on('click', '.navigation-link', function() {
@@ -135,6 +141,16 @@ $(document).on('click', '.navigation-link', function() {
 				name,
 				value,
 			},
-    }
+    },
+		filter	:	function() {
+			window.dispatchEvent(
+				new CustomEvent('beforeNavigation', {detail:{name, value}})
+			);
+		},
+		callback	:	function() {
+			window.dispatchEvent(
+				new CustomEvent('afterNavigation', {detail:{name, value}})
+			);
+		},
   });
 });

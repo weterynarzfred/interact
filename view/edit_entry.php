@@ -1,10 +1,11 @@
 <?php if(!defined('CONNECTION_TYPE')) die(); ?>
 
 <div class="container">
-  <?php
-  $entry = get_entry($data['id']);
-  ?>
   <div class="button navigation-link" data-target="home">return</div>
+  <?php
+  $entry = get_entry($data);
+  if($entry) {
+  ?>
   <div class="rmin"></div>
   <form action="" class="ajax-form" data-form-action="update_entry">
     <input type="hidden" name="id" value="<?php echo $entry->get_ID(); ?>">
@@ -43,4 +44,5 @@
       <input type="submit" value="save" class="button">
     </div>
   </form>
+<?php } ?>
 </div>

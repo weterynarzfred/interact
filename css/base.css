@@ -1,9 +1,13 @@
+body {
+	background-color:#333;
+	color:#333;
+}
 #content {
 
 }
 .container {
 	width:30em;
-	margin:0 auto;
+	margin:3em auto;
 	background-color:#fff;
 	padding:2em;
 	border-bottom:.3em solid #f55;
@@ -93,4 +97,26 @@ input:hover {
 	text-align:right;
 	font-size:.62em;
 	text-transform:uppercase;
+}
+
+/*----- reader -----*/
+.reader-return {
+	position:absolute;
+	top:1em;
+	left:1em;
+}
+.reader-page {
+	display:block;
+	background-size:contain;
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.reader-manga-file {
+	font-size:.79em;
+	transition:.2s;
+	cursor:pointer;
+	padding:.25em 0;
+}
+.reader-manga-file:hover {
+	color:#f55;
 }

@@ -9,7 +9,13 @@
   </div>
   <div class="flex flex-justify-end flex-wrap">
     <div class="entry-remove"><div class="button remove-entry">remove</div></div>
-    <div class="entry-edit"><div class="button edit-entry">edit</div></div>
+    <div
+      class="entry-edit navigation-link"
+      data-target="edit_entry"
+      data-value="<?php echo $data->get_ID(); ?>"
+    >
+      <div class="button edit-entry">edit</div>
+    </div>
   </div>
   <?php apply_hook('after_single_entry', $data); ?>
 </div>

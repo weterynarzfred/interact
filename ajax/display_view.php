@@ -33,7 +33,7 @@ else {
   $response['fragments'] = array(
     array(
       'type'  =>  'message',
-      'html'  =>  'could not display view ' . $value['name'],
+      'html'  =>  'could not display view ' . $values['name'],
     ),
   );
 }

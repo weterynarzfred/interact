@@ -33,8 +33,6 @@ try {
   $sql->bindParam(':ready', $values['ready']);
   $sql->execute();
 
-  // todo: change entry properties query to use parameters
-
   $entry_properties = get_option('entry_properties');
   if($entry_properties) {
     $set = array();

@@ -1,4 +1,4 @@
-<pre><?php
+<?php if(!defined('CONNECTION_TYPE')) die();
 
 function delTree($dir) {
  $files = array_diff(scandir($dir), array('.','..'));
@@ -10,22 +10,29 @@ function delTree($dir) {
 
 $zip = new ZipArchive;
 $entry = get_entry($data['entry']);
-$url = get_option('manga_url') . $entry->get_prop('reader_folder');
-$url_array = explode('/', $url);
+$current_manga_folder = get_option('manga_url') . $entry->get_prop('reader_folder');
+$current_manga_folder_array = explode('/', $current_manga_folder);
 $filename = end($data['file']);
-$foldername = explode('.', $filename)[0];
+$temp_folder = HOME_DIR . '/include/plugin/reader/temp/';
+$folder_name = explode('.', $filename)[0];
 
-// todo: move temp folder to server so it can be accessed by a browser
-if ($zip->open($url . '/' . $filename) === TRUE) {
-  if(!is_dir($url . '/temp/' . $foldername)) {
-    if(is_dir($url . '/temp/')) {
-      delTree($url . '/temp/');
+if ($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
+  if(!is_dir($temp_folder . '/' . $folder_name)) {
+    if(is_dir($temp_folder)) {
+      delTree($temp_folder);
     }
-    $zip->extractTo($url . '/temp/' . $foldername);
+    $zip->extractTo($temp_folder . '/' . $folder_name);
     $zip->close();
   }
-}
+} ?>
 
-$pages = array_diff(scandir($url . '/temp/' . $foldername), array('.','..'));
-print_r($pages);
-?></pre>
+<div class="button navigation-link reader-return" data-target="home">return</div>
+
+<?php
+$pages = array_diff(scandir($temp_folder . '/' . $folder_name), array('.','..'));
+foreach($pages as $page) { ?>
+<div
+  style="background-image:url('/teste/interact/include/plugin/reader/temp/<?php echo $folder_name . '/' . $page; ?>');"
+  class="reader-page"
+></div>
+<?php } ?>
