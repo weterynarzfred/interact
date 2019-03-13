@@ -66,9 +66,11 @@ class Entry {
   }
   public function get_prop($name) {
     if(!isset($this->props[$name])) {
-      return false;
+      return '';
     }
-    return $this->props[$name];
+    $prop = $this->props[$name];
+    $prop = apply_hook('get_prop_' . $name, $prop, $this);
+    return $prop;
   }
 }
 

@@ -14,6 +14,15 @@ add_to_hook('get_option_entry_properties', function($data) {
   return $data;
 });
 
+add_to_hook('get_prop_reader_folder', function($data, $e) {
+  if($data === '') {
+    if(is_dir(get_option('manga_url') . $e->get_name())) {
+      $data = $e->get_name();
+    }
+  }
+  return $data;
+});
+
 add_to_hook('after_single_entry', function($data) {
   if($data->get_prop('reader_folder')) {
 ?>
