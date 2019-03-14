@@ -29,10 +29,30 @@ if ($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
 <div class="button navigation-link reader-return" data-target="home">return</div>
 
 <?php
-$pages = array_diff(scandir($temp_folder . '/' . $folder_name), array('.','..'));
+function load_folder_tree($url_base, $files) {
+	$new_filelist = array();
+	$i = 0;
+	foreach($files as $file) {
+		if(is_dir($url_base . $file)) {
+			$sub_files = array_diff(scandir($url_base . $file), array('.','..'));
+			$sub_files = array_map(function($sub_file) use($file) {
+				return $file . '/' . $sub_file;
+			}, $sub_files);
+			$sub_files = load_folder_tree($url_base, $sub_files);
+			$new_filelist = array_merge($new_filelist, $sub_files);
+		}
+		else {
+			$new_filelist[] = $file;
+		}
+		$i++;
+	}
+	return $new_filelist;
+}
+
+$pages = load_folder_tree($temp_folder, array($folder_name));
 foreach($pages as $page) { ?>
 <div
-  style="background-image:url('/teste/interact/include/plugin/reader/temp/<?php echo $folder_name . '/' . $page; ?>');"
-  class="reader-page"
+	style="background-image:url('/teste/interact/include/plugin/reader/temp/<?php echo $page; ?>');"
+	class="reader-page"
 ></div>
 <?php } ?>
