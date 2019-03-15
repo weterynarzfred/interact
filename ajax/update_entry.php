@@ -5,11 +5,7 @@ $success = false;
 
 try {
   if(
-    !isset($values['id']) ||
-    !isset($values['name']) ||
-    !isset($values['type']) ||
-    !isset($values['read']) ||
-    !isset($values['ready'])
+    !isset($values['id'])
   ) {
     throw new Exception('correct data not provided');
   }
@@ -17,6 +13,12 @@ try {
 catch(Exception $e) {
   SN()->create_error('ajax failed performing action "update_entry"; ' . $e);
 }
+
+$entry = get_entry($values['id']);
+if(!isset($values['name'])) $values['name'] = $entry->get_name();
+if(!isset($values['type'])) $values['type'] = $entry->get_type();
+if(!isset($values['read'])) $values['read'] = $entry->get_read();
+if(!isset($values['ready'])) $values['ready'] = $entry->get_ready();
 
 try {
   $sql = "
@@ -61,7 +63,7 @@ try {
     }
   }
 
-  $html = get_view('home');
+  $html = get_view('part/single_entry', get_entry($values['id']));
 
   $success = true;
 }
@@ -78,7 +80,7 @@ if($success) {
   $response['fragments'] = array(
     array(
       'type'  =>  'update',
-      'element' =>  '#content',
+      'element' =>  '#entry-' . $values['id'],
       'html'  => $html,
     ),
     array(

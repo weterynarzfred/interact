@@ -78,10 +78,13 @@ input {
 	transition:.2s;
 	font:inherit;
 }
-input:focus,
-input:hover {
+input:not(.button):focus,
+input:not(.button):hover {
 	background-color:#f8f8f8;
 	box-shadow:0 .2em 0 0 #f55;
+}
+input:focus,
+input:hover {
 	outline:none;
 }
 
