@@ -73,7 +73,7 @@ function doQuery(p) {
 		request.done(function(data) {
 			// prevent calling an action if a more recent query was issued
 			if(currentQueryIds[p.data.action] === queryId) {
-				if(p.filter !== void 0) p.filter(data);
+				if(p.filter !== void 0) data = p.filter(data);
 				handleFragments(data);
 				if(p.callback !== void 0) p.callback(data);
 			}
@@ -142,10 +142,11 @@ $(document).on('click', '.navigation-link', function() {
 				value,
 			},
     },
-		filter	:	function() {
+		filter	:	function(data) {
 			window.dispatchEvent(
 				new CustomEvent('beforeNavigation', {detail:{name, value}})
 			);
+			return data;
 		},
 		callback	:	function() {
 			window.dispatchEvent(

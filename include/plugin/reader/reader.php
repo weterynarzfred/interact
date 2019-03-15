@@ -11,6 +11,8 @@ add_to_hook('display_view_urls', function($data) {
 
 add_to_hook('get_option_entry_properties', function($data) {
   $data[] = 'reader_folder';
+  $data[] = 'last_read_file';
+  $data[] = 'last_read_page';
   return $data;
 });
 

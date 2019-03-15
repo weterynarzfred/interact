@@ -12,8 +12,6 @@ done:
 - reader: read manga
 
 to do:
-- add conditional view change to add new and update entry
-- add popups
 - anilist: fetch manga read progress
 - entry list - load more
 - anilist: fetch cover image

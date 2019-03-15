@@ -22,23 +22,40 @@ $files = array_filter($files, function($f) {return is_file($f);});
     </div>
 	</form>
   <div class="rmik"></div>
-  <?php
-  if($files) {
-    foreach ($files as $file) {
-      $url = explode('/', $file); ?>
-      <div
-        class="navigation-link reader-manga-file"
-        data-target="reader_manga"
-        data-value='<?php
-        echo json_encode(array(
-          'entry' =>  $entry->get_ID(),
-          'file'  =>  $url,
-        ));
-        ?>'
-      >
-        <?php echo end($url); ?>
-      </div>
-    <?php }
-  }
-  ?>
+	<div class="reader-manga-file-list" data-id="<?php echo $entry->get_ID(); ?>">
+	  <?php
+	  if($files) {
+			$last_read = $entry->get_prop('last_read_file');
+	    foreach ($files as $file) {
+	      $url = explode('/', $file);
+				$filename = end($url);
+				$read = $entry->get_read();
+				if($filename === $last_read) {
+					$filename = '<span class="reader-manga-file-last-read">' . $filename . '</span>';
+				}
+				$filename = preg_replace_callback(
+					'/^.*?c([0-9]*?-)?([0-9]+).*?$/',
+					function($m) use ($read) {
+						if(intval($m[2]) <= $read) return '<span class="reader-manga-file-read">' . $m[0] . '</span>';
+						return $m[0];
+					},
+					$filename
+				);
+				?>
+	      <div
+	        class="navigation-link reader-manga-file"
+	        data-target="reader_manga"
+	        data-value='<?php
+	        echo json_encode(array(
+	          'entry' =>  $entry->get_ID(),
+	          'file'  =>  $url,
+	        ));
+	        ?>'
+	      >
+	        <?php echo $filename; ?>
+	      </div>
+	    <?php }
+	  }
+	  ?>
+	</div>
 </div>
