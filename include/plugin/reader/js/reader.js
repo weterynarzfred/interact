@@ -91,6 +91,7 @@ function fitMangaPage() {
 	});
 }
 
+// last read page
 $(document).on('click', '.reader-manga-file', function() {
 	const t = $(this);
 	let text = t.text();
@@ -111,4 +112,24 @@ $(document).on('click', '.reader-manga-file', function() {
 		doQuery(args);
 	}
 });
+
+// refresah view on read progress update
+window.addEventListener('ajaxRequestDone', function(e) {
+	if(currentView === 'reader') {
+		if(e.detail.type === 'update_entry') {
+			if(e.detail.success) {
+				doQuery({
+					data	: {
+						action	:	'display_view',
+						values	:	{
+							name	:	'reader',
+							value	:	$('.reader-manga-file-list').data('id'),
+						},
+					}
+				});
+			}
+		}
+	}
+});
+
 }

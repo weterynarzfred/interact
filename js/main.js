@@ -77,6 +77,9 @@ function doQuery(p) {
 				handleFragments(data);
 				if(p.callback !== void 0) p.callback(data);
 			}
+			window.dispatchEvent(
+				new CustomEvent('ajaxRequestDone', {detail:data})
+			);
 		});
 	}
 }
@@ -89,7 +92,6 @@ $(document).on('submit', '.ajax-form', function(e) {
   const t = $(this);
   const formData = new FormData(this);
   const action = t.data('form-action');
-  // data to be submitted
   let values = {};
 
   t.find('input').map(function(i, e) {
@@ -131,6 +133,7 @@ $(document).on('click', '.remove-entry', function() {
 
 
 // navigation links
+let currentView = 'home';
 $(document).on('click', '.navigation-link', function() {
 	const name = $(this).data('target');
 	const value = $(this).data('value');
@@ -142,12 +145,15 @@ $(document).on('click', '.navigation-link', function() {
 				value,
 			},
     },
-		filter	:	function(data) {
+		filter	:	(function(name) { return function(data) {
+			if(data.success) {
+				currentView = name;
+			}
 			window.dispatchEvent(
 				new CustomEvent('beforeNavigation', {detail:{name, value}})
 			);
 			return data;
-		},
+		}})(name),
 		callback	:	function() {
 			window.dispatchEvent(
 				new CustomEvent('afterNavigation', {detail:{name, value}})

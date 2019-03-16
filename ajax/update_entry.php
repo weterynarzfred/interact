@@ -74,8 +74,9 @@ if(!$error) {
 }
 
 $response = array(
-  'succsess'  =>  $success,
+  'success'  =>  $success,
   'errors'  =>  SN()->get_errors(),
+	'type'	=>	'update_entry',
 );
 
 if($success) {
