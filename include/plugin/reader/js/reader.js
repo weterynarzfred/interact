@@ -13,6 +13,22 @@ $(document).on('mousedown', '.reader-page', function(e) {
     $('html, body').stop().animate({scrollTop:target}, 200);
   }
 });
+
+$(document).on('keydown', function(e) {
+	if(currentView === 'reader_manga') {
+		if(e.which === 32 || e.which === 39 || e.which === 40) {
+			e.preventDefault();
+			const target = window.scrollY + $(window).height();
+			$('html, body').stop().animate({scrollTop:target}, 200);
+		}
+		else if(e.which === 8 || e.which === 37 || e.which === 38) {
+			e.preventDefault();
+			const target = window.scrollY - $(window).height();
+			$('html, body').stop().animate({scrollTop:target}, 200);
+		}
+	}
+});
+
 $(document).on('contextmenu', function(e) {
   e.preventDefault();
 });
@@ -106,7 +122,11 @@ $(document).on('click', '.reader-manga-file', function() {
 					last_read_file	:	text,
 					last_read_page	:	0.
 				},
-	    }
+	    },
+			filter	:	function(data) {
+				data.reader_skip_refresh = true;
+				return data;
+			}
 	  };
 		resetLastReadPage = true;
 		doQuery(args);
@@ -115,18 +135,20 @@ $(document).on('click', '.reader-manga-file', function() {
 
 // refresah view on read progress update
 window.addEventListener('ajaxRequestDone', function(e) {
-	if(currentView === 'reader') {
-		if(e.detail.type === 'update_entry') {
-			if(e.detail.success) {
-				doQuery({
-					data	: {
-						action	:	'display_view',
-						values	:	{
-							name	:	'reader',
-							value	:	$('.reader-manga-file-list').data('id'),
-						},
-					}
-				});
+	if(!e.detail.reader_skip_refresh) {
+		if(currentView === 'reader') {
+			if(e.detail.type === 'update_entry') {
+				if(e.detail.success) {
+					doQuery({
+						data	: {
+							action	:	'display_view',
+							values	:	{
+								name	:	'reader',
+								value	:	$('.reader-manga-file-list').data('id'),
+							},
+						}
+					});
+				}
 			}
 		}
 	}
