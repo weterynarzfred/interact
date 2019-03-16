@@ -25,12 +25,12 @@ add_to_hook('get_prop_reader_folder', function($data, $e) {
   return $data;
 });
 
-add_to_hook('after_single_entry', function($data) {
+add_to_hook('after_single_entry_buttons', function($data) {
   if($data->get_prop('reader_folder')) {
 ?>
-  <div class="text-right">
-    <div class="button navigation-link" data-target="reader" data-value="<?php echo $data->get_ID(); ?>">read</div>
-  </div>
+<div class="navigation-link" data-target="reader" data-value="<?php echo $data->get_ID(); ?>">
+	<div class="icon link">&#x1f56e;</div>
+</div>
 <?php
   }
 });

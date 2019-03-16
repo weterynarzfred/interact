@@ -80,7 +80,7 @@ function get_entries() {
 			SELECT `ID`, `name`, `date`, `type`, `read`, `ready`
 			FROM `interact_entries`
       ORDER BY `date` DESC
-      LIMIT 5 OFFSET 0
+      LIMIT 50 OFFSET 0
 		";
 
 		$sql = SN()->db_connect()->prepare($sql);

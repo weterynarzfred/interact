@@ -120,7 +120,7 @@ $(document).on('click', '.add-entry', function() {
 
 // removing entries
 $(document).on('click', '.remove-entry', function() {
-	const id = $(this).parents('.entry').data('id');
+	const id = $(this).data('id');
 	doQuery({
     data  : {
       action  : 'remove_entry',
@@ -154,4 +154,10 @@ $(document).on('click', '.navigation-link', function() {
 			);
 		},
   });
+});
+
+
+// show hidden sections
+$(document).on('click', '.show-more', function() {
+	$($(this).toggleClass('active').data('target')).slideToggle(300);
 });

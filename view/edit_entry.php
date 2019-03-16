@@ -44,5 +44,19 @@
       <input type="submit" value="save" class="button">
     </div>
   </form>
+
+	<div class="rmin"></div>
+	<div class="text-center">
+		<svg class="show-more" data-target="#edit-entry-danger" viewBox="0 0 100 50">
+			<path d="M10 10L50 40L90 10" />
+		</svg>
+	</div>
+	<div class="text-right hidden" id="edit-entry-danger">
+		<div class="rmik"></div>
+		<div class="entry-remove navigation-link" data-target="home">
+			<div class="button remove-entry" data-id="<?php echo $entry->get_ID(); ?>">remove entry</div>
+		</div>
+	</div>
+
 <?php } ?>
 </div>
