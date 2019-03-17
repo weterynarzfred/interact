@@ -138,6 +138,8 @@ input:hover {
 .entry-name {
 	font-weight:700;
 	margin-right:1em;
+	font-size:.79em;
+	line-height:1.15;
 }
 .entry-left-downloaded .entry-name {
 	color:#f55;
