@@ -8,25 +8,41 @@ function delTree($dir) {
   return rmdir($dir);
 }
 
-$zip = new ZipArchive;
+
 $entry = get_entry($data['entry']);
 $current_manga_folder = get_option('manga_url') . $entry->get_prop('reader_folder');
 $current_manga_folder_array = explode('/', $current_manga_folder);
 $filename = end($data['file']);
 $temp_folder = HOME_DIR . '/include/plugin/reader/temp/';
 $folder_name = explode('.', $filename);
-array_pop($folder_name);
+$extension = array_pop($folder_name);
 $folder_name = implode('.', $folder_name);
 
-if ($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
-  if(!is_dir($temp_folder . '/' . $folder_name)) {
-    if(is_dir($temp_folder)) {
-      delTree($temp_folder);
-    }
-    $zip->extractTo($temp_folder . '/' . $folder_name);
-    $zip->close();
-  }
-} ?>
+if(!is_dir($temp_folder . '/' . $folder_name)) {
+	if(is_dir($temp_folder)) {
+		delTree($temp_folder);
+	}
+	if($extension === 'zip' || $extension === 'cbz') {
+		$zip = new ZipArchive;
+		if($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
+	    $zip->extractTo($temp_folder . '/' . $folder_name);
+	    $zip->close();
+	  }
+	}
+	else if($extension === 'rar' || $extension === 'cbr') {
+		$rar = rar_open($current_manga_folder . '/' . $filename);
+		if($rar) {
+			$rar_entries = rar_list($rar);
+			foreach ($rar_entries as $rar_entry) {
+		    $rar_entry->extract($temp_folder . '/' . $folder_name);
+			}
+	    rar_close($rar);
+	  }
+	}
+}
+
+
+?>
 
 <div
 	class="button navigation-link reader-return"
