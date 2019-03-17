@@ -22,8 +22,9 @@ catch(Exception $e) {
 }
 
 $response = array(
-  'succsess'  =>  $success,
+  'success'  =>  $success,
   'errors'  =>  SN()->get_errors(),
+	'type'	=>	'add_entry',
 );
 
 if($success) {

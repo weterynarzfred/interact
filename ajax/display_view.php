@@ -8,7 +8,7 @@ try {
     throw new Exception('correct data not provided');
   }
 
-  $view = get_view($values['name'], isset($values['data']) ? $values['data'] : NULL);
+  $view = get_view($values['name'], isset($values['value']) ? $values['value'] : NULL);
   $success = true;
 }
 catch(Exception $e) {
@@ -16,8 +16,9 @@ catch(Exception $e) {
 }
 
 $response = array(
-  'succsess'  =>  $success,
+  'success'  =>  $success,
   'errors'  =>  SN()->get_errors(),
+	'type'	=>	'display_view',
 );
 
 if($success) {
@@ -33,7 +34,7 @@ else {
   $response['fragments'] = array(
     array(
       'type'  =>  'message',
-      'html'  =>  'could not display view ' . $value['name'],
+      'html'  =>  'could not display view ' . $values['name'],
     ),
   );
 }

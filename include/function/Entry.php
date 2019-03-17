@@ -66,9 +66,11 @@ class Entry {
   }
   public function get_prop($name) {
     if(!isset($this->props[$name])) {
-      return false;
+      return '';
     }
-    return $this->props[$name];
+    $prop = $this->props[$name];
+    $prop = apply_hook('get_prop_' . $name, $prop, $this);
+    return $prop;
   }
 }
 
@@ -78,7 +80,7 @@ function get_entries() {
 			SELECT `ID`, `name`, `date`, `type`, `read`, `ready`
 			FROM `interact_entries`
       ORDER BY `date` DESC
-      LIMIT 5 OFFSET 0
+      LIMIT 50 OFFSET 0
 		";
 
 		$sql = SN()->db_connect()->prepare($sql);
@@ -109,6 +111,7 @@ function get_entry($ID) {
 
     $sql->execute();
     $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    if(!$result) return false;
     return new Entry($result[0]);
   }
   catch(Exception $e) {

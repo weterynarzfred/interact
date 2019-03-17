@@ -8,11 +8,11 @@ done:
 - streamline get_view()
 - entry meta and plugins
 - hooks
+- reader: connect folder with entry
+- reader: read manga
 
 to do:
 - anilist: fetch manga read progress
-- reader: connect folder with entry
-- reader: read manga
 - entry list - load more
 - anilist: fetch cover image
 - mangaupdates: fetch manga ready count
@@ -25,3 +25,4 @@ to do:
 - mangaupdates: search for page
 - reader: autoupdate read progress
 - options and disabling plugins
+- reader: reading settings

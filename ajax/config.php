@@ -37,8 +37,9 @@ if(SN()->test_db_connection(
 }
 
 $response = array(
-  'succsess'  =>  $success,
+  'success'  =>  $success,
   'errors'  =>  SN()->get_errors(),
+	'type'	=>	'config',
 );
 
 if($success) {

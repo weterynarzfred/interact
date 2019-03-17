@@ -1,8 +1,10 @@
-<div class="title">you are inside</div><br>
-<div class="rmin"></div>
-<p>here are your entries:</p>
-<div class="rmin"></div>
-<?php
-$entries = get_entries();
-display_view('part/entry_list', $entries);
-?>
+<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+
+<div class="container">
+  <div class="title">here are your entries:</div><br>
+  <div class="rmin"></div>
+  <?php
+  $entries = get_entries();
+  display_view('part/entry_list', $entries);
+  ?>
+</div>

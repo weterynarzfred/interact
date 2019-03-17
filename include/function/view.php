@@ -13,11 +13,20 @@ function display_view($view = NULL, $data = NULL) {
     if(!SN()->view) SN()->view = '404';
     $view = SN()->view;
   }
-  $url = HOME_DIR . '/view/' . $view . '.php';
-  if(file_exists($url)) {
-    include $url;
+  $urls = array(
+    HOME_DIR . '/view/',
+  );
+  $urls = apply_hook('display_view_urls', $urls);
+  $found = false;
+  foreach ($urls as $url) {
+    if(file_exists($url . $view . '.php')) {
+      include $url . $view . '.php';
+      $found = true;
+      break;
+    }
   }
-  else {
+
+  if(!$found) {
     SN()->create_error('file ' . $url . ' not found');
   }
   SN()->display_errors();
