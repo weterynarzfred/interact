@@ -28,11 +28,17 @@ if ($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
   }
 } ?>
 
-<div class="button navigation-link reader-return" data-target="reader" data-value="<?php echo $entry->get_ID(); ?>">return</div>
+<div
+	class="button navigation-link reader-return"
+	data-target="reader"
+	data-value="<?php echo $entry->get_ID(); ?>"
+>return</div>
 
 <div
 	class="reader-manga-pages-container"
 	data-id="<?php echo $entry->get_ID(); ?>"
+	data-read="<?php echo $entry->get_read(); ?>"
+	data-filename="<?php echo $filename; ?>"
 	data-last-read-page="<?php echo $entry->get_prop('last_read_page'); ?>"
 >
 	<?php
