@@ -56,10 +56,10 @@
 
 		$(document).on('mousedown.reader_manga', '.reader-page', function(e) {
 		  if(e.which === 1) {
-				ScrollToAdjacent(1);
+				ScrollToAdjacent(1, $(this).data('id'));
 			}
 		  else if(e.which === 3) {
-				ScrollToAdjacent(-1);
+				ScrollToAdjacent(-1, $(this).data('id'));
 			}
 		})
 		.on('keydown.reader_manga', function(e) {
@@ -127,7 +127,7 @@
 			basePage = lastReadPage;
 		}
 		basePage += offset;
-		if(basePage >= pages.length - 1 || basePage < 0) {
+		if(basePage >= pages.length || basePage < 0) {
 			return;
 		}
 		isAutoScrolling = true;

@@ -14,7 +14,9 @@ $current_manga_folder = get_option('manga_url') . $entry->get_prop('reader_folde
 $current_manga_folder_array = explode('/', $current_manga_folder);
 $filename = end($data['file']);
 $temp_folder = HOME_DIR . '/include/plugin/reader/temp/';
-$folder_name = explode('.', $filename)[0];
+$folder_name = explode('.', $filename);
+array_pop($folder_name);
+$folder_name = implode('.', $folder_name);
 
 if ($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
   if(!is_dir($temp_folder . '/' . $folder_name)) {
@@ -55,10 +57,12 @@ if ($zip->open($current_manga_folder . '/' . $filename) === TRUE) {
 	}
 
 	$pages = load_folder_tree($temp_folder, array($folder_name));
+	$i = 0;
 	foreach($pages as $page) { ?>
 	<div
 		style="background-image:url('/teste/interact/include/plugin/reader/temp/<?php echo $page; ?>');"
 		class="reader-page"
+		data-id="<?php echo $i++; ?>"
 	></div>
 	<?php } ?>
 </div>
