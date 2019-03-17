@@ -55,6 +55,15 @@ $files = array_filter($files, function($f) {return is_file($f);});
 				return $a[1] > $b[1];
 			});
 
+			$last_downloaded = end($files)[1];
+			$downloaded = intval($entry->get_prop('reader_downloaded'));
+			if($last_downloaded > $downloaded) {
+				$values = array(
+					'reader_downloaded'	=>	$last_downloaded,
+				);
+				$entry->update($values);
+			}
+
 	    foreach ($files as $file) {
 				?>
 	      <div

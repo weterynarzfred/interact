@@ -101,8 +101,10 @@ body {
 	align-items:center;
 }
 .input-label {
-	min-width:8em;
+	min-width:10em;
 	font-size:.62em;
+	text-align:right;
+	padding-right:1em;
 }
 input {
 	background-color:transparent;
@@ -137,6 +139,9 @@ input:hover {
 	font-weight:700;
 	margin-right:1em;
 }
+.entry-left-downloaded .entry-name {
+	color:#f55;
+}
 .entry-date,
 .entry-type {
 	text-align:right;
@@ -146,6 +151,15 @@ input:hover {
 .entry-icons-column {
 	min-width:3.1em;
 	flex-grom:2;
+}
+.entry-progress {
+	font-size:.62em;
+
+}
+.entry-progress-separator {
+	font-weight:700;
+	text-transform:uppercase;
+	margin-left:1em;
 }
 
 /*----- reader -----*/

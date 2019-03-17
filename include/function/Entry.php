@@ -2,7 +2,6 @@
 
 class Entry {
 
-
   private $ID;
   private $name;
   private $date;
@@ -72,6 +71,58 @@ class Entry {
     $prop = apply_hook('get_prop_' . $name, $prop, $this);
     return $prop;
   }
+
+	public function update($values) {
+		$values = apply_hook('update_entry', $values, $this);
+
+		if(!isset($values['name'])) $values['name'] = $this->name;
+		if(!isset($values['type'])) $values['type'] = $this->type;
+		if(!isset($values['read'])) $values['read'] = $this->read;
+		if(!isset($values['ready'])) $values['ready'] = $this->ready;
+		try {
+			$sql = "
+				UPDATE `interact_entries`
+				SET `name` = :name, `type` = :type, `read` = :read, `ready` = :ready
+				WHERE `ID` = :id
+			";
+			$sql = SN()->db_connect()->prepare($sql);
+			$sql->bindParam(':id', $this->ID);
+			$sql->bindParam(':name', $values['name']);
+			$sql->bindParam(':type', $values['type']);
+			$sql->bindParam(':read', $values['read']);
+			$sql->bindParam(':ready', $values['ready']);
+			$sql->execute();
+			$entry_properties = get_option('entry_properties');
+			if($entry_properties) {
+				$set = array();
+				for ($i=0; $i < count($entry_properties); $i++) {
+					if(isset($values[$entry_properties[$i]])) {
+						$set[] = '(\'' . $this->ID . '\', \'' . $entry_properties[$i] . '\', :' . $entry_properties[$i] . ')';
+					}
+				}
+				if(count($set)) {
+					$set_string = 'VALUES ' . implode(', ', $set);
+					$sql = "
+						INSERT INTO interact_entries_meta (`entry_ID`, `name`, `value`)
+						" . $set_string . "
+						ON DUPLICATE KEY UPDATE
+						`value` = VALUES(`value`)
+					";
+					$sql = SN()->db_connect()->prepare($sql);
+					for ($i=0; $i < count($entry_properties); $i++) {
+						if(isset($values[$entry_properties[$i]])) {
+							$sql->bindParam(':' . $entry_properties[$i], $values[$entry_properties[$i]]);
+						}
+					}
+					$sql->execute();
+				}
+			}
+		}
+		catch(Exception $e) {
+			SN()->create_error('could not update the entry: ' . $e->getMessage());
+		}
+	}
+
 }
 
 function get_entries() {

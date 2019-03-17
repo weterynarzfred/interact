@@ -64,6 +64,9 @@
 				);
 			}
 		}
+		else {
+			lastReadPage = 0;
+		}
 		resetLastReadPage = false;
 
 		$(window)

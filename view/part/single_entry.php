@@ -1,10 +1,17 @@
-<div class="entry" id="entry-<?php echo $data->get_ID(); ?>" data-id="<?php echo $data->get_ID(); ?>">
+<?php if(!defined('CONNECTION_TYPE')) die();
+$left_downloaded = intval($data->get_prop('left_downloaded')) > 0;
+?>
+<div
+	class="entry<?php echo $left_downloaded ? ' entry-left-downloaded' : ''; ?>"
+	id="entry-<?php echo $data->get_ID(); ?>"
+	data-id="<?php echo $data->get_ID(); ?>"
+>
 
 	<div class="flex flex-align-center">
 
 		<div class="entry-main-column">
 			 <div class="text-center">
-				<div class="flex flex-justify-space-between flex-wrap entry-main-line">
+				<div class="flex flex-justify-space-between flex-align-end flex-wrap entry-main-line">
 				  <div class="entry-name"><?php echo $data->get_name(); ?></div>
 				  <?php display_view('part/single_entry_progress', $data); ?>
 				</div>

@@ -1,3 +1,4 @@
+<?php if(!defined('CONNECTION_TYPE')) die(); ?>
 <div class="entries">
   <?php
   if($data) {

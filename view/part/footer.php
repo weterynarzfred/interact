@@ -1,3 +1,4 @@
+<?php if(!defined('CONNECTION_TYPE')) die(); ?>
     </div>
     <div id="messages"></div>
 <?php
