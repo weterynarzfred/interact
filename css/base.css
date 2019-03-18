@@ -141,6 +141,9 @@ input:hover {
 	font-size:.79em;
 	line-height:1.15;
 }
+.entry-is-finished .entry-name {
+	color:#999;
+}
 .entry-needs-download .entry-name {
 	color:#59f;
 }

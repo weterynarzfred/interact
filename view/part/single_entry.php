@@ -1,12 +1,14 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
 $left_downloaded = intval($data->get_prop('left_downloaded')) > 0;
-$needs_download = $data->get_ready() > $data->get_read();
+$needs_download = $data->get_ready() > intval($data->get_prop('reader_downloaded'));
+$is_finished = (bool) $data->get_prop('is_finished');
 ?>
 <div
 	class="
 		entry
 		<?php echo $left_downloaded ? 'entry-left-downloaded' : ''; ?>
 		<?php echo $needs_download ? 'entry-needs-download' : ''; ?>
+		<?php echo $is_finished ? 'entry-is-finished' : ''; ?>
 	"
 	id="entry-<?php echo $data->get_ID(); ?>"
 	data-id="<?php echo $data->get_ID(); ?>"

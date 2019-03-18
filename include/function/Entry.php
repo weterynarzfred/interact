@@ -163,6 +163,7 @@ function get_entries() {
 }
 
 function get_entry($ID) {
+	if($ID instanceof Entry) return $ID;
   try {
     $sql = "
       SELECT `ID`, `name`, `read_date`, `type`, `read`, `ready`
