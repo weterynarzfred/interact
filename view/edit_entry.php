@@ -18,6 +18,10 @@
       <input type="text" name="type" value="<?php echo $entry->get_type(); ?>">
     </div>
     <div class="input-line">
+      <div class="input-label">date:</div>
+      <input type="text" name="read_date" value="<?php echo $entry->get_read_date(); ?>">
+    </div>
+    <div class="input-line">
       <div class="input-label">read:</div>
       <input type="text" name="read" value="<?php echo $entry->get_read(); ?>">
     </div>

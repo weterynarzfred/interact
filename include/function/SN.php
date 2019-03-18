@@ -77,12 +77,12 @@ class SN {
         $sql ="CREATE TABLE IF NOT EXISTS `interact_entries` (
     			`ID` INT NOT NULL AUTO_INCREMENT,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-    			`date` TIMESTAMP NOT NULL,
+    			`read_date` DATETIME NOT NULL,
           `type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
           `read` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
           `ready` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
     			PRIMARY KEY (`ID`),
-    			INDEX `date` (`date`)
+    			INDEX `read_date` (`read_date`)
     		)";
     		SN()->conn->exec($sql);
         $sql ="CREATE TABLE IF NOT EXISTS `interact_entries_meta` (

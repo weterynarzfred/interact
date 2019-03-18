@@ -4,7 +4,7 @@ class Entry {
 
   private $ID;
   private $name;
-  private $date;
+  private $read_date;
   private $type;
   private $read;
   private $ready;
@@ -13,7 +13,7 @@ class Entry {
   public function __construct($data) {
     $this->ID = $data['ID'];
     $this->name = $data['name'];
-    $this->date = strtotime($data['date']);
+    $this->read_date = $data['read_date'];
     $this->type = $data['type'];
     $this->read = $data['read'];
     $this->ready = $data['ready'];
@@ -51,8 +51,8 @@ class Entry {
   public function get_name() {
     return $this->name;
   }
-  public function get_date() {
-    return $this->date;
+  public function get_read_date() {
+    return $this->read_date;
   }
   public function get_type() {
     return $this->type;
@@ -75,20 +75,33 @@ class Entry {
 	public function update($values) {
 		$values = apply_hook('update_entry', $values, $this);
 
+		// update the read date if reading progress is updated
+		if(
+			isset($values['read'])
+			&& !isset($values['read_date'])
+		) $values['read_date'] = date('Y-m-d G:i:s');
+
 		if(!isset($values['name'])) $values['name'] = $this->name;
 		if(!isset($values['type'])) $values['type'] = $this->type;
+		if(!isset($values['read_date'])) $values['read_date'] = $this->read_date;
 		if(!isset($values['read'])) $values['read'] = $this->read;
 		if(!isset($values['ready'])) $values['ready'] = $this->ready;
 		try {
 			$sql = "
 				UPDATE `interact_entries`
-				SET `name` = :name, `type` = :type, `read` = :read, `ready` = :ready
+				SET
+					`name` = :name,
+					`type` = :type,
+					`read_date` = :read_date,
+					`read` = :read,
+					`ready` = :ready
 				WHERE `ID` = :id
 			";
 			$sql = SN()->db_connect()->prepare($sql);
 			$sql->bindParam(':id', $this->ID);
 			$sql->bindParam(':name', $values['name']);
 			$sql->bindParam(':type', $values['type']);
+			$sql->bindParam(':read_date', $values['read_date']);
 			$sql->bindParam(':read', $values['read']);
 			$sql->bindParam(':ready', $values['ready']);
 			$sql->execute();
@@ -128,9 +141,9 @@ class Entry {
 function get_entries() {
   try {
 		$sql = "
-			SELECT `ID`, `name`, `date`, `type`, `read`, `ready`
+			SELECT `ID`, `name`, `read_date`, `type`, `read`, `ready`
 			FROM `interact_entries`
-      ORDER BY `date` DESC
+      ORDER BY `read_date` DESC
       LIMIT 50 OFFSET 0
 		";
 
@@ -152,7 +165,7 @@ function get_entries() {
 function get_entry($ID) {
   try {
     $sql = "
-      SELECT `ID`, `name`, `date`, `type`, `read`, `ready`
+      SELECT `ID`, `name`, `read_date`, `type`, `read`, `ready`
       FROM `interact_entries`
       WHERE `ID` = :id
     ";

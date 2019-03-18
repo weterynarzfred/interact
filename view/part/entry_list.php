@@ -2,9 +2,6 @@
 <div class="entries">
 <?php
 if($data) {
-	usort($data, function($a, $b) {
-		return $b->get_prop('left_downloaded') > $a->get_prop('left_downloaded');
-	});
   foreach ($data as $entry) {
     display_view('part/single_entry', $entry); ?>
   <?php }

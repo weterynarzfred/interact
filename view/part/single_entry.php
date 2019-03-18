@@ -23,7 +23,7 @@ $needs_download = $data->get_ready() > $data->get_read();
 
 				<div class="flex flex-justify-space-between flex-wrap">
 				  <div class="entry-type"><?php echo $data->get_type(); ?></div>
-				  <div class="entry-date"><?php echo date('Y-m-d G:i:s', $data->get_date()); ?></div>
+				  <div class="entry-date"><?php echo $data->get_read_date(); ?></div>
 				</div>
 			</div>
 		</div>
