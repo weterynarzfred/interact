@@ -1,8 +1,13 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
 $left_downloaded = intval($data->get_prop('left_downloaded')) > 0;
+$needs_download = $data->get_ready() > $data->get_read();
 ?>
 <div
-	class="entry<?php echo $left_downloaded ? ' entry-left-downloaded' : ''; ?>"
+	class="
+		entry
+		<?php echo $left_downloaded ? 'entry-left-downloaded' : ''; ?>
+		<?php echo $needs_download ? 'entry-needs-download' : ''; ?>
+	"
 	id="entry-<?php echo $data->get_ID(); ?>"
 	data-id="<?php echo $data->get_ID(); ?>"
 >
