@@ -5,6 +5,7 @@ set_option('entry_properties', array(), false);
 set_option('scripts', array(
 	'/js/main.js',
 	'/js/messages.js',
+	'/js/interactions.js',
 ), false);
 
 

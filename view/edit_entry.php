@@ -1,7 +1,7 @@
 <?php if(!defined('CONNECTION_TYPE')) die(); ?>
 
 <div class="container">
-  <div class="button navigation-link" data-target="home">return</div>
+  <div class="button navigation-link return-button" data-target="home">return</div>
   <?php
   $entry = get_entry($data);
   if($entry) {

@@ -45,7 +45,7 @@ if(!is_dir($temp_folder . '/' . $folder_name)) {
 ?>
 
 <div
-	class="button navigation-link reader-return"
+	class="button navigation-link reader-return return-button"
 	data-target="reader"
 	data-value="<?php echo $entry->get_ID(); ?>"
 >return</div>

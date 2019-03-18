@@ -98,9 +98,6 @@
 					e.preventDefault();
 					ScrollToAdjacent(-1);
 				}
-				else if(e.which === 27) {
-					$('.reader-return').click();
-				}
 			}
 		})
 		isEnabledReaderManga = true;

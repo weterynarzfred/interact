@@ -9,7 +9,7 @@ $files = array_filter($files, function($f) {return is_file($f);});
 ?>
 
 <div class="container">
-  <div class="button navigation-link" data-target="home">return</div>
+  <div class="button navigation-link return-button" data-target="home">return</div>
   <div class="rmin"></div>
   <form class="ajax-form" data-form-action="update_entry">
 		<input type="hidden" name="id" value="<?php echo $entry->get_ID(); ?>">
