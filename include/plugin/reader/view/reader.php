@@ -34,7 +34,9 @@ $files = array_filter($files, function($f) {return is_file($f);});
 				if($filename === $last_read) {
 					$filename = '<span class="reader-manga-file-last-read">' . $filename . '</span>';
 				}
+
 				// $filename
+				$filename = array($filename, 0);
 				preg_replace_callback(
 					'/^.*?(c|ch)[\. ]*?([0-9]*?-)?([0-9]+).*?$/i',
 					function($m) use ($read, &$filename) {
@@ -70,10 +72,10 @@ $files = array_filter($files, function($f) {return is_file($f);});
 	        class="navigation-link reader-manga-file"
 	        data-target="reader_manga"
 	        data-value='<?php
-	        echo json_encode(array(
+	        echo str_replace("'", "&#39;", json_encode(array(
 	          'entry' =>  $entry->get_ID(),
 	          'file'  =>  $file[2],
-	        ));
+	        )));
 	        ?>'
 	      >
 	        <?php echo $file[0]; ?>

@@ -8,7 +8,6 @@ function delTree($dir) {
   return rmdir($dir);
 }
 
-
 $entry = get_entry($data['entry']);
 $current_manga_folder = get_option('manga_url') . $entry->get_prop('reader_folder');
 $current_manga_folder_array = explode('/', $current_manga_folder);
@@ -71,7 +70,11 @@ if(!is_dir($temp_folder . '/' . $folder_name)) {
 				$new_filelist = array_merge($new_filelist, $sub_files);
 			}
 			else {
-				$new_filelist[] = $file;
+				$file_exploded = explode('.', $file);
+				$file_extension = end($file_exploded);
+				if(in_array($file_extension, array('jpg', 'png', 'gif', 'bmp', 'tiff', 'webp'))) {
+					$new_filelist[] = $file;
+				}
 			}
 			$i++;
 		}
@@ -80,7 +83,8 @@ if(!is_dir($temp_folder . '/' . $folder_name)) {
 
 	$pages = load_folder_tree($temp_folder, array($folder_name));
 	$i = 0;
-	foreach($pages as $page) { ?>
+	foreach($pages as $page) {
+		$page = str_replace("'", "%27", ($page)); ?>
 	<div
 		style="background-image:url('/teste/interact/include/plugin/reader/temp/<?php echo $page; ?>');"
 		class="reader-page"

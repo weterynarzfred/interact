@@ -138,12 +138,18 @@ class Entry {
 
 }
 
-function get_entries() {
+function get_entries($options = array()) {
+	$sort_by = 'read_date';
+	if(isset($options['sort_by'])) {
+		if(in_array($options['sort_by'], array('ID', 'name', 'read_date', 'type', 'read', 'ready'))) {
+			$sort_by = $options['sort_by'];
+		}
+	}
   try {
 		$sql = "
 			SELECT `ID`, `name`, `read_date`, `type`, `read`, `ready`
 			FROM `interact_entries`
-      ORDER BY `read_date` DESC
+      ORDER BY " . $sort_by . " DESC
       LIMIT 50 OFFSET 0
 		";
 
