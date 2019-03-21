@@ -1,6 +1,5 @@
-// reader_manga.php
 {
-
+	// reader_manga.php
 	let pages = [];
 	let lastReadPage = 0;
 	let resetLastReadPage = false;
@@ -193,7 +192,7 @@
 					data  : {
 						action	:	'update_entry',
 						values	:	{
-							id	:	t.parents('.reader-manga-file-list').data('id'),
+							id	:	t.parents('#reader-manga-file-list').data('id'),
 							last_read_file	:	text,
 							last_read_page	:	0
 						},
@@ -209,35 +208,25 @@
 		});
 
 		// refresah view on read progress update
-		window.addEventListener('ajaxRequestDone', refreshFileList);
+		window.addEventListener('afterFormSubmit_update_entry', refreshFileList);
 
 		isEnabledReader = true;
 	}
 
 	function stopReader() {
 		$(document).off('.reader');
-		window.removeEventListener('ajaxRequestDone', refreshFileList);
+		window.removeEventListener('afterFormSubmit_update_entry', refreshFileList);
+
 		isEnabledReader = false;
 	}
 
 	function refreshFileList(event) {
-		if(
-			event.detail.reader_skip_refresh
-			|| currentView !== 'reader'
-			|| event.detail.type !== 'update_entry'
-			|| !event.detail.success
-		) {
-			return;
-		}
-		doQuery({
-			data	: {
-				action	:	'display_view',
-				values	:	{
-					name	:	'reader',
-					value	:	$('.reader-manga-file-list').data('id'),
-				},
-			}
-		});
+		if(event.detail.details !== 'reader_update_progress') return;
+		getView(
+			'part/reader_filelist',
+			'#reader-manga-file-list',
+			{'entry':event.detail.values.id}
+		);
 	}
 
 }

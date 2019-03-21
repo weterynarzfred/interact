@@ -20,6 +20,11 @@ function display_view($view = NULL, $data = NULL) {
   $found = false;
   foreach ($urls as $url) {
     if(file_exists($url . $view . '.php')) {
+			if(is_array($data)) {
+				foreach ($data as $key => $value) {
+					${$key} = $value;
+				}
+			}
       include $url . $view . '.php';
       $found = true;
       break;
@@ -27,7 +32,7 @@ function display_view($view = NULL, $data = NULL) {
   }
 
   if(!$found) {
-    SN()->create_error('file ' . $url . ' not found');
+    SN()->create_error('file ' . $url . $view  . ' not found');
   }
   SN()->display_errors();
 }
