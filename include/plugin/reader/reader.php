@@ -27,17 +27,27 @@ add_to_hook('get_prop_reader_folder', function($data, $entry) {
   return $data;
 });
 
-add_to_hook('update_entry', function($data, $entry) {
-	if(isset($data['reader_downloaded']) || isset($data['read'])) {
-		$downloaded = isset($data['reader_downloaded'])
-			? $data['reader_downloaded']
+add_to_hook('update_entry', function($values, $entry) {
+	// recalculate left_downloaded field if reader_downloaded or read changed
+	if(isset($values['reader_downloaded']) || isset($values['read'])) {
+		$downloaded = isset($values['reader_downloaded'])
+			? $values['reader_downloaded']
 			: $entry->get_prop('reader_downloaded');
-		$read = isset($data['read'])
-			? $data['read']
-			: $entry->get_read();
-		$data['left_downloaded'] = intval($downloaded) - intval($read);
+		$read = isset($values['read'])
+			? $values['read']
+			: $values->get_read();
+		$values['left_downloaded'] = intval($downloaded) - intval($read);
 	}
-  return $data;
+
+	// update read_date field if last_read_page grows
+	if(
+		isset($values['last_read_page'])
+		&& !isset($values['read_date'])
+		&& $values['last_read_page'] > $entry->get_prop('last_read_page')
+	) $values['read_date'] = date('Y-m-d G:i:s');
+	var_dump();
+
+  return $values;
 });
 
 add_to_hook('after_single_entry_buttons', function($data) {
