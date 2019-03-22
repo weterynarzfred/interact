@@ -11,7 +11,7 @@ const createMessage = (function(){
       setTimeout(function() {
         this.el.remove();
       }.bind(this), 300);
-    }.bind(this), 5000);
+    }.bind(this), 10000);
   }
   return function(html) {
     return new Message(html);

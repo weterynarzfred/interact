@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('CONNECTION_TYPE')) die();
 add_to_hook('get_option_scripts', function($data) {
   $data[] = '/include/plugin/reader/js/reader.js';
   return $data;
@@ -45,7 +45,6 @@ add_to_hook('update_entry', function($values, $entry) {
 		&& !isset($values['read_date'])
 		&& $values['last_read_page'] > $entry->get_prop('last_read_page')
 	) $values['read_date'] = date('Y-m-d G:i:s');
-	var_dump();
 
   return $values;
 });

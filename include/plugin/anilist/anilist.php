@@ -1,4 +1,4 @@
-<?php
+<?php if(!defined('CONNECTION_TYPE')) die();
 
 add_to_hook('get_option_entry_properties', function($data) {
   $data[] = 'anilist_ID';

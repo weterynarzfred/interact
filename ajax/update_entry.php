@@ -32,7 +32,7 @@ $response = array(
 if($success) {
   $response['fragments'] = array(
     array(
-      'type'  =>  'update',
+      'type'  =>  'replace',
       'element' =>  '#entry-' . $values['id'],
       'html'  => $html,
     ),
