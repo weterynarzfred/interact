@@ -127,6 +127,13 @@ input:hover {
 }
 
 /*----- entry list -----*/
+.entry {
+	padding:.25em;
+	transition:.2s;
+}
+.entry:hover {
+	background-color:#f8f8f8;
+}
 .entry-main-column {
 	margin-right:.5em;
 	width:100%;
@@ -162,7 +169,6 @@ input:hover {
 }
 .entry-progress {
 	font-size:.62em;
-
 }
 .entry-progress-separator {
 	font-weight:700;
