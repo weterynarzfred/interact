@@ -35,7 +35,7 @@ add_to_hook('update_entry', function($values, $entry) {
 			: $entry->get_prop('reader_downloaded');
 		$read = isset($values['read'])
 			? $values['read']
-			: $values->get_read();
+			: $entry->get_read();
 		$values['left_downloaded'] = intval($downloaded) - intval($read);
 	}
 
