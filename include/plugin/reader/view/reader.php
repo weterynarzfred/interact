@@ -2,7 +2,7 @@
 
 $entry = get_entry($data);
 ?>
-<div class="container">
+<div class="container" id="reader-main-view">
   <div class="button navigation-link return-button" data-target="home">return</div>
   <div class="rmin"></div>
   <form

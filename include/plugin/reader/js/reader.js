@@ -208,25 +208,28 @@
 		});
 
 		// refresah view on read progress update
-		window.addEventListener('afterFormSubmit_update_entry', refreshFileList);
+		window.addEventListener('ajaxRequestDone', handleAjaxRequestDone);
 
 		isEnabledReader = true;
 	}
 
-	function stopReader() {
-		$(document).off('.reader');
-		window.removeEventListener('afterFormSubmit_update_entry', refreshFileList);
-
-		isEnabledReader = false;
+	function handleAjaxRequestDone(event) {
+		if(event.detail.data.type === 'update_entry') {
+			if(event.detail.values.id == $('#reader-manga-file-list').data('id')) {
+				getView(
+					'reader',
+					'#reader-main-view',
+					event.detail.values.id,
+				);
+			}
+		}
 	}
 
-	function refreshFileList(event) {
-		if(event.detail.details !== 'reader_update_progress') return;
-		getView(
-			'part/reader_filelist',
-			'#reader-manga-file-list',
-			{'entry':event.detail.values.id}
-		);
+	function stopReader() {
+		$(document).off('.reader');
+		window.removeEventListener('ajaxRequestDone', handleAjaxRequestDone);
+
+		isEnabledReader = false;
 	}
 
 }

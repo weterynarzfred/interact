@@ -87,7 +87,12 @@ const doQuery = (function() {
 					if(p.callback !== void 0) p.callback(data);
 				}
 				window.dispatchEvent(
-					new CustomEvent('ajaxRequestDone', {detail:data})
+					new CustomEvent('ajaxRequestDone', {
+						detail:{
+							data:data,
+							values:p.data.values,
+						}
+					})
 				);
 			});
 		}
