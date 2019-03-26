@@ -9,9 +9,13 @@
 			?>
 		</pre>
 		<?php
-		foreach ($entries as $entry) {
-			display_view('part/single_entry', array('entry'=>$entry));
+		if($entries) {
+			foreach ($entries as $entry) {
+				display_view('part/single_entry', array('entry'=>$entry));
+			}
 		}
-		?>
+		else { ?>
+			<p>no entries found</p>
+		<?php } ?>
 	</div>
 </div>

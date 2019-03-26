@@ -23,7 +23,7 @@ class Entry {
       try {
     		$sql = "
     			SELECT `name`, `value`
-    			FROM `interact_entries_meta`
+    			FROM `e_interact_entries_meta`
           WHERE `entry_id` = " . $this->entry_id . "
         ";
 
@@ -84,7 +84,7 @@ class Entry {
 
 		try {
 			$sql = "
-				UPDATE `interact_entries`
+				UPDATE `e_interact_entries`
 				SET
 					`name` = :name,
 					`type` = :type,
@@ -108,7 +108,7 @@ class Entry {
 				if(count($set)) {
 					$set_string = 'VALUES ' . implode(', ', $set);
 					$sql = "
-						INSERT INTO interact_entries_meta (`entry_id`, `name`, `value`)
+						INSERT INTO e_interact_entries_meta (`entry_id`, `name`, `value`)
 						" . $set_string . "
 						ON DUPLICATE KEY UPDATE
 						`value` = VALUES(`value`)
@@ -140,7 +140,7 @@ function get_entries($options = array()) {
   try {
 		$sql = "
 			SELECT `entry_id`, `name`, `type`, `state`
-			FROM `interact_entries`
+			FROM `e_interact_entries`
       ORDER BY " . $sort_by . " DESC
       LIMIT 50 OFFSET 0
 		";
@@ -165,7 +165,7 @@ function get_entry($entry_id) {
   try {
     $sql = "
       SELECT `entry_id`, `name`, `type`, `state`
-      FROM `interact_entries`
+      FROM `e_interact_entries`
       WHERE `entry_id` = :entry_id
     ";
 

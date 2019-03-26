@@ -52,7 +52,7 @@ class SN {
     $tables_need_to_be_created = false;
     try {
       $sql = "
-  			SHOW tables like 'interact_options'
+  			SHOW tables like 'e_interact_options'
   		";
       $sql = $this->db_connect()->prepare($sql);
       $sql->execute();
@@ -65,7 +65,7 @@ class SN {
     // create tables
     if($tables_need_to_be_created) {
       try {
-    		$sql ="CREATE TABLE IF NOT EXISTS `interact_options` (
+    		$sql ="CREATE TABLE IF NOT EXISTS `e_interact_options` (
     			`option_id` INT NOT NULL AUTO_INCREMENT,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
     			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
@@ -73,7 +73,7 @@ class SN {
     			UNIQUE `name` (`name`(95))
     		) ENGINE = MyISAM";
     		SN()->conn->exec($sql);
-        $sql ="CREATE TABLE IF NOT EXISTS `interact_entries` (
+        $sql ="CREATE TABLE IF NOT EXISTS `e_interact_entries` (
     			`entry_id` INT NOT NULL AUTO_INCREMENT,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
           `type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
@@ -81,7 +81,7 @@ class SN {
     			PRIMARY KEY (`entry_id`)
     		) ENGINE = MyISAM";
     		SN()->conn->exec($sql);
-        $sql ="CREATE TABLE IF NOT EXISTS `interact_entries_meta` (
+        $sql ="CREATE TABLE IF NOT EXISTS `e_interact_entries_meta` (
     			`meta_id` INT NOT NULL AUTO_INCREMENT,
           `entry_id` INT NOT NULL,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
