@@ -35,13 +35,3 @@ function apply_hook($name, $data = NULL, $additional = NULL) {
   }
   return SN()->hooks[$name]->apply($data, $additional);
 }
-
-
-/*
-usage:
-add callbacks (eg in plugins)
-add_to_hook('[hook name]', [callback function]);
-
-and apply when needed
-$result = apply_hook('[hook name]', $data);
-*/

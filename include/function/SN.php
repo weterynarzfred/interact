@@ -2,10 +2,8 @@
 
 class SN {
 
-
   // views
   public $view;
-
 
   // error handling
   private $errors = array();
@@ -23,7 +21,6 @@ class SN {
     $this->errors = array();
   }
 
-
   // database connection
   private $conn;
   public function test_db_connection($host, $name, $user, $pass) {
@@ -38,6 +35,7 @@ class SN {
 		}
     return true;
   }
+
   public function save_config($data) {
     $url = HOME_DIR . '/config.json';
     $handle = fopen($url, 'w');
@@ -49,6 +47,7 @@ class SN {
     fclose($handle);
     return true;
   }
+
   public function test_db_tables() {
     $tables_need_to_be_created = false;
     try {
@@ -67,32 +66,29 @@ class SN {
     if($tables_need_to_be_created) {
       try {
     		$sql ="CREATE TABLE IF NOT EXISTS `interact_options` (
-    			`ID` INT NOT NULL AUTO_INCREMENT,
+    			`option_id` INT NOT NULL AUTO_INCREMENT,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
     			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-    			PRIMARY KEY (`ID`),
+    			PRIMARY KEY (`option_id`),
     			UNIQUE `name` (`name`(95))
-    		)";
+    		) ENGINE = MyISAM";
     		SN()->conn->exec($sql);
         $sql ="CREATE TABLE IF NOT EXISTS `interact_entries` (
-    			`ID` INT NOT NULL AUTO_INCREMENT,
+    			`entry_id` INT NOT NULL AUTO_INCREMENT,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-    			`read_date` DATETIME NOT NULL,
           `type` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-          `read` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
-          `ready` SMALLINT UNSIGNED NOT NULL DEFAULT '0',
-    			PRIMARY KEY (`ID`),
-    			INDEX `read_date` (`read_date`)
-    		)";
+					`state` SMALLINT,
+    			PRIMARY KEY (`entry_id`)
+    		) ENGINE = MyISAM";
     		SN()->conn->exec($sql);
         $sql ="CREATE TABLE IF NOT EXISTS `interact_entries_meta` (
-    			`ID` INT NOT NULL AUTO_INCREMENT,
-          `entry_ID` INT NOT NULL,
+    			`meta_id` INT NOT NULL AUTO_INCREMENT,
+          `entry_id` INT NOT NULL,
     			`name` TINYTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
     			`value` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL,
-    			PRIMARY KEY (`ID`),
-    			UNIQUE `entry_meta` (`entry_ID`, `name`(95))
-    		)";
+    			PRIMARY KEY (`meta_id`),
+    			UNIQUE `entry_meta` (`entry_id`, `name`(95))
+    		) ENGINE = MyISAM";
     		SN()->conn->exec($sql);
     	} catch(PDOException $e) {
     		SN()->create_error($e->getMessage());
@@ -101,6 +97,7 @@ class SN {
 
     return $tables_need_to_be_created;
   }
+
   public function db_connect() {
     if(!isset($this->conn)) {
       $url = HOME_DIR . '/config.json';
@@ -119,10 +116,7 @@ class SN {
     return $this->conn;
   }
 
-
-  public function __construct() {
-
-  }
+  public function __construct() {}
 
 }
 

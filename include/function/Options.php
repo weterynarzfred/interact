@@ -1,6 +1,5 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
 
-
 function isset_option($name) {
   return isset(SN()->options[$name]);
 }

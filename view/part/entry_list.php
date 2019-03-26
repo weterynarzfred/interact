@@ -1,13 +1,17 @@
 <?php if(!defined('CONNECTION_TYPE')) die(); ?>
-<div class="entries">
-<?php
-apply_hook('before_entry_list', $data);
-if($data) {
-  foreach ($data as $entry) {
-    display_view('part/single_entry', $entry); ?>
-  <?php }
-}
-?>
+
+<div class="view view-part-entry_list">
+	<div class="entry-list">
+		<pre>
+			<?php
+			$entries = get_entries();
+			print_r($entries);
+			?>
+		</pre>
+		<?php
+		foreach ($entries as $entry) {
+			display_view('part/single_entry', array('entry'=>$entry));
+		}
+		?>
+	</div>
 </div>
-<div class="rmin"></div>
-<div class="button add-entry">add a new entry</div>

@@ -2,7 +2,7 @@
 
 class Entry {
 
-  private $ID;
+  private $entry_id;
   private $name;
   private $read_date;
   private $type;
@@ -11,12 +11,10 @@ class Entry {
   private $props = array(); // properties from entries_meta
 
   public function __construct($data) {
-    $this->ID = $data['ID'];
+    $this->entry_id = $data['entry_id'];
     $this->name = $data['name'];
-    $this->read_date = $data['read_date'];
     $this->type = $data['type'];
-    $this->read = $data['read'];
-    $this->ready = $data['ready'];
+    $this->state = $data['state'];
 
     // get properties from entry_meta table
     $entry_properties = get_option('entry_properties');
@@ -26,8 +24,7 @@ class Entry {
     		$sql = "
     			SELECT `name`, `value`
     			FROM `interact_entries_meta`
-          WHERE `entry_ID` = " . $this->ID . "
-          AND `name` in (" . $prop_string . ")
+          WHERE `entry_id` = " . $this->entry_id . "
         ";
 
     		$sql = SN()->db_connect()->prepare($sql);
@@ -46,7 +43,7 @@ class Entry {
   }
 
   public function get_ID() {
-    return $this->ID;
+    return $this->entry_id;
   }
   public function get_name() {
     return $this->name;
@@ -83,40 +80,35 @@ class Entry {
 
 		if(!isset($values['name'])) $values['name'] = $this->name;
 		if(!isset($values['type'])) $values['type'] = $this->type;
-		if(!isset($values['read_date'])) $values['read_date'] = $this->read_date;
-		if(!isset($values['read'])) $values['read'] = $this->read;
-		if(!isset($values['ready'])) $values['ready'] = $this->ready;
+		if(!isset($values['state'])) $values['state'] = $this->state;
+
 		try {
 			$sql = "
 				UPDATE `interact_entries`
 				SET
 					`name` = :name,
 					`type` = :type,
-					`read_date` = :read_date,
-					`read` = :read,
-					`ready` = :ready
-				WHERE `ID` = :id
+					`state` = :state,
+				WHERE `entry_id` = :entry_id
 			";
 			$sql = SN()->db_connect()->prepare($sql);
-			$sql->bindParam(':id', $this->ID);
+			$sql->bindParam(':entry_id', $this->entry_id);
 			$sql->bindParam(':name', $values['name']);
 			$sql->bindParam(':type', $values['type']);
-			$sql->bindParam(':read_date', $values['read_date']);
-			$sql->bindParam(':read', $values['read']);
-			$sql->bindParam(':ready', $values['ready']);
+			$sql->bindParam(':state', $values['state']);
 			$sql->execute();
 			$entry_properties = get_option('entry_properties');
 			if($entry_properties) {
 				$set = array();
 				for ($i=0; $i < count($entry_properties); $i++) {
 					if(isset($values[$entry_properties[$i]])) {
-						$set[] = '(\'' . $this->ID . '\', \'' . $entry_properties[$i] . '\', :' . $entry_properties[$i] . ')';
+						$set[] = '(\'' . $this->entry_id . '\', \'' . $entry_properties[$i] . '\', :' . $entry_properties[$i] . ')';
 					}
 				}
 				if(count($set)) {
 					$set_string = 'VALUES ' . implode(', ', $set);
 					$sql = "
-						INSERT INTO interact_entries_meta (`entry_ID`, `name`, `value`)
+						INSERT INTO interact_entries_meta (`entry_id`, `name`, `value`)
 						" . $set_string . "
 						ON DUPLICATE KEY UPDATE
 						`value` = VALUES(`value`)
@@ -139,15 +131,15 @@ class Entry {
 }
 
 function get_entries($options = array()) {
-	$sort_by = 'read_date';
+	$sort_by = 'state';
 	if(isset($options['sort_by'])) {
-		if(in_array($options['sort_by'], array('ID', 'name', 'read_date', 'type', 'read', 'ready'))) {
+		if(in_array($options['sort_by'], array('entry_id', 'name', 'type', 'state'))) {
 			$sort_by = $options['sort_by'];
 		}
 	}
   try {
 		$sql = "
-			SELECT `ID`, `name`, `read_date`, `type`, `read`, `ready`
+			SELECT `entry_id`, `name`, `type`, `state`
 			FROM `interact_entries`
       ORDER BY " . $sort_by . " DESC
       LIMIT 50 OFFSET 0
@@ -168,17 +160,17 @@ function get_entries($options = array()) {
 	}
 }
 
-function get_entry($ID) {
-	if($ID instanceof Entry) return $ID;
+function get_entry($entry_id) {
+	if($entry_id instanceof Entry) return $entry_id;
   try {
     $sql = "
-      SELECT `ID`, `name`, `read_date`, `type`, `read`, `ready`
+      SELECT `entry_id`, `name`, `type`, `state`
       FROM `interact_entries`
-      WHERE `ID` = :id
+      WHERE `entry_id` = :entry_id
     ";
 
     $sql = SN()->db_connect()->prepare($sql);
-    $sql->bindParam(':id', $ID);
+    $sql->bindParam(':entry_id', $entry_id);
 
     $sql->execute();
     $result = $sql->fetchAll(PDO::FETCH_ASSOC);
