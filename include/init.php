@@ -30,10 +30,17 @@ if(CONNECTION_TYPE === 'manual') {
 }
 elseif(CONNECTION_TYPE === 'ajax') {
 	if(isset($_POST['action'])) {
-		$file = HOME_DIR . '/ajax/' . $_POST['action'] . '.php';
-		if(file_exists($file)) {
-			include $file;
-			return;
+		$urls = array(
+			HOME_DIR . '/ajax/',
+		);
+		$urls = apply_hook('ajax_urls', $urls);
+		$found = false;
+		foreach ($urls as $url) {
+			if(file_exists($url . $_POST['action'] . '.php')) {
+				include $url . $_POST['action'] . '.php';
+				$found = true;
+				return;
+			}
 		}
 	}
 	http_response_code(404);

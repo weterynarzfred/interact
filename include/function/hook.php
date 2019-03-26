@@ -13,9 +13,9 @@ class Hook {
     $this->callbacks[] = $callback;
   }
 
-  public function apply($data, $e = NULL) {
+  public function apply($data, $additional = NULL) {
     foreach($this->callbacks as $callback) {
-      $data = $callback($data, $e);
+      $data = $callback($data, $additional);
     }
     return $data;
   }
@@ -29,11 +29,11 @@ function add_to_hook($name, $callback) {
   SN()->hooks[$name]->add_callback($callback);
 }
 
-function apply_hook($name, $data = NULL, $e = NULL) {
+function apply_hook($name, $data = NULL, $additional = NULL) {
   if(!isset(SN()->hooks[$name])) {
     SN()->hooks[$name] = new Hook($name);
   }
-  return SN()->hooks[$name]->apply($data, $e);
+  return SN()->hooks[$name]->apply($data, $additional);
 }
 
 

@@ -1,24 +1,46 @@
-// reader_manga.php
 {
-
+	// reader_manga.php
 	let pages = [];
 	let lastReadPage = 0;
 	let resetLastReadPage = false;
-	let isEnabled = false;
+	let isEnabledReaderManga = false;
 	let isAutoScrolling = false;
 
 	window.addEventListener('afterNavigation', function() {
-	  if(!isEnabled && currentView === 'reader_manga') {
-			start();
+	  if(!isEnabledReaderManga && currentView === 'reader_manga') {
+			startReaderManga();
 		}
 	});
 	window.addEventListener('beforeNavigation', function() {
-		if(isEnabled && currentView !== 'reader_manga') {
-			stop();
+		if(isEnabledReaderManga && currentView !== 'reader_manga') {
+			if(lastReadPage === pages.length - 1) {
+				const container = $('.reader-manga-pages-container');
+				const filename = container.data('filename');
+				const regex = RegExp('^.*?(c|ch)[\. ]*?([0-9]*?-)?([0-9]+).*?$', 'i');
+				let res = regex.exec(filename);
+				if(res[3] !== void 0) {
+					res = parseInt(res[3]);
+					if(!isNaN(res)) {
+						if(res > container.data('read')) {
+							doQuery({
+								data  : {
+									action	:	'update_entry',
+									values	:	{
+										id	:	container.data('id'),
+										read	:	res,
+										last_read_page	:	0,
+									},
+								},
+							});
+						}
+					}
+				}
+			}
+			stopReaderManga();
 		}
 	});
 
-	function start() {
+	function startReaderManga() {
     pages = $('.reader-page').map(function() {
 			return {
 				el	:	$(this),
@@ -41,6 +63,9 @@
 				);
 			}
 		}
+		else {
+			lastReadPage = 0;
+		}
 		resetLastReadPage = false;
 
 		$(window)
@@ -56,10 +81,10 @@
 
 		$(document).on('mousedown.reader_manga', '.reader-page', function(e) {
 		  if(e.which === 1) {
-				ScrollToAdjacent(1);
+				ScrollToAdjacent(1, $(this).data('id'));
 			}
 		  else if(e.which === 3) {
-				ScrollToAdjacent(-1);
+				ScrollToAdjacent(-1, $(this).data('id'));
 			}
 		})
 		.on('keydown.reader_manga', function(e) {
@@ -74,19 +99,20 @@
 				}
 			}
 		})
-		isEnabled = true;
+		isEnabledReaderManga = true;
 	}
 
-	function stop(event) {
+	function stopReaderManga(event) {
 		saveLastReadPage();
 		$(window).off('.reader_manga');
 		$(document).off('.reader_manga');
     pages = [];
-		isEnabled = false;
+		isEnabledReaderManga = false;
 	}
 
 	function saveLastReadPage(pageId) {
 		if(pageId === void 0) {
+			pageId = pages.length - 1;
 			for(let i = 0; i < pages.length; i++) {
 				if(pages[i].offset > window.scrollY + 10) {
 					pageId = i - 1;
@@ -127,7 +153,7 @@
 			basePage = lastReadPage;
 		}
 		basePage += offset;
-		if(basePage >= pages.length - 1 || basePage < 0) {
+		if(basePage >= pages.length || basePage < 0) {
 			return;
 		}
 		isAutoScrolling = true;
@@ -138,25 +164,23 @@
 		);
 		saveLastReadPage(basePage);
 	}
-}
 
-// reader.php
-{
 
-	let isEnabled = false;
+	// reader.php
+	let isEnabledReader = false;
 
 	window.addEventListener('afterNavigation', function() {
-	  if(!isEnabled && currentView === 'reader') {
-			start();
+	  if(!isEnabledReader && currentView === 'reader') {
+			startReader();
 		}
 	});
 	window.addEventListener('beforeNavigation', function() {
-		if(isEnabled && currentView !== 'reader') {
-			stop();
+		if(isEnabledReader && currentView !== 'reader') {
+			stopReader();
 		}
 	});
 
-	function start() {
+	function startReader() {
 		// refresh last read page
 		$(document).on('click.reader', '.reader-manga-file', function() {
 			const t = $(this);
@@ -168,9 +192,9 @@
 					data  : {
 						action	:	'update_entry',
 						values	:	{
-							id	:	t.parents('.reader-manga-file-list').data('id'),
+							id	:	t.parents('#reader-manga-file-list').data('id'),
 							last_read_file	:	text,
-							last_read_page	:	0.
+							last_read_page	:	0
 						},
 					},
 					filter	:	function(data) {
@@ -184,35 +208,28 @@
 		});
 
 		// refresah view on read progress update
-		window.addEventListener('ajaxRequestDone', refreshFileList);
+		window.addEventListener('ajaxRequestDone', handleAjaxRequestDone);
 
-		isEnabled = true;
+		isEnabledReader = true;
 	}
 
-	function stop() {
-		$(document).off('.reader');
-		window.removeEventListener('ajaxRequestDone', refreshFileList);
-		isEnabled = false;
-	}
-
-	function refreshFileList(event) {
-		if(
-			event.detail.reader_skip_refresh
-			|| currentView !== 'reader'
-			|| event.detail.type !== 'update_entry'
-			|| !event.detail.success
-		) {
-			return;
-		}
-		doQuery({
-			data	: {
-				action	:	'display_view',
-				values	:	{
-					name	:	'reader',
-					value	:	$('.reader-manga-file-list').data('id'),
-				},
+	function handleAjaxRequestDone(event) {
+		if(event.detail.data.type === 'update_entry') {
+			if(event.detail.values.id == $('#reader-manga-file-list').data('id')) {
+				getView(
+					'reader',
+					'#reader-main-view',
+					event.detail.values.id,
+				);
 			}
-		});
+		}
+	}
+
+	function stopReader() {
+		$(document).off('.reader');
+		window.removeEventListener('ajaxRequestDone', handleAjaxRequestDone);
+
+		isEnabledReader = false;
 	}
 
 }

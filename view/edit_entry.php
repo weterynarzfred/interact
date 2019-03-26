@@ -1,7 +1,7 @@
 <?php if(!defined('CONNECTION_TYPE')) die(); ?>
 
 <div class="container">
-  <div class="button navigation-link" data-target="home">return</div>
+  <div class="button navigation-link return-button" data-target="home">return</div>
   <?php
   $entry = get_entry($data);
   if($entry) {
@@ -16,6 +16,10 @@
     <div class="input-line">
       <div class="input-label">type:</div>
       <input type="text" name="type" value="<?php echo $entry->get_type(); ?>">
+    </div>
+    <div class="input-line">
+      <div class="input-label">date:</div>
+      <input type="text" name="read_date" value="<?php echo $entry->get_read_date(); ?>">
     </div>
     <div class="input-line">
       <div class="input-label">read:</div>

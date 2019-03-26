@@ -22,6 +22,13 @@ function throttle(ms, callback) {
 	};
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 // interact with the database through ajax
 const doQuery = (function() {
 	let currentQueryIds = {};
@@ -80,20 +87,41 @@ const doQuery = (function() {
 					if(p.callback !== void 0) p.callback(data);
 				}
 				window.dispatchEvent(
-					new CustomEvent('ajaxRequestDone', {detail:data})
+					new CustomEvent('ajaxRequestDone', {
+						detail:{
+							data:data,
+							values:p.data.values,
+						}
+					})
 				);
 			});
 		}
 	};
 })();
 
+const getView = function(view, target, details) {
+	window.dispatchEvent(
+		new CustomEvent('beforeGetView', {detail:{view, target, details}})
+	);
+	doQuery({
+		data  : {
+			action  : 'get_view',
+			values	:	{
+				view,
+				target,
+				details,
+			},
+		},
+	});
+};
+
 {
 	// redirecting forms to use AJAX
 	$(document).on('submit', '.ajax-form', function(e) {
 	  e.preventDefault();
 	  const t = $(this);
-	  const formData = new FormData(this);
 	  const action = t.data('form-action');
+		const details = t.data('details');
 	  let values = {};
 	  t.find('input').map(function(i, e) {
 			const $e = $(e);
@@ -104,7 +132,14 @@ const doQuery = (function() {
 	    data  : {
 	      action,
 	      values,
-	    }
+	    },
+			callback	: (function(action, details, values) {
+				return function() {
+					window.dispatchEvent(
+						new CustomEvent('afterFormSubmit_'+action, {detail:{details, values}})
+					);
+				}
+			})(action, details, values),
 	  });
 	})
 	// adding entries
@@ -152,9 +187,12 @@ const doQuery = (function() {
 				);
 			},
 	  });
-	});
-	// show hidden sections
-	.on('click', '.show-more', function() {
-		$($(this).toggleClass('active').data('target')).slideToggle(300);
+	})
+	// get view links
+	.on('click', '.get-view', function() {
+		const view = $(this).data('view');
+		const target = $(this).data('target');
+		const details = $(this).data('details');
+		getView(view, target, details);
 	});
 }
