@@ -1,0 +1,29 @@
+/*----- lazy cakes -----*/
+.lazy-cake {
+	position:relative;
+}
+.lazy-cake .cake {
+	position:relative;
+	z-index:1;
+	width:100%;
+	transition: opacity .3s;
+	opacity:0;
+}
+.lazy-cake.show-lb {
+	cursor:pointer;
+}
+.lazy-cake.show-lb .cake {
+	transition:.3s;
+	background-size:100%;
+}
+.lazy-cake.show-lb:hover .cake {
+	background-size:115%;
+}
+.lazy-cake-temp {
+	position:absolute;
+	top:0;
+	left:0;
+	width:1px;
+	height:1px;
+	opacity:0;
+}

@@ -5,9 +5,9 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 .clear {clear:both;}
-.r {clear:both;height:3em;}
-.rmin {clear:both;height:1.5em;}
-.rmik {clear:both;height:.75em;}
+.r {clear:both;height:2em;}
+.rmin {clear:both;height:1em;}
+.rmik {clear:both;height:.5em;}
 .rel {position:relative;}
 .abs {
   position:absolute;

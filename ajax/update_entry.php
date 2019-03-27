@@ -35,6 +35,11 @@ if($success) {
       'type'  =>  'replace',
       'element' =>  '#entry-' . $values['id'],
       'html'  => $html,
+			'onEmpty'	=>	array(
+	      'type'  =>  'append',
+	      'element' =>  '.entry-list',
+	      'html'  => $html,
+			),
     ),
     array(
       'type'  =>  'message',

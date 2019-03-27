@@ -13,6 +13,7 @@ set_option('scripts', array(
 	'/js/get_view.js',
 	'/js/messages.js',
 	'/js/interactions.js',
+	'/js/lazy-cakes.js',
 ), false);
 
 

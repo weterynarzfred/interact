@@ -10,35 +10,37 @@ class Entry {
   private $ready;
   private $props = array(); // properties from entries_meta
 
-  public function __construct($data) {
-    $this->entry_id = $data['entry_id'];
-    $this->name = $data['name'];
-    $this->type = $data['type'];
-    $this->state = $data['state'];
+  public function __construct($data = array()) {
+    $this->name = isset($data['name']) ? $data['name'] : '';
+    $this->type = isset($data['type']) ? $data['type'] : '';
+    $this->state = isset($data['state']) ? $data['state'] : '';
 
-    // get properties from entry_meta table
-    $entry_properties = get_option('entry_properties');
-    if($entry_properties) {
-      $prop_string = '\'' . implode('\', \'', $entry_properties) . '\'';
-      try {
-    		$sql = "
-    			SELECT `name`, `value`
-    			FROM `e_interact_entries_meta`
-          WHERE `entry_id` = " . $this->entry_id . "
-        ";
+		if(isset($data['entry_id'])) {
+			 $this->entry_id = $data['entry_id'];
+	    // get properties from entry_meta table
+	    $entry_properties = get_option('entry_properties');
+	    if($entry_properties) {
+	      $prop_string = '\'' . implode('\', \'', $entry_properties) . '\'';
+	      try {
+	    		$sql = "
+	    			SELECT `name`, `value`
+	    			FROM `e_interact_entries_meta`
+	          WHERE `entry_id` = " . $this->entry_id . "
+	        ";
 
-    		$sql = SN()->db_connect()->prepare($sql);
+	    		$sql = SN()->db_connect()->prepare($sql);
 
-    		$sql->execute();
-    		$result = $sql->fetchAll(PDO::FETCH_ASSOC);
-        for ($i=0; $i < count($result); $i++) {
-          $this->props[$result[$i]['name']] = $result[$i]['value'];
-        }
-    	}
-    	catch(Exception $e) {
-    		SN()->create_error('could not retrieve entry properties: ' . $e->getMessage());
-    	}
-    }
+	    		$sql->execute();
+	    		$result = $sql->fetchAll(PDO::FETCH_ASSOC);
+	        for ($i=0; $i < count($result); $i++) {
+	          $this->props[$result[$i]['name']] = $result[$i]['value'];
+	        }
+	    	}
+	    	catch(Exception $e) {
+	    		SN()->create_error('could not retrieve entry properties: ' . $e->getMessage());
+	    	}
+	    }
+		}
 
   }
 
@@ -77,21 +79,36 @@ class Entry {
 		if(!isset($values['state'])) $values['state'] = $this->state;
 
 		try {
-			$sql = "
-				UPDATE `e_interact_entries`
-				SET
-					`name` = :name,
-					`type` = :type,
-					`state` = :state
-				WHERE `entry_id` = :entry_id
-			";
-			$sql = SN()->db_connect()->prepare($sql);
-			$sql->bindParam(':entry_id', $this->entry_id);
+			// if entry already in the database
+			if($this->entry_id) {
+				$sql = "
+					UPDATE `e_interact_entries`
+					SET
+						`name` = :name,
+						`type` = :type,
+						`state` = :state
+					WHERE `entry_id` = :entry_id
+				";
+				$sql = SN()->db_connect()->prepare($sql);
+				$sql->bindParam(':entry_id', $this->entry_id);
+			}
+			// if entry needs to be created
+			else {
+				$sql = "
+			    INSERT INTO `e_interact_entries` (`name`, `type`, `state`)
+			    VALUES (:name, :type, :state)
+			  ";
+			  $sql = SN()->db_connect()->prepare($sql);
+			}
 			$sql->bindParam(':name', $values['name']);
 			$sql->bindParam(':type', $values['type']);
 			$sql->bindParam(':state', $values['state']);
 			$sql->execute();
 
+			// get newly created id
+			if(!$this->entry_id) {
+				$this->entry_id = SN()->db_connect()->lastInsertId();
+			}
 			$this->name = $values['name'];
 			$this->type = $values['type'];
 			$this->state = $values['state'];
@@ -121,7 +138,7 @@ class Entry {
 					$sql->execute();
 					for ($i = 0; $i < count($entry_properties); $i++) {
 						if(isset($values[$entry_properties[$i]])) {
-							$this->props[$entry_properties[$i]] = $values[$entry_properties[$i]]; 
+							$this->props[$entry_properties[$i]] = $values[$entry_properties[$i]];
 						}
 					}
 				}
@@ -166,6 +183,7 @@ function get_entries($options = array()) {
 
 function get_entry($entry_id) {
 	if($entry_id instanceof Entry) return $entry_id;
+	elseif(!$entry_id) return new Entry();
   try {
     $sql = "
       SELECT `entry_id`, `name`, `type`, `state`
@@ -184,4 +202,23 @@ function get_entry($entry_id) {
   catch(Exception $e) {
     SN()->create_error('could not retrieve entries: ' . $e->getMessage());
   }
+}
+
+function create_entry() {
+	try {
+	  $sql = "
+	    INSERT INTO `e_interact_entries` (`name`)
+	    VALUES (:name)
+	  ";
+
+	  $sql = SN()->db_connect()->prepare($sql);
+	  $name = 'tempname';
+	  $sql->bindParam(':name', $name);
+	  $sql->execute();
+
+		return get_entry(SN()->db_connect()->lastInsertId());
+	}
+	catch(Exception $e) {
+	  SN()->create_error('could not create an entry: ' . $e->getMessage());
+	}
 }

@@ -1,26 +1,51 @@
+if(typeof f3 === 'undefined') {
+  window.f3 = {
+    s: 0,
+    h: 0,
+    w: 0,
+    scrollCheck: function() {
+      f3.s = window.scrollY;
+    },
+    sizeCheck: function() {
+      f3.h = $(window).height();
+      f3.w = $(window).width();
+      f3.scrollCheck();
+      window.dispatchEvent(new CustomEvent("layoutChange"));
+      window.dispatchEvent(new CustomEvent("afterLayoutChange"));
+    }
+  };
+  $(window).scroll(throttle(16, f3.scrollCheck));
+  $(window).resize(throttle(100, f3.sizeCheck));
+  $(window).load(f3.sizeCheck);
+  $(document).ready(f3.sizeCheck);
+
+  // throttle
+  function throttle(ms, callback) {
+    var lastCall = 0;
+    var timeout;
+    return function(a) {
+      var now = new Date().getTime(),
+        diff = now - lastCall;
+      if(diff >= ms) {
+        lastCall = now;
+        callback(a);
+      } else {
+        clearTimeout(timeout);
+        timeout = setTimeout(
+          (function(a) {
+            return function() {
+              callback(a);
+            };
+          })(a),
+          ms
+        );
+      }
+    };
+  }
+}
+
 const ajaxUrl = $('body').data('ajax-url');
 let currentView = 'home';
-
-function throttle(ms, callback) {
-	var lastCall=0;
-	var timeout;
-	return function(a) {
-		var now = new Date().getTime(),
-			diff = now - lastCall;
-		if (diff >= ms) {
-			lastCall = now;
-			callback(a);
-		}
-		else {
-			clearTimeout(timeout);
-			timeout=setTimeout((function(a) {
-				return function(){
-					callback(a);
-				}
-			})(a), ms);
-		}
-	};
-}
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -38,32 +63,44 @@ const doQuery = (function() {
 		if(data.fragments !== void 0) {
 			const f = data.fragments;
 			for(const fragment in f) {
-				switch(f[fragment].type) {
-				case 'after':
-					$(f[fragment].element).after(f[fragment].html);
-					break;
-				case 'append':
-					$(f[fragment].element).append(f[fragment].html);
-					break;
-				case 'delete':
-					$(f[fragment].element).remove();
-					break;
-				case 'update':
-					$(f[fragment].element).html(f[fragment].html);
-					break;
-				case 'replace':
-					$(f[fragment].element).after(f[fragment].html).remove();
-					break;
-				case 'location':
-					window.history.pushState({}, '', f[fragment].url);
-					break;
-				case 'message':
-					createMessage(f[fragment].html);
-					break;
-				case 'refresh':
-					location.reload();
-					break;
-				}
+				handleFragment(f[fragment]);
+			}
+		}
+	}
+
+	function handleFragment(fragment) {
+		const target = $(fragment.element);
+		if(fragment.element !== void 0 && target.length === 0) {
+			if(fragment.onEmpty !== void 0) {
+				handleFragment(fragment.onEmpty);
+			}
+		}
+		else {
+			switch(fragment.type) {
+			case 'after':
+				target.after(fragment.html);
+				break;
+			case 'append':
+				target.append(fragment.html);
+				break;
+			case 'delete':
+				target.remove();
+				break;
+			case 'update':
+				target.html(fragment.html);
+				break;
+			case 'replace':
+				target.after(fragment.html).remove();
+				break;
+			case 'location':
+				window.history.pushState({}, '', fragment.url);
+				break;
+			case 'message':
+				createMessage(fragment.html);
+				break;
+			case 'refresh':
+				location.reload();
+				break;
 			}
 		}
 	}
