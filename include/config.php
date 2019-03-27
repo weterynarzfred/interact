@@ -2,7 +2,11 @@
 SN()->test_db_tables();
 
 set_option('entry_properties', array(
+	'read',
+	'ready',
+	'downloaded',
 	'is_finished',
+	'cover',
 ), false);
 set_option('scripts', array(
 	'/js/main.js',

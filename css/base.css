@@ -33,6 +33,8 @@ body {
 	cursor:pointer;
 	transition:.2s;
 	border:none;
+	font-weight:700;
+	letter-spacing:.05em;
 }
 .button:hover {
 	background-color:#f55;
@@ -105,7 +107,7 @@ body {
 	stroke-linecap:round;
 	transform-origin:41.6667% 41.6667%;
 }
-.loading-icon circle:nth-child(1) {
+.loading .loading-icon circle {
 	animation:loading-spin 10s infinite cubic-bezier(0.95, 0.1, 0.1, 0.95);
 }
 
@@ -113,7 +115,7 @@ body {
 /*----- entry-list -----*/
 .single-entry {
 	position:relative;
-	width:20em;
+	width:15em;
 	border-bottom:.5em solid #f55;
 	overflow:hidden;
 }
@@ -125,19 +127,73 @@ body {
 }
 .entry-progress {
 	text-transform:uppercase;
+	padding-bottom:.2em;
+	background-color:#333;
 }
 .entry-progress-col {
 	width:100%;
 	text-align:center;
+	align-items:center;
+	padding:.15em;
+	display:flex;
+	justify-content:center;
+}
+.entry-progress-separator {
+	color:#f55;
 	font-size:.62em;
-	padding:.25em;
+	padding-left:.5em;
+}
+.entry-progress-value {
+	padding:0 .25em;
+	color:#f8f8f8;
 }
 .entry-image {
 	padding-bottom:120%;
 	background-color:#eee;
+	background-position:center;
+	background-size:100% auto;
 }
 .entry-buttons {
 	position:absolute;
 	bottom:.5em;
 	right:.5em;
+	opacity:0;
+	transition:.2s;
+}
+.single-entry:hover .entry-buttons {
+	opacity:1;
+}
+
+
+/*----- edit-entry -----*/
+.input-line {
+	display:flex;
+	align-items:center;
+	margin-top:.5em;
+}
+.input-label {
+	font-size:.62em;
+	text-transform:uppercase;
+	padding-right:1em;
+	min-width:10em;
+	transition:.2s;
+	font-weight:700;
+	letter-spacing:.05em;
+}
+.input-line:hover .input-label {
+	color:#f55;
+}
+input[type="text"] {
+	width:100%;
+	border:none;
+	background:none;
+	font:inherit;
+	padding:.25em.5em;
+	box-shadow:0 1px 0 0 #f55;
+	transition:.2s
+}
+input[type="text"]:hover,
+input[type="text"]:focus {
+	outline:none;
+	box-shadow:0 3px 0 0 #f55;
 }

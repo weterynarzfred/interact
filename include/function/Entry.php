@@ -42,23 +42,17 @@ class Entry {
 
   }
 
-  public function get_ID() {
+  public function get_id() {
     return $this->entry_id;
   }
   public function get_name() {
     return $this->name;
   }
-  public function get_read_date() {
-    return $this->read_date;
-  }
   public function get_type() {
     return $this->type;
   }
-  public function get_read() {
-    return $this->read;
-  }
-  public function get_ready() {
-    return $this->ready;
+  public function get_state() {
+    return $this->state;
   }
   public function get_prop($name) {
     if(!isset($this->props[$name])) {
@@ -88,7 +82,7 @@ class Entry {
 				SET
 					`name` = :name,
 					`type` = :type,
-					`state` = :state,
+					`state` = :state
 				WHERE `entry_id` = :entry_id
 			";
 			$sql = SN()->db_connect()->prepare($sql);
@@ -97,10 +91,15 @@ class Entry {
 			$sql->bindParam(':type', $values['type']);
 			$sql->bindParam(':state', $values['state']);
 			$sql->execute();
+
+			$this->name = $values['name'];
+			$this->type = $values['type'];
+			$this->state = $values['state'];
+
 			$entry_properties = get_option('entry_properties');
 			if($entry_properties) {
 				$set = array();
-				for ($i=0; $i < count($entry_properties); $i++) {
+				for ($i = 0; $i < count($entry_properties); $i++) {
 					if(isset($values[$entry_properties[$i]])) {
 						$set[] = '(\'' . $this->entry_id . '\', \'' . $entry_properties[$i] . '\', :' . $entry_properties[$i] . ')';
 					}
@@ -120,6 +119,11 @@ class Entry {
 						}
 					}
 					$sql->execute();
+					for ($i = 0; $i < count($entry_properties); $i++) {
+						if(isset($values[$entry_properties[$i]])) {
+							$this->props[$entry_properties[$i]] = $values[$entry_properties[$i]]; 
+						}
+					}
 				}
 			}
 		}
