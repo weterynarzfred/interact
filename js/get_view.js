@@ -23,10 +23,9 @@ let currentScreen = 0;
 
 window.addEventListener('beforeGetView', function(event) {
 	if(event.detail.target === '.next-container') {
-		$('.container').addClass('loading');
+		startLoading($('.container'));
 		const nextContainer = $(document.createElement('div'))
 			.addClass('next-container');
-		console.log(nextContainer);
 		$('#content-bar').append(nextContainer);
 	}
 });
@@ -34,7 +33,7 @@ window.addEventListener('beforeGetView', function(event) {
 window.addEventListener('afterGetView', function(event) {
 	currentScreen++;
 	$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
-	$('.container.loading').removeClass('loading');
+	stopLoading($('.container.loading'));
 });
 
 function previousView() {

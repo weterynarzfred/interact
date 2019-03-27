@@ -18,7 +18,7 @@ if(!$error) {
 	$entry = get_entry($values['id']);
 	$entry->update($values);
 
-	$html = get_view('part/single_entry', $entry);
+	$html = get_view('part/single_entry', array('entry'=>$entry));
 
 	$success = true;
 }

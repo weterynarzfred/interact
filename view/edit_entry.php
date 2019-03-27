@@ -6,6 +6,15 @@ $entry = get_entry($entry);
 	<div class="brick">
 		<div class="return button">return</div>
 		<p>edit screen</p>
+	  <div class="rmin"></div>
+	  <form action="" class="ajax-form" data-form-action="update_entry">
+			<input type="hidden" name="id" value="<?php echo $entry->get_ID(); ?>">
+			<div class="input-line">
+	      <div class="input-label">name:</div>
+	      <input type="text" name="name" value="<?php echo $entry->get_name(); ?>">
+	    </div>
+			<input type="submit" value="save" class="button">
+		</form>
 	</div>
 </div>
 

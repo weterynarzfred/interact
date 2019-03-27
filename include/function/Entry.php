@@ -73,10 +73,10 @@ class Entry {
 		$values = apply_hook('update_entry', $values, $this);
 
 		// update the read date if reading progress is updated
-		if(
-			isset($values['read'])
-			&& !isset($values['read_date'])
-		) $values['read_date'] = date('Y-m-d G:i:s');
+		// if(
+		// 	isset($values['read'])
+		// 	&& !isset($values['read_date'])
+		// ) $values['read_date'] = date('Y-m-d G:i:s');
 
 		if(!isset($values['name'])) $values['name'] = $this->name;
 		if(!isset($values['type'])) $values['type'] = $this->type;

@@ -107,6 +107,7 @@ const doQuery = (function() {
 	  const action = t.data('form-action');
 		const details = t.data('details');
 	  let values = {};
+		startLoading(t);
 	  t.find('input').map(function(i, e) {
 			const $e = $(e);
 			const name = $e.attr('name');
@@ -117,13 +118,14 @@ const doQuery = (function() {
 	      action,
 	      values,
 	    },
-			callback	: (function(action, details, values) {
+			callback	: (function(action, details, values, t) {
 				return function() {
+					stopLoading(t);
 					window.dispatchEvent(
 						new CustomEvent('afterFormSubmit_'+action, {detail:{details, values}})
 					);
 				}
-			})(action, details, values),
+			})(action, details, values, t),
 	  });
 	})
 	// adding entries
