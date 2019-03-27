@@ -1,5 +1,20 @@
-<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+<?php if(!defined('CONNECTION_TYPE')) die();
+$entry = get_entry($entry);
+?>
 
+<div class="container view view-edit_entry">
+	<div class="brick">
+		<div class="return button">return</div>
+		<p>edit screen</p>
+	</div>
+</div>
+
+
+
+
+
+
+<?php if(false) { ?>
 <div class="container">
   <div class="button navigation-link return-button" data-target="home">return</div>
   <?php
@@ -64,3 +79,5 @@
 
 <?php } ?>
 </div>
+
+<?php } ?>

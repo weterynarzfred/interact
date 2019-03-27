@@ -12,3 +12,4 @@
 	</head>
 	<body data-ajax-url="<?php echo $_SERVER["REQUEST_URI"]; ?>ajax/index.php">
 		<div id="content">
+			<div id="content-bar">

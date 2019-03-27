@@ -99,22 +99,6 @@ const doQuery = (function() {
 	};
 })();
 
-const getView = function(view, target, details) {
-	window.dispatchEvent(
-		new CustomEvent('beforeGetView', {detail:{view, target, details}})
-	);
-	doQuery({
-		data  : {
-			action  : 'get_view',
-			values	:	{
-				view,
-				target,
-				details,
-			},
-		},
-	});
-};
-
 {
 	// redirecting forms to use AJAX
 	$(document).on('submit', '.ajax-form', function(e) {
@@ -194,5 +178,8 @@ const getView = function(view, target, details) {
 		const target = $(this).data('target');
 		const details = $(this).data('details');
 		getView(view, target, details);
+	})
+	.on('click', '.return', function() {
+		previousView();
 	});
 }

@@ -1,4 +1,6 @@
 <?php if(!defined('CONNECTION_TYPE')) die(); ?>
+
+	    </div>
     </div>
     <div id="messages"></div>
 		<?php SN()->display_errors(); ?>
