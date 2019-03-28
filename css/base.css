@@ -22,9 +22,8 @@ body {
 .brick {
 	margin:1em;
 }
-.column {
-	padding:0 .5em;
-}
+.column {padding:0 .5em;}
+.column-double {padding:0 1em;}
 .button {
 	display:inline-block;
 	background-color:#333;
@@ -166,7 +165,7 @@ body {
 	right:0;
 	bottom:0;
 	left:0;
-	box-shadow:0 0 10em 0 rgba(142, 56, 0, 0.2) inset;
+	box-shadow:0 0 10em 0 rgba(142, 56, 0, 0.1) inset;
 	z-index:1;
 }
 .entry-buttons {

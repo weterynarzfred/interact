@@ -21,7 +21,7 @@ function set_option($name, $value, $save = true) {
   if($save) {
     try {
       $sql = "
-        INSERT INTO interact_options (`name`, `value`)
+        INSERT INTO e_interact_options (`name`, `value`)
         VALUES(:name, :value) ON DUPLICATE KEY
         UPDATE `name` = VALUES(`name`), `value` = VALUES(`value`)
       ";

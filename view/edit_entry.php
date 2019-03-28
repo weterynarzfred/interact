@@ -3,7 +3,8 @@ $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 ?>
 
 <div class="container view view-edit_entry">
-	<div class="brick">
+	<div class="column">
+		<div class="rmin"></div>
 		<div class="return button">return</div>
 	  <div class="rmin"></div>
 	  <form action="" class="ajax-form" data-form-action="update_entry">
@@ -41,6 +42,7 @@ $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 			</div>
 
 		</form>
+		<div class="rmin"></div>
 	</div>
 </div>
 

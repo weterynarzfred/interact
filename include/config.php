@@ -20,7 +20,7 @@ set_option('scripts', array(
 try {
 	$sql = "
 		SELECT `name`, `value`
-		FROM `interact_options`
+		FROM `e_interact_options`
 	";
 
 	$sql = SN()->db_connect()->prepare($sql);
@@ -48,5 +48,9 @@ call_user_func(function() {
 		}
 	}
 });
+
+if(!isset_option('manga_url')) {
+  set_option('manga_url', HOME_DIR . '/storage/');
+}
 
 apply_hook('init');

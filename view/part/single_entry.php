@@ -1,4 +1,6 @@
-<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+<?php if(!defined('CONNECTION_TYPE')) die();
+$entry = get_entry($entry);
+?>
 
 <div class="view view-part-single_entry column" id="entry-<?php echo $entry->get_id(); ?>">
 	<div class="rmin"></div>
@@ -16,6 +18,12 @@
 			</svg>
 		</div>
 		<div class="entry-buttons">
+			<div
+				class="button get-view"
+				data-view="reader"
+				data-details='<?php echo json_encode(array('entry'=>$entry->get_id())); ?>'
+				data-target=".next-container"
+			>read</div>
 			<div
 				class="button get-view"
 				data-view="edit_entry"
