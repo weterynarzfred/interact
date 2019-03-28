@@ -7,13 +7,7 @@ set_option('entry_properties', array(
 	'downloaded',
 	'is_finished',
 	'cover',
-), false);
-set_option('scripts', array(
-	'/js/main.js',
-	'/js/get_view.js',
-	'/js/messages.js',
-	'/js/interactions.js',
-	'/js/lazy-cakes.js',
+	'madokami_url'
 ), false);
 
 

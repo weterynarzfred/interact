@@ -14,6 +14,14 @@ call_user_func(function() {
 	}
 });
 
+set_option('scripts', array(
+	'/js/main.js',
+	'/js/get_view.js',
+	'/js/messages.js',
+	'/js/interactions.js',
+	'/js/lazy-cakes.js',
+), false);
+
 if(file_exists(HOME_DIR. '/config.json')) {
 	include HOME_DIR . '/include/config.php';
 

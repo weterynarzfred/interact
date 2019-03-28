@@ -16,6 +16,7 @@ $madokami_files = reader_get_madokami_files($entry);
 		<div class="rmin"></div>
 
 		<pre><?php print_r($files); ?></pre>
+		<pre><?php print_r($madokami_files); ?></pre>
 
 		<div class="rmin"></div>
 	</div>

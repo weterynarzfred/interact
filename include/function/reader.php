@@ -30,16 +30,26 @@ function reader_get_madokami_files($entry) {
 
 	$output = array();
 	$madokami_url = $entry->get_prop('madokami_url');
-	if($madokami_url) {
+	if($madokami_url != '') {
 		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, 'https://manga.madokami.al/Manga/S/SH/SHIN/Shinju%20no%20Nectar');
+		curl_setopt($curl, CURLOPT_URL, $madokami_url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_USERPWD, "me123:12345");
 		curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		$output = curl_exec($curl);
 		curl_close($curl);
+
+		$results = array();
+		$table = preg_split('/<table id="index-table.*?>/is', $output, 2);
+		$table = preg_split('/<\/table>/is', $table[1], 2);
+		preg_replace_callback('/<tr data-record="[0-9]*">[^<]*<td>[^<]*<a href="([^"]*)"[^>]*>([^<]*)<\/a>/is', function($matches) use (&$results) {
+			$results[] = array(
+				'url'	=>	$matches[1],
+				'name'	=>	$matches[2],
+			);
+		}, $table[0]);
+
+		return $results;
 	}
-
-	return $output;
-
+	return false;
 }

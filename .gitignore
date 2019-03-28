@@ -1,4 +1,5 @@
 config.json
+.remote-sync.json
 include/plugin/reader/temp
 favicon.png
 madokami
