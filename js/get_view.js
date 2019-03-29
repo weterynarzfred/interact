@@ -45,13 +45,15 @@ window.addEventListener('afterGetView', function(event) {
 });
 
 function previousView() {
-	currentScreen--;
-	$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
-	$('.container').each(function(index) {
-		if(index > currentScreen) {
-			setTimeout(function() {
-				$(this).remove();
-			}.bind(this), 500);
-		}
-	});
+	if(currentScreen > 0) {
+		currentScreen--;
+		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
+		$('.container').each(function(index) {
+			if(index > currentScreen) {
+				setTimeout(function() {
+					$(this).remove();
+				}.bind(this), 500);
+			}
+		});
+	}
 }

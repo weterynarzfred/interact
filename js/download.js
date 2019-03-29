@@ -25,6 +25,9 @@ function readProgress(id, url) {
 				if(!state.isFinished) {
 					setTimeout(readProgress.bind(state, id, url), 1000);
 				}
+				else {
+					getView('part/reader_filelist', '.view-part-reader_filelist', {entry: id});
+				}
 			}
 		})(this, id, url)
 	);

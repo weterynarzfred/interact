@@ -14,10 +14,7 @@ $files = reader_get_folder($entry);
 
 		<div class="rmin"></div>
 
-		downloaded
-		<pre><?php print_r($files); ?></pre>
-
-		<div class="rmin"></div>
+		<?php display_view('part/reader_filelist', array('entry'=>$entry)); ?>
 
 		<?php display_view('part/madokami_filelist', array(
 			'entry'	=>	$entry,
