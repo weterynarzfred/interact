@@ -12,12 +12,8 @@ function reader_get_folder($entry) {
 	$url = reader_get_folder_url($entry);
 	$files = array_diff(scandir($url), array('.', '..'));
 	$files = array_map(function($f) use ($url) {return $url . '/' . $f;}, $files);
-	$files = array_filter($files, function($f) {return is_dir($f);});
+	// $files = array_filter($files, function($f) {return is_dir($f);});
 	return $files;
-}
-
-function reader_unpack() {
-
 }
 
 function reader_get_madokami_files($entry) {

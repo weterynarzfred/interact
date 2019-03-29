@@ -133,7 +133,9 @@ const doQuery = (function() {
 					})
 				);
 			});
+			return request;
 		}
+		return false;
 	};
 })();
 

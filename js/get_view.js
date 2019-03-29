@@ -1,4 +1,4 @@
-const getView = function(view, target, details) {
+const getView = function(view, target, details, callback) {
 	window.dispatchEvent(
 		new CustomEvent('beforeGetView', {detail:{view, target, details}})
 	);
@@ -15,6 +15,7 @@ const getView = function(view, target, details) {
 			window.dispatchEvent(
 				new CustomEvent('afterGetView', {detail:{view, target, details, data}})
 			);
+			if(callback !== void 0) callback.call(this, view, target, details, data);
 		},
 	});
 };

@@ -1,15 +1,17 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
 
 $entry = get_entry($entry);
-if(!isset($skip_check) || !$skip_check) {
-	$madokami_files = reader_get_madokami_files($entry);
-}
 ?>
 
-<div class="view view-madokami_filelist">
+<div class="view view-part-madokami_filelist">
 	madokami
+
 	<?php
+
+	display_view('part/download_progress', array('entry'=>$entry));
+
 	if(!isset($skip_check) || !$skip_check) {
+		$madokami_files = reader_get_madokami_files($entry);
 		if($madokami_files) {
 			foreach($madokami_files as $file) {
 	?>
@@ -33,7 +35,7 @@ if(!isset($skip_check) || !$skip_check) {
 		class="button get-view"
 		data-view="part/madokami_filelist"
 		data-details='<?php echo json_encode(array('entry'=>$entry->get_id())); ?>'
-		data-target=".view-madokami_filelist"
+		data-target=".view-part-madokami_filelist"
 	>check madokami</div>
 
 	<div class="rmin"></div>
