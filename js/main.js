@@ -18,30 +18,29 @@ if(typeof f3 === 'undefined') {
   $(window).resize(throttle(100, f3.sizeCheck));
   $(window).load(f3.sizeCheck);
   $(document).ready(f3.sizeCheck);
+}
 
-  // throttle
-  function throttle(ms, callback) {
-    var lastCall = 0;
-    var timeout;
-    return function(a) {
-      var now = new Date().getTime(),
-        diff = now - lastCall;
-      if(diff >= ms) {
-        lastCall = now;
-        callback(a);
-      } else {
-        clearTimeout(timeout);
-        timeout = setTimeout(
-          (function(a) {
-            return function() {
-              callback(a);
-            };
-          })(a),
-          ms
-        );
-      }
-    };
-  }
+function throttle(ms, callback) {
+	var lastCall = 0;
+	var timeout;
+	return function(a) {
+		var now = new Date().getTime(),
+			diff = now - lastCall;
+		if(diff >= ms) {
+			lastCall = now;
+			callback(a);
+		} else {
+			clearTimeout(timeout);
+			timeout = setTimeout(
+				(function(a) {
+					return function() {
+						callback(a);
+					};
+				})(a),
+				ms
+			);
+		}
+	};
 }
 
 const ajaxUrl = $('body').data('ajax-url');
@@ -107,15 +106,17 @@ const doQuery = (function() {
 
 	return function(p) {
 		if(p.data !== void 0) {
-			const queryId = (currentQueryIds[p.data.action] === void 0)
-				? 0 : currentQueryIds[p.data.action] + 1;
+			const queryId = (currentQueryIds[p.data.action] === void 0) ?
+			0 : currentQueryIds[p.data.action] + 1;
 			currentQueryIds[p.data.action] = queryId;
-			let request = $.ajax({
+			let args = {
 				method   : 'post',
 				url      : ajaxUrl,
 				data     : p.data,
 				dataType : 'json',
-			});
+			};
+			if(p.timeout !== void 0) args.timeout = p.timeout;
+			let request = $.ajax(args);
 			request.done(function(data) {
 				// prevent calling an action if a more recent query was issued
 				if(currentQueryIds[p.data.action] === queryId) {
@@ -203,7 +204,7 @@ const doQuery = (function() {
 					new CustomEvent('beforeNavigation', {detail:{name, value}})
 				);
 				return data;
-			}})(name),
+			};})(name),
 			callback	:	function() {
 				window.dispatchEvent(
 					new CustomEvent('afterNavigation', {detail:{name, value}})

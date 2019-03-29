@@ -20,6 +20,7 @@ set_option('scripts', array(
 	'/js/messages.js',
 	'/js/interactions.js',
 	'/js/lazy-cakes.js',
+	'/js/download.js',
 ), false);
 
 if(file_exists(HOME_DIR. '/config.json')) {

@@ -12,5 +12,5 @@
 		<span class="entry-progress-separator">c:</span>
 		<span class="entry-progress-value"><?php echo $entry->get_prop('ready'); ?></span>
 	</div>
-	<?php apply_hook('after_single_entry_progress', $data); ?>
+	<?php apply_hook('after_single_entry_progress', $entry); ?>
 </div>

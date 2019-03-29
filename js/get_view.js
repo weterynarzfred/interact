@@ -11,9 +11,9 @@ const getView = function(view, target, details) {
 				details,
 			},
 		},
-		callback	:	function() {
+		callback	:	function(data) {
 			window.dispatchEvent(
-				new CustomEvent('afterGetView', {detail:{view, target, details}})
+				new CustomEvent('afterGetView', {detail:{view, target, details, data}})
 			);
 		},
 	});

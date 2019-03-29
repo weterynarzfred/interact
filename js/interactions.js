@@ -11,6 +11,11 @@ $(document)
 	// show hidden sections
 	.on('click', '.show-more', function() {
 		$($(this).toggleClass('active').data('target')).slideToggle(300);
+	})
+	// download from madokami
+	.on('click', '.madokami-file', function() {
+		const t = $(this);
+		download(t.data('id'), t.data('url'));
 	});
 }
 

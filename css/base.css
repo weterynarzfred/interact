@@ -218,3 +218,14 @@ input[type="text"]:focus {
 	outline:none;
 	box-shadow:0 3px 0 0 #f55;
 }
+
+
+/*----- madokami -----*/
+.madokami-file {
+	font-size:.79em;
+	cursor:pointer;
+	transition:.2s;
+}
+.madokami-file:hover {
+	color:#f55;
+}

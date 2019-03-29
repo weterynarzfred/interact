@@ -13,7 +13,11 @@ if(!isset($skip_check) || !$skip_check) {
 		if($madokami_files) {
 			foreach($madokami_files as $file) {
 	?>
-	<div class="madokami-file"><?php echo $file['name']; ?></div>
+	<div
+		class="madokami-file"
+		data-id="<?php echo $entry->get_id(); ?>"
+		data-url="https://manga.madokami.al<?php echo $file['url']; ?>"
+	><?php echo $file['name']; ?></div>
 	<?php
 			}
 		}

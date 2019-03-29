@@ -1,23 +1,18 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
 
-function reader_get_folder($entry) {
+function reader_get_folder_url($entry) {
 	$entry = get_entry($entry);
-
 	$url_base = get_option('manga_url');
 	$url = $url_base . $entry->get_id();
+	if(!is_dir($url)) mkdir($url);
+	return $url;
+}
 
-	// if entry has a folder associated with it
-	if(is_dir($url)) {
-		$files = array_diff(scandir($url), array('.', '..'));
-		$files = array_map(function($f) use ($url) {return $url . '/' . $f;}, $files);
-		$files = array_filter($files, function($f) {return is_dir($f);});
-	}
-	// otherwise create a folder for it
-	else {
-		mkdir($url);
-		$files = array();
-	}
-
+function reader_get_folder($entry) {
+	$url = reader_get_folder_url($entry);
+	$files = array_diff(scandir($url), array('.', '..'));
+	$files = array_map(function($f) use ($url) {return $url . '/' . $f;}, $files);
+	$files = array_filter($files, function($f) {return is_dir($f);});
 	return $files;
 }
 
@@ -42,12 +37,16 @@ function reader_get_madokami_files($entry) {
 		$results = array();
 		$table = preg_split('/<table id="index-table.*?>/is', $output, 2);
 		$table = preg_split('/<\/table>/is', $table[1], 2);
-		preg_replace_callback('/<tr data-record="[0-9]*">[^<]*<td>[^<]*<a href="([^"]*)"[^>]*>([^<]*)<\/a>/is', function($matches) use (&$results) {
-			$results[] = array(
-				'url'	=>	$matches[1],
-				'name'	=>	$matches[2],
-			);
-		}, $table[0]);
+		preg_replace_callback(
+			'/<tr data-record="[0-9]*">[^<]*<td>[^<]*<a href="([^"]*)"[^>]*>([^<]*)<\/a>/is',
+			function($matches) use (&$results) {
+				$results[] = array(
+					'url'	=>	$matches[1],
+					'name'	=>	$matches[2],
+				);
+			},
+			$table[0]
+		);
 
 		return $results;
 	}

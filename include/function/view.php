@@ -8,31 +8,31 @@ function get_view($view = NULL, $data = NULL) {
   display_view($view, $data);
   return ob_get_clean();
 }
-function display_view($view = NULL, $data = NULL) {
-  if(!$view) {
+function display_view($_view = NULL, $_data = NULL) {
+  if(!$_view) {
     if(!SN()->view) SN()->view = '404';
-    $view = SN()->view;
+    $_view = SN()->view;
   }
-  $urls = array(
+  $_urls = array(
     HOME_DIR . '/view/',
   );
-  $urls = apply_hook('display_view_urls', $urls);
-  $found = false;
-  foreach ($urls as $url) {
-    if(file_exists($url . $view . '.php')) {
-			if(is_array($data)) {
-				foreach ($data as $key => $value) {
-					${$key} = $value;
+  $_urls = apply_hook('display_view_urls', $_urls);
+  $_found = false;
+  foreach ($_urls as $_url) {
+    if(file_exists($_url . $_view . '.php')) {
+			if(is_array($_data)) {
+				foreach ($_data as $_key => $_value) {
+					${$_key} = $_value;
 				}
 			}
-      include $url . $view . '.php';
-      $found = true;
+      include $_url . $_view . '.php';
+      $_found = true;
       break;
     }
   }
 
-  if(!$found) {
-    SN()->create_error('file ' . $url . $view  . ' not found');
+  if(!$_found) {
+    SN()->create_error('file ' . $_url . $_view  . ' not found');
   }
   SN()->display_errors();
 }
