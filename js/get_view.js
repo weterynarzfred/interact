@@ -28,12 +28,17 @@ window.addEventListener('beforeGetView', function(event) {
 			.addClass('next-container');
 		$('#content-bar').append(nextContainer);
 	}
+	else {
+		startLoading($(event.detail.target));
+	}
 });
 
 window.addEventListener('afterGetView', function(event) {
-	currentScreen++;
-	$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
-	stopLoading($('.container.loading'));
+	if(event.detail.target === '.next-container') {
+		currentScreen++;
+		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
+		stopLoading($('.container.loading'));
+	}
 });
 
 function previousView() {

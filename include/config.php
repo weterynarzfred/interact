@@ -31,13 +31,16 @@ catch(Exception $e) {
 
 // load plugins
 call_user_func(function() {
-	$d = scandir(HOME_DIR . '/include/plugin');
-	$plugins = array_filter($d, function($f) {return is_dir(HOME_DIR . '/include/plugin/' . $f);});
-	if($plugins) {
-		for ($i=0; $i < count($plugins); $i++) {
-			$url = HOME_DIR . '/include/plugin/' . $plugins[$i] . '/' . $plugins[$i] . '.php';
-			if(file_exists($url)) {
-				include $url;
+	$url = HOME_DIR . '/include/plugin';
+	if(is_dir($url)) {
+		$d = scandir($url);
+		$plugins = array_filter($d, function($f) {return is_dir(HOME_DIR . '/include/plugin/' . $f);});
+		if($plugins) {
+			for ($i=0; $i < count($plugins); $i++) {
+				$url = HOME_DIR . '/include/plugin/' . $plugins[$i] . '/' . $plugins[$i] . '.php';
+				if(file_exists($url)) {
+					include $url;
+				}
 			}
 		}
 	}

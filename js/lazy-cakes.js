@@ -20,7 +20,6 @@ function lazyCake(e) {
 		}
 	};
 	t.load = function() {
-		console.log('load', this);
 		if(!t.isLoaded && t.el.outerHeight() !== 0) {
 			t.el.addClass('loading');
 			t.img.attr({src:t.src}).load(function() {
@@ -36,7 +35,6 @@ function lazyCake(e) {
 }
 
 function lazyCakesResize() {
-	console.log(lazyCakes);
 	lazyCakes.map(function(i, e) {e.resize();});
 	lazyCakesScroll(lazyCakes);
 }

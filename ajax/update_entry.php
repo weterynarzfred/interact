@@ -6,21 +6,17 @@ $error = false;
 
 try {
   if(!isset($values['id'])) {
-		$error = true;
     throw new Exception('correct data not provided');
   }
-}
-catch(Exception $e) {
-  SN()->create_error('ajax failed performing action "update_entry"; ' . $e);
-}
 
-if(!$error) {
 	$entry = get_entry($values['id']);
 	$entry->update($values);
-
 	$html = get_view('part/single_entry', array('entry'=>$entry));
 
 	$success = true;
+}
+catch(Exception $e) {
+  SN()->create_error('ajax failed performing action "update_entry"; ' . $e);
 }
 
 $response = array(

@@ -2,7 +2,6 @@
 
 $entry = get_entry($entry);
 $files = reader_get_folder($entry);
-$madokami_files = reader_get_madokami_files($entry);
 ?>
 
 <div class="container view view-reader">
@@ -15,9 +14,15 @@ $madokami_files = reader_get_madokami_files($entry);
 
 		<div class="rmin"></div>
 
+		downloaded
 		<pre><?php print_r($files); ?></pre>
-		<pre><?php print_r($madokami_files); ?></pre>
 
 		<div class="rmin"></div>
+
+		<?php display_view('part/madokami_filelist', array(
+			'entry'	=>	$entry,
+			'skip_check'	=>	true,
+		)); ?>
+
 	</div>
 </div>
