@@ -40,6 +40,8 @@ window.addEventListener('afterGetView', function(event) {
 		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
 		stopLoading($('.container.loading'));
 	}
+	window.dispatchEvent(new CustomEvent("LayoutChange"));
+	window.dispatchEvent(new CustomEvent("afterLayoutChange"));
 });
 
 function previousView() {
