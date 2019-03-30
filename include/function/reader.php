@@ -49,6 +49,10 @@ function reader_get_madokami_files($entry) {
 			$table[0]
 		);
 
+		usort($results, function($a, $b) {
+			return $a['chapter'] > $b['chapter'];
+		});
+
 		return $results;
 	}
 	return false;
