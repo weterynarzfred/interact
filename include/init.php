@@ -15,6 +15,7 @@ call_user_func(function() {
 });
 
 set_option('scripts', array(
+	'/vendor/jquery.timeago.js',
 	'/js/main.js',
 	'/js/get_view.js',
 	'/js/messages.js',

@@ -66,6 +66,10 @@ $filenames = array_map(function($e) {return $e['name'];}, $files);
 		data-target=".view-part-madokami_filelist"
 	>check madokami</div>
 
+	<div class="last-check-date">
+		<time class="timeago" datetime="<?php echo date(DATE_ISO8601, $entry->get_prop('madokami_last_check')); ?>"></time>
+	</div>
+
 	<div class="rmin"></div>
 
 </div>
