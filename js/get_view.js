@@ -29,6 +29,15 @@ window.addEventListener('beforeGetView', function(event) {
 			.addClass('next-container');
 		$('#content-bar').append(nextContainer);
 	}
+	else if(event.detail.view === 'part/download_progress') {
+		let target = $(event.detail.target);
+		if(target.length === 0) {
+			const cl = event.detail.target.match(/\.([a-z0-9-_]+)/);
+			const id = event.detail.target.match(/#([a-z0-9-_]+)/);
+			target = $(document.createElement('div')).addClass(cl[1]).attr({id:id[1]});
+			$('#messages').append(target);
+		}
+	}
 	else {
 		startLoading($(event.detail.target));
 	}

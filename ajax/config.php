@@ -57,11 +57,5 @@ else {
     ),
   );
 }
-if($tables_just_created) {
-  $response['fragments'][] = array(
-    'type'  =>  'message',
-    'html'  =>  'tables were created in the database',
-  );
-}
 
 echo json_encode($response);

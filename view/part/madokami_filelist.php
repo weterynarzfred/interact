@@ -14,11 +14,13 @@ $entry = get_entry($entry);
 		$madokami_files = reader_get_madokami_files($entry);
 		if($madokami_files) {
 			foreach($madokami_files as $file) {
+				$file_slug = create_slug($file['name']);
 	?>
 	<div
 		class="madokami-file"
 		data-id="<?php echo $entry->get_id(); ?>"
 		data-url="https://manga.madokami.al<?php echo $file['url']; ?>"
+		data-file-slug="<?php echo $file_slug; ?>"
 	><?php echo $file['name']; ?></div>
 	<?php
 			}

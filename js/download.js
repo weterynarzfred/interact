@@ -1,4 +1,4 @@
-function download(id, url) {
+function download(id, url, fileSlug) {
 	const request = doQuery({
 		data	:	{
 			action	:	'download',
@@ -11,24 +11,26 @@ function download(id, url) {
 		request.done(function() {
 			state.isFinished = true;
 		});
-		readProgress.call(state, id, url);
+		readProgress.call(state, id, url, fileSlug);
 	}
 }
 
-function readProgress(id, url) {
+function readProgress(id, url, fileSlug) {
 	getView(
 		'part/download_progress',
-		'.view-part-download_progress',
+		'.view-part-download_progress#progress-' + fileSlug,
 		{entry: id, url},
-		(function(state, id, url) {
-			return function(view, target, details, data) {
-				if(!state.isFinished) {
-					setTimeout(readProgress.bind(state, id, url), 1000);
-				}
-				else {
-					getView('part/reader_filelist', '.view-part-reader_filelist', {entry: id});
-				}
-			}
-		})(this, id, url)
+		createReadProgressCallback(this, id, url, fileSlug)
 	);
+}
+
+function createReadProgressCallback(state, id, url, fileSlug) {
+	return function(view, target, details, data) {
+		if(!state.isFinished) {
+			setTimeout(readProgress.bind(state, id, url, fileSlug), 1000);
+		}
+		else {
+			getView('part/reader_filelist', '.view-part-reader_filelist', {entry: id});
+		}
+	}
 }

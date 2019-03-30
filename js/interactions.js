@@ -15,7 +15,7 @@ $(document)
 	// download from madokami
 	.on('click', '.madokami-file', function() {
 		const t = $(this);
-		download(t.data('id'), t.data('url'));
+		download(t.data('id'), t.data('url'), t.data('file-slug'));
 	});
 }
 
