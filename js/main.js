@@ -55,7 +55,7 @@ function shuffleArray(array) {
 
 // interact with the database through ajax
 const doQuery = (function() {
-	let currentQueryIds = {};
+	let currentQueryIds = [];
 
 	// update the DOM based on the ajax response
 	function handleFragments(data) {
@@ -104,11 +104,41 @@ const doQuery = (function() {
 		}
 	}
 
+	function getQueryType(data) {
+		if(data.action === 'get_view') return 'get_view_' + data.values.target;
+		return data.action;
+	}
+
+	function getNextQueryId(data) {
+		const type = getQueryType(data);
+		for(var queryPair in currentQueryIds) {
+			if(currentQueryIds.hasOwnProperty(queryPair)) {
+				if(currentQueryIds[queryPair].type === type) {
+					return ++currentQueryIds[queryPair].id;
+				}
+			}
+		}
+		currentQueryIds.push({
+			type, id: 0,
+		});
+		return 0;
+	}
+
+	function getLastQueryId(data) {
+		const type = getQueryType(data);
+		for(var queryPair in currentQueryIds) {
+			if(currentQueryIds.hasOwnProperty(queryPair)) {
+				if(currentQueryIds[queryPair].type === type) {
+					return currentQueryIds[queryPair].id;
+				}
+			}
+		}
+		return false;
+	}
+
 	return function(p) {
 		if(p.data !== void 0) {
-			const queryId = (currentQueryIds[p.data.action] === void 0) ?
-			0 : currentQueryIds[p.data.action] + 1;
-			currentQueryIds[p.data.action] = queryId;
+			const queryId = getNextQueryId(p.data);
 			let args = {
 				method   : 'post',
 				url      : ajaxUrl,
@@ -119,19 +149,19 @@ const doQuery = (function() {
 			let request = $.ajax(args);
 			request.done(function(data) {
 				// prevent calling an action if a more recent query was issued
-				if(currentQueryIds[p.data.action] === queryId) {
+				if(getLastQueryId(p.data) === queryId) {
 					if(p.filter !== void 0) data = p.filter(data);
 					handleFragments(data);
 					if(p.callback !== void 0) p.callback(data);
+					window.dispatchEvent(
+						new CustomEvent('ajaxRequestDone', {
+							detail	:	{
+								data	:	data,
+								values	:	p.data.values,
+							}
+						})
+					);
 				}
-				window.dispatchEvent(
-					new CustomEvent('ajaxRequestDone', {
-						detail:{
-							data:data,
-							values:p.data.values,
-						}
-					})
-				);
 			});
 			return request;
 		}
@@ -187,33 +217,33 @@ const doQuery = (function() {
 	  });
 	})
 	// navigation links
-	.on('click', '.navigation-link', function() {
-		const name = $(this).data('target');
-		const value = $(this).data('value');
-		doQuery({
-	    data  : {
-	      action  : 'display_view',
-				values	:	{
-					name,
-					value,
-				},
-	    },
-			filter	:	(function(name) { return function(data) {
-				if(data.success) {
-					currentView = name;
-				}
-				window.dispatchEvent(
-					new CustomEvent('beforeNavigation', {detail:{name, value}})
-				);
-				return data;
-			};})(name),
-			callback	:	function() {
-				window.dispatchEvent(
-					new CustomEvent('afterNavigation', {detail:{name, value}})
-				);
-			},
-	  });
-	})
+	// .on('click', '.navigation-link', function() {
+	// 	const name = $(this).data('target');
+	// 	const value = $(this).data('value');
+	// 	doQuery({
+	//     data  : {
+	//       action  : 'display_view',
+	// 			values	:	{
+	// 				name,
+	// 				value,
+	// 			},
+	//     },
+	// 		filter	:	(function(name) { return function(data) {
+	// 			if(data.success) {
+	// 				currentView = name;
+	// 			}
+	// 			window.dispatchEvent(
+	// 				new CustomEvent('beforeNavigation', {detail:{name, value}})
+	// 			);
+	// 			return data;
+	// 		};})(name),
+	// 		callback	:	function() {
+	// 			window.dispatchEvent(
+	// 				new CustomEvent('afterNavigation', {detail:{name, value}})
+	// 			);
+	// 		},
+	//   });
+	// })
 	// get view links
 	.on('click', '.get-view', function() {
 		const view = $(this).data('view');
