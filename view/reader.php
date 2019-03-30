@@ -10,7 +10,7 @@ $files = reader_get_folder($entry);
 		<div class="return button">return</div>
 		<div class="rmin"></div>
 
-		<?php echo $entry->get_name(); ?>
+		<div class="reader-entry-name"><?php echo $entry->get_name(); ?></div>
 
 		<div class="rmin"></div>
 

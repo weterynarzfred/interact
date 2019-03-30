@@ -4,7 +4,12 @@ $entry = get_entry($entry);
 
 <div class="view view-part-single_entry column" id="entry-<?php echo $entry->get_id(); ?>">
 	<div class="rmin"></div>
-	<div class="single-entry">
+	<div
+		class="single-entry get-view"
+		data-view="reader"
+		data-details='<?php echo json_encode(array('entry'=>$entry->get_id())); ?>'
+		data-target=".next-container"
+	>
 		<div class="entry-name"><?php echo $entry->get_name(); ?></div>
 		<?php display_view('part/single_entry_progress', array('entry'=>$entry)); ?>
 		<?php $cover = $entry->get_prop('cover'); ?>
@@ -18,12 +23,6 @@ $entry = get_entry($entry);
 			</svg>
 		</div>
 		<div class="entry-buttons">
-			<div
-				class="button get-view"
-				data-view="reader"
-				data-details='<?php echo json_encode(array('entry'=>$entry->get_id())); ?>'
-				data-target=".next-container"
-			>read</div>
 			<div
 				class="button get-view"
 				data-view="edit_entry"

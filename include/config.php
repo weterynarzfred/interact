@@ -15,8 +15,21 @@ set_option('entry_properties', array(
 	'downloaded',
 	'is_finished',
 	'cover',
-	'madokami_url'
+	'madokami_url',
+	'madokami_filelist',
+	'madokami_last_check'
 ), false);
+
+add_to_hook('get_prop_madokami_filelist', function($value, $entry) {
+	return json_decode($value, true);
+});
+add_to_hook('update_entry', function($values, $entry) {
+	if(isset($values['madokami_filelist'])) {
+		$values['madokami_filelist'] = json_encode($values['madokami_filelist']);
+	}
+	return $values;
+});
+
 
 
 try {

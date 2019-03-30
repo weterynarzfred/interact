@@ -50,8 +50,13 @@ function reader_get_madokami_files($entry) {
 		);
 
 		usort($results, function($a, $b) {
-			return $a['chapter'] > $b['chapter'];
+			return $a['chapter'] < $b['chapter'];
 		});
+
+		$entry->update(array(
+			'madokami_filelist'	=>	$results,
+			'madokami_last_check'	=>	time(),
+		));
 
 		return $results;
 	}

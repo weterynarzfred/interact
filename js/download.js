@@ -31,6 +31,10 @@ function createReadProgressCallback(state, id, url, fileSlug) {
 		}
 		else {
 			getView('part/reader_filelist', '.view-part-reader_filelist', {entry: id});
+			getView('part/madokami_filelist', '.view-part-madokami_filelist', {
+				entry	:	id,
+				skip_check	:	true,
+			});
 		}
 	}
 }

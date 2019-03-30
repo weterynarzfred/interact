@@ -42,7 +42,6 @@ window.addEventListener('afterGetView', function(event) {
 	}
 	else if(event.detail.view === 'part/download_progress') {
 		const target = $(event.detail.target);
-		console.log(target.data('percentage'));
 		target.siblings('.progress').css({width: target.data('percentage') + '%'});
 	}
 	window.dispatchEvent(new CustomEvent("LayoutChange"));
