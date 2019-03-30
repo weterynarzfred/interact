@@ -100,11 +100,11 @@ class SN {
 
   public function db_connect() {
     if(!isset($this->conn)) {
-      $url = HOME_DIR . '/config.json';
-      $string = file_get_contents($url);
-      $config = json_decode($string, true);
+      // $url = HOME_DIR . '/config.json';
+      // $string = file_get_contents($url);
+      // $config = json_decode($string, true);
   		try {
-  			$this->conn = new PDO("mysql:host=".$config['db_host'].";dbname=".$config['db_name'].";charset=utf8", $config['db_user'], $config['db_password']);
+  			$this->conn = new PDO("mysql:host=".get_option('db_host').";dbname=".get_option('db_name').";charset=utf8", get_option('db_user'), get_option('db_password'));
   			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   			$this->conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
   		}

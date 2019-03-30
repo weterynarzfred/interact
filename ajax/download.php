@@ -13,7 +13,8 @@ function downloadLink($link, $destination) {
 	);
 	$link = str_replace(
 		'/manga.madokami.al',
-		'/me123:12345@manga.madokami.al',
+		'/' . get_option('madokami_user') . ':' . get_option('madokami_password') .
+		'@manga.madokami.al',
 		$link
 	);
 	$filename = explode('/', $link);

@@ -27,7 +27,7 @@ $entry = get_entry($entry);
 		data-file-slug="<?php echo $file_slug; ?>"
 	>
 		<?php echo $file['name']; ?>
-		[<?php echo get_chapter_number($file['name']); ?>]
+		[<?php echo $file['chapter']; ?>]
 		<div class="madokami-download-progress-bar">
 			<div class="progress"></div>
 			<?php display_view('part/download_progress', array(

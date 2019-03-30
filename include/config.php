@@ -1,4 +1,12 @@
 <?php
+
+$url = HOME_DIR . '/config.json';
+$string = file_get_contents($url);
+$config = json_decode($string, true);
+foreach ($config as $option_name => $option_value) {
+	set_option($option_name, $option_value, false);
+}
+
 SN()->test_db_tables();
 
 set_option('entry_properties', array(

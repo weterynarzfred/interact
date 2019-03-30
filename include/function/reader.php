@@ -25,7 +25,11 @@ function reader_get_madokami_files($entry) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $madokami_url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($curl, CURLOPT_USERPWD, "me123:12345");
+		curl_setopt(
+			$curl,
+			CURLOPT_USERPWD,
+			get_option('madokami_user') . ":" . get_option('madokami_password')
+		);
 		curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
 		$output = curl_exec($curl);
 		curl_close($curl);
@@ -39,6 +43,7 @@ function reader_get_madokami_files($entry) {
 				$results[] = array(
 					'url'	=>	$matches[1],
 					'name'	=>	$matches[2],
+					'chapter'	=>	get_chapter_number($matches[2]),
 				);
 			},
 			$table[0]
