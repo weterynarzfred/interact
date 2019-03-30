@@ -2,11 +2,15 @@
 /*
 used variables:
 int|Entry	$entry
-bool			$skip_check
-array			$files // not yet implemented
+bool			$skip_check = false
+array			$files = reader_get_folder($entry)
 */
 
 $entry = get_entry($entry);
+if(!isset($files)) {
+	$files = reader_get_folder($entry);
+}
+$filenames = array_map(function($e) {return $e['name'];}, $files);
 ?>
 
 <div class="view view-part-madokami_filelist">
@@ -24,7 +28,7 @@ $entry = get_entry($entry);
 			$file_slug = create_slug($file['name']);
 			$classes = array();
 			if($file['chapter'] <= $entry->get_prop('read')) $classes[] = 'read';
-			if($file['chapter'] <= $entry->get_prop('downloaded')) $classes[] = 'downloaded';
+			if(in_array($file['name'], $filenames)) $classes[] = 'downloaded';
 	?>
 	<div
 		class="madokami-file file <?php echo implode(' ', $classes); ?>"

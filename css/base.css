@@ -268,6 +268,9 @@ input[type="text"]:focus {
 
 
 /*----- madokami -----*/
+.madokami-file {
+	padding-bottom:.35em;
+}
 .madokami-file.read .madokami-chapter-number {
 	background-color:#999;
 }

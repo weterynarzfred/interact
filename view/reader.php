@@ -14,11 +14,12 @@ $files = reader_get_folder($entry);
 
 		<div class="rmin"></div>
 
-		<?php display_view('part/reader_filelist', array('entry'=>$entry)); ?>
+		<?php display_view('part/reader_filelist', array('files'=>$files)); ?>
 
 		<?php display_view('part/madokami_filelist', array(
 			'entry'	=>	$entry,
 			'skip_check'	=>	true,
+			'files'	=>	$files,
 		)); ?>
 
 	</div>

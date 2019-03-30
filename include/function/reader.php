@@ -11,8 +11,19 @@ function reader_get_folder_url($entry) {
 function reader_get_folder($entry) {
 	$url = reader_get_folder_url($entry);
 	$files = array_diff(scandir($url), array('.', '..'));
-	$files = array_map(function($f) use ($url) {return $url . '/' . $f;}, $files);
+	$files = array_map(function($f) use ($url) {
+		return array(
+			'url'	=>	$url . '/' . $f,
+			'name'	=>	$f,
+			'chapter'	=>	get_chapter_number($f),
+		);
+	}, $files);
 	// $files = array_filter($files, function($f) {return is_dir($f);});
+
+	usort($files, function($a, $b) {
+		return $a['chapter'] < $b['chapter'];
+	});
+
 	return $files;
 }
 
