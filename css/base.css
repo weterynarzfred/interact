@@ -72,6 +72,7 @@ body {
 	opacity:0;
 	transition:.3s;
 	pointer-events:none;
+	z-index:1;
 }
 .container.loading:after,
 .ajax-form.loading:after,

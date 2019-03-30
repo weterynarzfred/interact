@@ -20,7 +20,8 @@ class Entry {
 	    // get properties from entry_meta table
 	    $entry_properties = get_option('entry_properties');
 	    if($entry_properties) {
-	      $prop_string = '\'' . implode('\', \'', $entry_properties) . '\'';
+				$entry_property_names = array_map(function($e) {return $e[0];}, $entry_properties);
+	      $prop_string = '\'' . implode('\', \'', $entry_property_names) . '\'';
 	      try {
 	    		$sql = "
 	    			SELECT `name`, `value`
@@ -34,7 +35,7 @@ class Entry {
 	    		$result = $sql->fetchAll(PDO::FETCH_ASSOC);
 	        for ($i=0; $i < count($result); $i++) {
 	          $this->props[$result[$i]['name']] = $result[$i]['value'];
-	        }
+					}
 	    	}
 	    	catch(Exception $e) {
 	    		SN()->create_error('could not retrieve entry properties: ' . $e->getMessage());
@@ -117,8 +118,8 @@ class Entry {
 			if($entry_properties) {
 				$set = array();
 				for ($i = 0; $i < count($entry_properties); $i++) {
-					if(isset($values[$entry_properties[$i]])) {
-						$set[] = '(\'' . $this->entry_id . '\', \'' . $entry_properties[$i] . '\', :' . $entry_properties[$i] . ')';
+					if(isset($values[$entry_properties[$i][0]])) {
+						$set[] = '(\'' . $this->entry_id . '\', \'' . $entry_properties[$i][0] . '\', :' . $entry_properties[$i][0] . ')';
 					}
 				}
 				if(count($set)) {
@@ -131,14 +132,14 @@ class Entry {
 					";
 					$sql = SN()->db_connect()->prepare($sql);
 					for ($i=0; $i < count($entry_properties); $i++) {
-						if(isset($values[$entry_properties[$i]])) {
-							$sql->bindParam(':' . $entry_properties[$i], $values[$entry_properties[$i]]);
+						if(isset($values[$entry_properties[$i][0]])) {
+							$sql->bindParam(':' . $entry_properties[$i][0], $values[$entry_properties[$i][0]]);
 						}
 					}
 					$sql->execute();
 					for ($i = 0; $i < count($entry_properties); $i++) {
-						if(isset($values[$entry_properties[$i]])) {
-							$this->props[$entry_properties[$i]] = $values[$entry_properties[$i]];
+						if(isset($values[$entry_properties[$i][0]])) {
+							$this->props[$entry_properties[$i][0]] = $values[$entry_properties[$i][0]];
 						}
 					}
 				}

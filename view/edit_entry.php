@@ -25,16 +25,18 @@ $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 
 			<?php // entry properties
 		  $entry_properties = get_option('entry_properties');
-		  for ($i=0; $i < count($entry_properties); $i++) { ?>
+		  for($i = 0; $i < count($entry_properties); $i++) {
+				if($entry_properties[$i][1]) {
+			?>
 		    <div class="input-line">
-		      <div class="input-label"><?php echo $entry_properties[$i]; ?></div>
+		      <div class="input-label"><?php echo $entry_properties[$i][0]; ?></div>
 		      <input
 		        type="text"
-		        name="<?php echo $entry_properties[$i]; ?>"
-		        value="<?php echo $entry->get_prop($entry_properties[$i]); ?>"
+		        name="<?php echo $entry_properties[$i][0]; ?>"
+		        value="<?php echo $entry->get_prop($entry_properties[$i][0]); ?>"
 		      >
 		    </div>
-		  <?php } ?>
+		  <?php }} ?>
 
 			<div class="rmin"></div>
 			<div class="text-right">
@@ -45,28 +47,3 @@ $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 		<div class="rmin"></div>
 	</div>
 </div>
-
-
-
-
-
-
-<?php if(false) { ?>
-<div class="container">
-
-	<div class="rmin"></div>
-	<div class="text-center">
-		<svg class="show-more" data-target="#edit-entry-danger" viewBox="0 0 100 50">
-			<path d="M10 10L50 40L90 10" />
-		</svg>
-	</div>
-	<div class="text-right hidden" id="edit-entry-danger">
-		<div class="rmik"></div>
-		<div class="entry-remove navigation-link" data-target="home">
-			<div class="button remove-entry" data-id="<?php echo $entry->get_ID(); ?>">remove entry</div>
-		</div>
-	</div>
-
-</div>
-
-<?php } ?>

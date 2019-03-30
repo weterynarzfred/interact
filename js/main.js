@@ -189,34 +189,34 @@ const doQuery = (function() {
 	      values,
 	    },
 			callback	: (function(action, details, values, t) {
-				return function() {
+				return function(data) {
 					stopLoading(t);
 					window.dispatchEvent(
-						new CustomEvent('afterFormSubmit_'+action, {detail:{details, values}})
+						new CustomEvent('afterFormSubmit_'+action, {detail:{details, values, data}})
 					);
 				}
 			})(action, details, values, t),
 	  });
 	})
-	// adding entries
-	.on('click', '.add-entry', function() {
-		doQuery({
-	    data  : {
-	      action  : 'add_entry',
-	    }
-	  });
-	})
-	// removing entries
-	.on('click', '.remove-entry', function() {
-		const id = $(this).data('id');
-		doQuery({
-	    data  : {
-	      action  : 'remove_entry',
-				values	:	{id},
-	    }
-	  });
-	})
-	// navigation links
+	// // adding entries
+	// .on('click', '.add-entry', function() {
+	// 	doQuery({
+	//     data  : {
+	//       action  : 'add_entry',
+	//     }
+	//   });
+	// })
+	// // removing entries
+	// .on('click', '.remove-entry', function() {
+	// 	const id = $(this).data('id');
+	// 	doQuery({
+	//     data  : {
+	//       action  : 'remove_entry',
+	// 			values	:	{id},
+	//     }
+	//   });
+	// })
+	// // navigation links
 	// .on('click', '.navigation-link', function() {
 	// 	const name = $(this).data('target');
 	// 	const value = $(this).data('value');

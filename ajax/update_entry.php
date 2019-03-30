@@ -29,7 +29,7 @@ if($success) {
   $response['fragments'] = array(
     array(
       'type'  =>  'replace',
-      'element' =>  '#entry-' . $values['id'],
+      'element' =>  '#entry-' . $entry->get_id(),
       'html'  => $html,
 			'onEmpty'	=>	array(
 	      'type'  =>  'append',
@@ -42,6 +42,9 @@ if($success) {
       'html'  =>  'the entry was updated',
     ),
   );
+	if($values['id'] == '') {
+		$response['lastInsertedId'] = $entry->get_id();
+	}
 }
 else {
   $response['fragments'] = array(

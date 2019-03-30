@@ -10,14 +10,14 @@ foreach ($config as $option_name => $option_value) {
 SN()->test_db_tables();
 
 set_option('entry_properties', array(
-	'read',
-	'ready',
-	'downloaded',
-	'is_finished',
-	'cover',
-	'madokami_url',
-	'madokami_filelist',
-	'madokami_last_check'
+	['read', true],
+	['ready', true],
+	['downloaded', true],
+	['is_finished', true],
+	['cover', true],
+	['madokami_url', true],
+	['madokami_filelist', false],
+	['madokami_last_check', false],
 ), false);
 
 add_to_hook('get_prop_madokami_filelist', function($value, $entry) {
@@ -29,8 +29,6 @@ add_to_hook('update_entry', function($values, $entry) {
 	}
 	return $values;
 });
-
-
 
 try {
 	$sql = "
