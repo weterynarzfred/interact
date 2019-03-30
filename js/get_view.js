@@ -29,15 +29,6 @@ window.addEventListener('beforeGetView', function(event) {
 			.addClass('next-container');
 		$('#content-bar').append(nextContainer);
 	}
-	else if(event.detail.view === 'part/download_progress') {
-		let target = $(event.detail.target);
-		if(target.length === 0) {
-			const cl = event.detail.target.match(/\.([a-z0-9-_]+)/);
-			const id = event.detail.target.match(/#([a-z0-9-_]+)/);
-			target = $(document.createElement('div')).addClass(cl[1]).attr({id:id[1]});
-			$('#messages').append(target);
-		}
-	}
 	else {
 		startLoading($(event.detail.target));
 	}
@@ -48,6 +39,11 @@ window.addEventListener('afterGetView', function(event) {
 		currentScreen++;
 		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
 		stopLoading($('.container.loading'));
+	}
+	else if(event.detail.view === 'part/download_progress') {
+		const target = $(event.detail.target);
+		console.log(target.data('percentage'));
+		target.siblings('.progress').css({width: target.data('percentage') + '%'});
 	}
 	window.dispatchEvent(new CustomEvent("LayoutChange"));
 	window.dispatchEvent(new CustomEvent("afterLayoutChange"));

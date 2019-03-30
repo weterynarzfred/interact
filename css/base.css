@@ -225,7 +225,28 @@ input[type="text"]:focus {
 	font-size:.79em;
 	cursor:pointer;
 	transition:.2s;
+	background-color:#fff;
+	margin-bottom:.25em;
+	padding:.25em .5em;
+	position:relative;
 }
 .madokami-file:hover {
 	color:#f55;
+}
+.madokami-download-progress-bar {
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	height:1px;
+	transition:.2s;
+}
+.madokami-file:hover .madokami-download-progress-bar {
+	background-color:#fcc;
+}
+.madokami-download-progress-bar .progress {
+	width:0;
+	height:100%;
+	background-color:#f55;
+	transition:1s linear;
 }

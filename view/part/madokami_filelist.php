@@ -1,15 +1,19 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables:
+int|Entry	$entry
+bool			$skip_check
+*/
 
 $entry = get_entry($entry);
 ?>
 
 <div class="view view-part-madokami_filelist">
-	madokami
+	<p>madokami</p>
+
+	<div class="rmin"></div>
 
 	<?php
-
-	display_view('part/download_progress', array('entry'=>$entry));
-
 	if(!isset($skip_check) || !$skip_check) {
 		$madokami_files = reader_get_madokami_files($entry);
 		if($madokami_files) {
@@ -21,7 +25,17 @@ $entry = get_entry($entry);
 		data-id="<?php echo $entry->get_id(); ?>"
 		data-url="https://manga.madokami.al<?php echo $file['url']; ?>"
 		data-file-slug="<?php echo $file_slug; ?>"
-	><?php echo $file['name']; ?></div>
+	>
+		<?php echo $file['name']; ?>
+		[<?php echo get_chapter_number($file['name']); ?>]
+		<div class="madokami-download-progress-bar">
+			<div class="progress"></div>
+			<?php display_view('part/download_progress', array(
+				'entry'	=>	$entry,
+				'url'	=>	$file['url'],
+			)); ?>
+		</div>
+	</div>
 	<?php
 			}
 		}
