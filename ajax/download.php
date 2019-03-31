@@ -5,7 +5,7 @@ set_time_limit(86400);
 $values = $_POST['values'];
 $success = false;
 
-function downloadLink($link, $destination) {
+function download_file($link, $destination) {
   $ctx = stream_context_create();
   stream_context_set_params(
 		$ctx,
@@ -61,10 +61,20 @@ try {
 	$filename = explode('/', $values['url']);
 	$filename = urldecode(end($filename));
 	global $reader_progress_log_url;
-	$reader_progress_log_url = $reader_folder_url . '/progress - ' . $filename . '.txt';
+	$reader_progress_log_url =
+		$reader_folder_url . '/progress - ' . $filename . '.txt';
 
-	downloadLink($values['url'], $reader_folder_url);
+	download_file($values['url'], $reader_folder_url);
+
+	$name = explode('.', $filename);
+	array_pop($name);
+	$name = implode('.', $name);
+	$cmd = '"' . get_option('7z_path') . '" x -o"' . $reader_folder_url . '/' .
+		$name . '" "' . $reader_folder_url . '/' . $filename . '"';
+	$r = shell_exec($cmd);
+
 	unlink($reader_progress_log_url);
+	unlink($reader_folder_url . '/' . $filename);
 
   $success = true;
 }

@@ -49,11 +49,12 @@ function reader_get_madokami_files($entry) {
 		$table = preg_split('/<table id="index-table.*?>/is', $output, 2);
 		$table = preg_split('/<\/table>/is', $table[1], 2);
 		preg_replace_callback(
-			'/<tr data-record="[0-9]*">[^<]*<td>[^<]*<a href="([^"]*)"[^>]*>([^<]*)<\/a>/is',
+			'/<tr data-record="[0-9]*">[^<]*<td>[^<]*<a href="([^"]*)"[^>]*>(([^<.]*).[^<]+)<\/a>/is',
 			function($matches) use (&$results) {
 				$results[] = array(
 					'url'	=>	$matches[1],
-					'name'	=>	$matches[2],
+					'filename'	=>	$matches[2],
+					'name'	=>	$matches[3],
 					'chapter'	=>	get_chapter_number($matches[2]),
 				);
 			},

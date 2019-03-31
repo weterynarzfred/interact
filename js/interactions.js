@@ -41,7 +41,6 @@ function stopLoading(element) {
 // refresh edit form after adding a new entry
 window.addEventListener('afterFormSubmit_update_entry', function(event) {
 	if(event.detail.values.id == '') {
-		console.log(event.detail.data);
 		const id = event.detail.data.lastInsertedId;
 		getView('edit_entry', '.view-edit_entry', {entry: id});
 	}
