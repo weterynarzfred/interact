@@ -66,15 +66,21 @@ try {
 
 	download_file($values['url'], $reader_folder_url);
 
-	$name = explode('.', $filename);
-	array_pop($name);
-	$name = implode('.', $name);
+	$fp = fopen($reader_progress_log_url, 'w');
+	fputs($fp, '1/1');
+	fclose($fp);
+
+	$name_array = pathinfo($filename);
+	$name = $name_array['filename'];
+	$filename = $name_array['basename'];
 	$cmd = '"' . get_option('7z_path') . '" x -o"' . $reader_folder_url . '/' .
 		$name . '" "' . $reader_folder_url . '/' . $filename . '"';
 	$r = shell_exec($cmd);
 
 	unlink($reader_progress_log_url);
 	unlink($reader_folder_url . '/' . $filename);
+
+	flatten_reader_folder($reader_folder_url, $name);
 
   $success = true;
 }

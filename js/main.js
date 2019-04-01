@@ -198,52 +198,7 @@ const doQuery = (function() {
 			})(action, details, values, t),
 	  });
 	})
-	// // adding entries
-	// .on('click', '.add-entry', function() {
-	// 	doQuery({
-	//     data  : {
-	//       action  : 'add_entry',
-	//     }
-	//   });
-	// })
-	// // removing entries
-	// .on('click', '.remove-entry', function() {
-	// 	const id = $(this).data('id');
-	// 	doQuery({
-	//     data  : {
-	//       action  : 'remove_entry',
-	// 			values	:	{id},
-	//     }
-	//   });
-	// })
-	// // navigation links
-	// .on('click', '.navigation-link', function() {
-	// 	const name = $(this).data('target');
-	// 	const value = $(this).data('value');
-	// 	doQuery({
-	//     data  : {
-	//       action  : 'display_view',
-	// 			values	:	{
-	// 				name,
-	// 				value,
-	// 			},
-	//     },
-	// 		filter	:	(function(name) { return function(data) {
-	// 			if(data.success) {
-	// 				currentView = name;
-	// 			}
-	// 			window.dispatchEvent(
-	// 				new CustomEvent('beforeNavigation', {detail:{name, value}})
-	// 			);
-	// 			return data;
-	// 		};})(name),
-	// 		callback	:	function() {
-	// 			window.dispatchEvent(
-	// 				new CustomEvent('afterNavigation', {detail:{name, value}})
-	// 			);
-	// 		},
-	//   });
-	// })
+
 	// get view links
 	.on('click', '.get-view', function() {
 		const view = $(this).data('view');

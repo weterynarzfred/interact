@@ -28,7 +28,7 @@ $filenames = array_map(function($e) {return $e['name'];}, $files);
 			$file_slug = create_slug($madokami_file['filename']);
 			$classes = array();
 			if($madokami_file['chapter'] <= $entry->get_prop('read')) $classes[] = 'read';
-			if(in_array($madokami_file['name'], $filenames)) $classes[] = 'downloaded';
+			if(in_array($madokami_file['chapter'], $filenames)) $classes[] = 'downloaded';
 	?>
 	<div
 		class="madokami-file file <?php echo implode(' ', $classes); ?>"

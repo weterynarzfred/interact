@@ -25,9 +25,9 @@ if(!isset($files)) {
 		class="reader-file file <?php echo implode(' ', $classes); ?>"
 		data-url="<?php echo $file['url']; ?>"
 	>
-		<div class="reader-chapter-number chapter-number">
-			<?php echo $file['chapter']; ?>
-		</div>
+		<!-- <div class="reader-chapter-number chapter-number">
+			<?php // echo $file['chapter']; ?>
+		</div> -->
 		<div class="reader-filename filename">
 			<?php echo $file['name']; ?>
 		</div>

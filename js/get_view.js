@@ -1,4 +1,18 @@
-const getView = function(view, target, details, callback) {
+function previousView() {
+	if(currentScreen > 0) {
+		currentScreen--;
+		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
+		$('.container').each(function(index) {
+			if(index > currentScreen) {
+				setTimeout(function() {
+					$(this).remove();
+				}.bind(this), 500);
+			}
+		});
+	}
+}
+
+function getView(view, target, details, callback) {
 	window.dispatchEvent(
 		new CustomEvent('beforeGetView', {detail:{view, target, details}})
 	);
@@ -18,7 +32,7 @@ const getView = function(view, target, details, callback) {
 			if(callback !== void 0) callback.call(this, view, target, details, data);
 		},
 	});
-};
+}
 
 let currentScreen = 0;
 
@@ -43,23 +57,11 @@ window.addEventListener('afterGetView', function(event) {
 	else if(event.detail.view === 'part/download_progress') {
 		const target = $(event.detail.target);
 		if(target.data('percentage') > 0) {
-			target.siblings('.progress').css({width: target.data('percentage') + '%'});
+			target
+				.siblings('.progress')
+				.css({width: target.data('percentage') + '%'});
 		}
 	}
 	window.dispatchEvent(new CustomEvent("LayoutChange"));
 	window.dispatchEvent(new CustomEvent("afterLayoutChange"));
 });
-
-function previousView() {
-	if(currentScreen > 0) {
-		currentScreen--;
-		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
-		$('.container').each(function(index) {
-			if(index > currentScreen) {
-				setTimeout(function() {
-					$(this).remove();
-				}.bind(this), 500);
-			}
-		});
-	}
-}
