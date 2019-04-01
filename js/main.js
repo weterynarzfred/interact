@@ -151,6 +151,7 @@ const doQuery = (function() {
 				// prevent calling an action if a more recent query was issued
 				if(getLastQueryId(p.data) === queryId) {
 					if(p.filter !== void 0) data = p.filter(data);
+					if(p.callbackBefore !== void 0) p.callbackBefore(data);
 					handleFragments(data);
 					if(p.callback !== void 0) p.callback(data);
 					window.dispatchEvent(

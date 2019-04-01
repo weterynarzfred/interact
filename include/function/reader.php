@@ -4,24 +4,23 @@ function reader_get_folder_url($entry) {
 	$entry = get_entry($entry);
 	$url_base = get_option('manga_url');
 	$url = $url_base . $entry->get_id();
-	if(!is_dir($url)) mkdir($url);
+	if(!is_dir(HOME_DIR . $url)) mkdir(HOME_DIR . $url);
 	return $url;
 }
 
 function reader_get_folder($entry) {
-	$url = reader_get_folder_url($entry);
+	$url = HOME_DIR . reader_get_folder_url($entry);
 	$files = array_diff(scandir($url), array('.', '..'));
 	$files = array_map(function($f) use ($url) {
 		return array(
 			'url'	=>	$url . '/' . $f,
 			'name'	=>	$f,
-			// 'chapter'	=>	get_chapter_number($f),
 		);
 	}, $files);
-	// $files = array_filter($files, function($f) {return is_dir($f);});
+	$files = array_filter($files, function($f) {return is_dir($f['url']);});
 
 	usort($files, function($a, $b) {
-		return strnatcmp($a['name'], $b['name']);
+		return strnatcmp($b['name'], $a['name']);
 	});
 
 	return $files;

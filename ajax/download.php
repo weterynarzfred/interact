@@ -57,7 +57,7 @@ try {
   }
 
   $entry = get_entry($values['id']);
-	$reader_folder_url = reader_get_folder_url($entry);
+	$reader_folder_url = HOME_DIR . reader_get_folder_url($entry);
 	$filename = explode('/', $values['url']);
 	$filename = urldecode(end($filename));
 	global $reader_progress_log_url;

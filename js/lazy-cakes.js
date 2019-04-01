@@ -56,6 +56,9 @@ $(window).load(function() {
 				for(var f in event.detail.data.fragments) {
 					if(event.detail.data.fragments.hasOwnProperty(f)) {
 						if(event.detail.data.fragments[f].element !== void 0) {
+							if(event.detail.data.fragments[f].element === '.next-container') {
+								event.detail.data.fragments[f].element = '.container.current';
+							}
 							$(event.detail.data.fragments[f].element).find('.lazy-cake').map(function(i, e) {
 								lazyCakes.push(new lazyCake(e));
 							});

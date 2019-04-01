@@ -1,9 +1,11 @@
 function previousView() {
 	if(currentScreen > 0) {
 		currentScreen--;
-		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
+		$('#content-bar-offset').css({marginLeft:(-currentScreen * 100) + '%'});
+		$('.container').eq(currentScreen).addClass('current');
 		$('.container').each(function(index) {
 			if(index > currentScreen) {
+				$(this).removeClass('current');
 				setTimeout(function() {
 					$(this).remove();
 				}.bind(this), 500);
@@ -51,7 +53,9 @@ window.addEventListener('beforeGetView', function(event) {
 window.addEventListener('afterGetView', function(event) {
 	if(event.detail.target === '.next-container') {
 		currentScreen++;
-		$('#content-bar').css({marginLeft:(-currentScreen * 100) + '%'});
+		$('#content-bar-offset').css({marginLeft:(-currentScreen * 100) + '%'});
+		$('.container').removeClass('current').eq(currentScreen).addClass('current');
+
 		stopLoading($('.container.loading'));
 	}
 	else if(event.detail.view === 'part/download_progress') {
@@ -65,3 +69,5 @@ window.addEventListener('afterGetView', function(event) {
 	window.dispatchEvent(new CustomEvent("LayoutChange"));
 	window.dispatchEvent(new CustomEvent("afterLayoutChange"));
 });
+
+$('.container').addClass('current');

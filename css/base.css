@@ -5,19 +5,23 @@ body {
 	display:none;
 }
 #content {
-	width:49.2em;
+/* 	width:49.2em;
 	border:1px solid #000;
-	margin:3em auto;
+	margin:3em auto; */
+	padding:2em 3em;
 }
 #content-bar {
 	display:flex;
-	width:200%;
+	width:100%;
+}
+#content-bar-offset {
 	transition: margin .5s;
 }
 .container {
 	position:relative;
-	width:50%;
+	width:100%;
 	transition:.3s;
+	flex-shrink:0;
 }
 .view {
 	position:relative;
@@ -91,7 +95,7 @@ body {
 }
 .loading-icon {
 	position:absolute;
-	z-index:1;
+	z-index:2;
 	width:2em;
 	top:50%;
 	left:50%;
@@ -137,6 +141,12 @@ body {
 
 
 /*----- entry-list -----*/
+.entry-list {
+	display:grid;
+	grid-template-columns:repeat(auto-fill, 15em);
+	justify-content:space-between;
+	grid-row-gap:1em;
+}
 .single-entry {
 	position:relative;
 	width:15em;
@@ -243,6 +253,50 @@ input[type="text"]:focus {
 	font-size:1.62em;
 	font-weight:700;
 }
+
+.reader-filelist {
+	display:grid;
+	grid-template-columns:repeat(auto-fill, 12em);
+	justify-content:space-between;
+	grid-row-gap:1em;
+}
+.reader-file {
+	position:relative;
+	width:11em;
+	padding-bottom:3px;
+	cursor:pointer;
+	transition:.2s;
+	box-shadow:0 -3px 0 0px #f55 inset;
+}
+.reader-file:hover {
+	box-shadow:0 -3px 0 1px #f55 inset, 0 0 0 1px #f55;
+}
+.reader-filename {
+	position:absolute;
+	z-index:2;
+	height:1.6em;
+	min-width:1.6em;
+	top:.5em;
+	left:.5em;
+	background-color:#333;
+	color:#fff;
+	font-size:1em;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	color:#fff;
+	border-radius:.8em;
+	transition:.2s;
+	line-height:0;
+}
+.reader-file:hover .reader-filename {
+	background-color:#f55;
+}
+.reader-cover .cake {
+	box-shadow:0 0 5em 0 rgba(142, 56, 0, .1) inset;
+}
+
+
 .file {
 	font-size:.79em;
 	cursor:pointer;

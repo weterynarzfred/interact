@@ -6,7 +6,7 @@ string		$url
 */
 
 $entry = get_entry($entry);
-$reader_folder_url = reader_get_folder_url($entry);
+$reader_folder_url = HOME_DIR . reader_get_folder_url($entry);
 
 $filename = explode('/', urldecode($url));
 $filename = end($filename);

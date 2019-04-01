@@ -3,7 +3,7 @@ $(window)
 	// trigger return on esc key press
 	.on('keydown', function(e) {
 		if(e.which === 27) {
-			$('.return').click();
+			$('.container.current .return').click();
 		}
 	});
 
@@ -46,7 +46,7 @@ window.addEventListener('afterFormSubmit_update_entry', function(event) {
 	}
 });
 
-
+// convert dates to time ago
 window.addEventListener('afterLayoutChange', function() {
 	jQuery("time.timeago").timeago();
 });

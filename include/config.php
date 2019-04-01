@@ -66,7 +66,7 @@ call_user_func(function() {
 });
 
 if(!isset_option('manga_url')) {
-  set_option('manga_url', HOME_DIR . '/storage/');
+  set_option('manga_url', '/storage/');
 }
 if(!isset_option('7z_path')) {
   set_option('7z_path', 'C:/Program Files/7-Zip/7z');
