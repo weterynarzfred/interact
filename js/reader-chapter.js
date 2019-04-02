@@ -1,5 +1,4 @@
 function readerFit() {
-	console.log('readierFit');
 	$('.reader-page').css({
 		height	:	f3.h,
 	});

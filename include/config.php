@@ -18,6 +18,8 @@ set_option('entry_properties', array(
 	['madokami_url', true],
 	['madokami_filelist', false],
 	['madokami_last_check', false],
+	['last_read_chapter', false],
+	['last_read_page', false],
 ), false);
 
 add_to_hook('get_prop_madokami_filelist', function($value, $entry) {

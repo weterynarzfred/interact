@@ -17,6 +17,10 @@ call_user_func(function() {
 set_option('scripts', array(
 	'/vendor/jquery.timeago.js',
 	'/js/main.js',
+	'/js/helpers.js',
+	'/js/doQuery.js',
+	'/js/loading.js',
+	'/js/listeners.js',
 	'/js/get_view.js',
 	'/js/messages.js',
 	'/js/interactions.js',

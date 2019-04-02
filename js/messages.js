@@ -17,14 +17,3 @@ const createMessage = (function(){
     return new Message(html);
   };
 })();
-
-// window.addEventListener('afterGetView', function(event) {
-// 	if(event.detail.target === '.next-message') {
-// 		console.log(event.detail);
-// 		const messages = $('#messages');
-// 		const el = $(document.createElement('div'))
-//       .addClass('message')
-//       .html(event.detail.data.fragments[0].html);
-// 		messages.append(el);
-// 	}
-// });

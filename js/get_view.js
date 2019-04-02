@@ -47,22 +47,23 @@ function getView(view, target, details, callback) {
 	});
 }
 
-let currentScreen = 0;
-let currentView = '';
-
+// prepare for new content
 window.addEventListener('beforeGetView', function(event) {
+	// add a new container for a new view
 	if(event.detail.target === '.next-container') {
 		startLoading($('.container'));
-		const nextContainer = $(document.createElement('div'))
-			.addClass('next-container');
-		$('#content-bar').append(nextContainer);
+		$(document.createElement('div'))
+			.addClass('next-container')
+			.appendTo('#content-bar');
 	}
 	else {
 		startLoading($(event.detail.target));
 	}
 });
 
+// process newly added content
 window.addEventListener('afterGetView', function(event) {
+	// change current container
 	if(event.detail.target === '.next-container') {
 		currentScreen++;
 		const previousView = currentView;
@@ -77,10 +78,10 @@ window.addEventListener('afterGetView', function(event) {
 				currentView
 			}})
 		);
-
 		$('#content-bar-offset').css({marginLeft:(-currentScreen * 100) + '%'});
 		stopLoading($('.container.loading'));
 	}
+	// update download progress bar
 	else if(event.detail.view === 'part/download_progress') {
 		const target = $(event.detail.target);
 		if(target.data('percentage') > 0) {
@@ -92,5 +93,3 @@ window.addEventListener('afterGetView', function(event) {
 	window.dispatchEvent(new CustomEvent("LayoutChange"));
 	window.dispatchEvent(new CustomEvent("afterLayoutChange"));
 });
-
-currentView = $('.container').addClass('current').data('view');

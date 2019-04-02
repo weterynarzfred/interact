@@ -1,57 +1,62 @@
-{
-$(window)
-	// trigger return on esc key press
-	.on('keydown', function(e) {
-		if(e.which === 27) {
-			previousView();
-		}
+// redirect forms to use AJAX
+$document.on('submit', '.ajax-form', function(e) {
+  e.preventDefault();
+  const t = $(this);
+  const action = t.data('form-action');
+	const details = t.data('details');
+  let values = {};
+	startLoading(t);
+  t.find('input').map(function(i, e) {
+		const $e = $(e);
+		const name = $e.attr('name');
+		values[name] = $e.val();
 	});
+  doQuery({
+    data  : {
+      action,
+      values,
+    },
+		callback	: (function(action, details, values, t) {
+			return function(data) {
+				stopLoading(t);
+				window.dispatchEvent(
+					new CustomEvent('afterFormSubmit_'+action, {detail:{details, values, data}})
+				);
+			}
+		})(action, details, values, t),
+  });
+});
 
-$(document)
-	// stop propagation on buttons
-	.on('click', '.button', function(event) {
-		event.stopPropagation();
-	})
-	// show hidden sections
-	.on('click', '.show-more', function() {
-		$($(this).toggleClass('active').data('target')).slideToggle(300);
-	})
-	// download from madokami
-	.on('click', '.madokami-file', function() {
-		const t = $(this);
-		download(t.data('id'), t.data('url'), t.data('file-slug'));
-	});
-}
-
-function startLoading(element) {
-	element.append($('#proto .loading-icon').clone());
-	setTimeout(function() {
-		element.addClass('loading');
-	}, 1);
-}
-
-function stopLoading(element) {
-	element.removeClass('loading');
-	setTimeout(function() {
-		element.not('.loading').find('.loading-icon').remove();
-	}, 300);
-}
-
-
-// refresh edit form after adding a new entry
-window.addEventListener('afterFormSubmit_update_entry', function(event) {
-	if(event.detail.values.id == '') {
-		const id = event.detail.data.lastInsertedId;
-		getView('edit_entry', '.view-edit_entry', {entry: id});
+// trigger return on esc key and return button
+$window.on('keydown', function(e) {
+	if(e.which === 27) {
+		previousView();
 	}
 });
-
-// convert dates to time ago
-window.addEventListener('afterLayoutChange', function() {
-	jQuery("time.timeago").timeago();
+$document.on('click', '.return', function() {
+	previousView();
 });
 
+// get-view links
+$document.on('click', '.get-view', function() {
+	const view = $(this).data('view');
+	const target = $(this).data('target');
+	const details = $(this).data('details');
+	getView(view, target, details);
+});
 
-window.addEventListener('afterScreenChange', function() {
-	$('html, body').animate({scrollTop: 0}, 500);
+// stop propagation on buttons
+$document.on('click', '.button', function(event) {
+	event.stopPropagation();
+});
+
+// show hidden sections
+$document.on('click', '.show-more', function() {
+	$($(this).toggleClass('active').data('target')).slideToggle(300);
+});
+
+// download from madokami
+$document.on('click', '.madokami-file', function() {
+	const t = $(this);
+	download(t.data('id'), t.data('url'), t.data('file-slug'));
 });
