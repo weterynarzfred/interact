@@ -3,7 +3,7 @@ $(window)
 	// trigger return on esc key press
 	.on('keydown', function(e) {
 		if(e.which === 27) {
-			$('.container.current .return').click();
+			previousView();
 		}
 	});
 
