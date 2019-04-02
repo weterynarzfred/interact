@@ -26,7 +26,12 @@ if(!isset($files)) {
 					'reader-file',
 					'get-view',
 				);
-				if($file['name'] <= $entry->get_prop('read')) $classes[] = 'read';
+				if($file['name'] <= $entry->get_prop('read')) {
+					$classes[] = 'read';
+				}
+				if($file['name'] == $entry->get_prop('last_read_chapter')) {
+					$classes[] = 'last-read';
+				}
 		?>
 		<div class="column">
 			<div

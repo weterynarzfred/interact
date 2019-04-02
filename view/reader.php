@@ -8,7 +8,11 @@ $entry = get_entry($entry);
 $files = reader_get_files($entry);
 ?>
 
-<div class="container view view-reader" data-view="reader">
+<div
+	class="container view view-reader"
+	data-view="reader"
+	data-entry="<?php echo $entry->get_id(); ?>"
+>
 
 	<div class="column-double">
 		<div class="text-strip">

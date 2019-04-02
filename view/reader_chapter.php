@@ -8,7 +8,12 @@ string		$filename
 $entry = get_entry($entry);
 ?>
 
-<div class="container view view-reader_chapter" data-view="reader_chapter">
+<div
+	class="container view view-reader_chapter"
+	data-view="reader_chapter"
+	data-entry="<?php echo $entry->get_id(); ?>"
+	data-chapter="<?php echo $filename; ?>"
+>
 	<div class="return return-absolute button">return</div>
 	<?php
 	$url = reader_get_folder_url($entry) . '/' . $filename;

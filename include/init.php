@@ -26,6 +26,7 @@ set_option('scripts', array(
 	'/js/interactions.js',
 	'/js/lazy-cakes.js',
 	'/js/download.js',
+	'/js/updateEntry.js',
 	'/js/reader-chapter.js',
 ), false);
 

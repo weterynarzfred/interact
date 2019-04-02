@@ -13,17 +13,25 @@
 .reader-file {
 	position:relative;
 	width:11em;
-	padding-bottom:3px;
+	padding-bottom:5px;
 	cursor:pointer;
 	transition:.2s;
-	box-shadow:0 -3px 0 0px #f55 inset;
+	box-shadow:0 -5px 0 0px #f55 inset;
+	opacity:.85;
 }
 .reader-file.read {
-	box-shadow:0 -3px 0 0px #333 inset;
+	box-shadow:0 -5px 0 0px #333 inset;
 	opacity:.5;
 }
+.reader-file.last-read {
+	box-shadow:0 -5px 0 0px #59f inset;
+}
 .reader-file:hover {
-	box-shadow:0 -3px 0 1px #f55 inset, 0 0 0 1px #f55;
+	box-shadow:0 -5px 0 1px #f55 inset, 0 0 0 1px #f55;
+	opacity:1;
+}
+.reader-file.last-read:hover {
+	box-shadow:0 -5px 0 1px #59f inset, 0 0 0 1px #59f;
 	opacity:1;
 }
 .reader-filename {
@@ -48,6 +56,12 @@
 }
 .reader-file:hover .reader-filename {
 	background-color:#f55;
+}
+.reader-file.last-read .reader-filename {
+	background-color:#59f;
+}
+.reader-cover {
+	overflow:hidden;
 }
 .reader-cover .cake {
 	box-shadow:0 0 5em 0 rgba(142, 56, 0, .1) inset;

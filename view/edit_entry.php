@@ -6,7 +6,11 @@ int|Entry	$entry // creates a new Entry if empty
 $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 ?>
 
-<div class="container view view-edit_entry" data-view="edit_entry">
+<div
+	class="container view view-edit_entry"
+	data-view="edit_entry"
+	data-entry="<?php echo $entry->get_id(); ?>"
+>
 	<div class="column-double text-strip">
 		<div class="rmin"></div>
 		<div class="return button">return</div>
