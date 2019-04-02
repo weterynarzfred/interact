@@ -12,8 +12,17 @@ try {
 	$entry = get_entry($values['id']);
 	$entry->update($values);
 	$html_single_entry = get_view('part/single_entry', array('entry'=>$entry));
-	$html_reader_filelist = get_view('part/reader_filelist', array('entry'=>$entry));
-	$html_madokami_filelist = get_view('part/madokami_filelist', array('entry'=>$entry));
+	$html_reader_filelist = get_view(
+		'part/reader_filelist',
+		array('entry'=>$entry)
+	);
+	$html_madokami_filelist = get_view(
+		'part/madokami_filelist',
+		array(
+			'entry'	=>	$entry,
+			'skip_check'	=>	true,
+		)
+	);
 
 	$success = true;
 }

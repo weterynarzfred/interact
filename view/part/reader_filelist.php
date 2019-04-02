@@ -2,7 +2,7 @@
 /*
 used variables:
 int|Entry	$entry
-array			$files =
+array			$files = reader_get_files($entry)
 */
 
 if(!isset($files)) {
@@ -22,13 +22,15 @@ if(!isset($files)) {
 		<?php
 		if($files) {
 			foreach ($files as $file) {
-				$classes = array();
-				// if($file['chapter'] <= $entry->get_prop('read')) $classes[] = 'read';
-				// if($file['chapter'] <= $entry->get_prop('downloaded')) $classes[] = 'downloaded';
+				$classes = array(
+					'reader-file',
+					'get-view',
+				);
+				if($file['name'] <= $entry->get_prop('read')) $classes[] = 'read';
 		?>
 		<div class="column">
 			<div
-				class="reader-file <?php echo implode(' ', $classes); ?> get-view"
+				class="<?php echo implode(' ', $classes); ?>"
 				data-view="reader_chapter"
 				data-details='<?php echo json_encode(array(
 					'entry'	=>	$entry->get_id(),

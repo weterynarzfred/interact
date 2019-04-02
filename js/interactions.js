@@ -50,3 +50,8 @@ window.addEventListener('afterFormSubmit_update_entry', function(event) {
 window.addEventListener('afterLayoutChange', function() {
 	jQuery("time.timeago").timeago();
 });
+
+
+window.addEventListener('afterScreenChange', function() {
+	$('html, body').animate({scrollTop: 0}, 500);
+});

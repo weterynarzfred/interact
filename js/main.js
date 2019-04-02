@@ -153,6 +153,8 @@ const doQuery = (function() {
 					if(p.callbackBefore !== void 0) p.callbackBefore(data);
 					handleFragments(data);
 					if(p.callback !== void 0) p.callback(data);
+		      window.dispatchEvent(new CustomEvent("layoutChange"));
+		      window.dispatchEvent(new CustomEvent("afterLayoutChange"));
 					window.dispatchEvent(
 						new CustomEvent('ajaxRequestDone', {
 							detail	:	{

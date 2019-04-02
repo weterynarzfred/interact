@@ -18,8 +18,13 @@
 	transition:.2s;
 	box-shadow:0 -3px 0 0px #f55 inset;
 }
+.reader-file.read {
+	box-shadow:0 -3px 0 0px #333 inset;
+	opacity:.5;
+}
 .reader-file:hover {
 	box-shadow:0 -3px 0 1px #f55 inset, 0 0 0 1px #f55;
+	opacity:1;
 }
 .reader-filename {
 	position:absolute;
@@ -29,16 +34,17 @@
 	padding:0 .2em;
 	top:.5em;
 	left:.5em;
-	background-color:#333;
+	background-color:#f55;
 	color:#fff;
 	font-size:1em;
 	display:flex;
 	align-items:center;
 	justify-content:center;
-	color:#fff;
 	border-radius:.8em;
 	transition:.2s;
-	line-height:0;
+}
+.reader-file.read .reader-filename {
+	background-color:#333;
 }
 .reader-file:hover .reader-filename {
 	background-color:#f55;
