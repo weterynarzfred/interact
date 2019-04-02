@@ -44,7 +44,6 @@ function throttle(ms, callback) {
 }
 
 const ajaxUrl = $('body').data('ajax-url');
-let currentView = 'home';
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {

@@ -4,7 +4,7 @@ $entry = get_entry($entry);
 $files = reader_get_folder($entry);
 ?>
 
-<div class="container view view-reader">
+<div class="container view view-reader" data-view="reader">
 
 	<div class="column-double">
 		<div class="rmin"></div>

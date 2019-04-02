@@ -1,6 +1,6 @@
 <?php if(!defined('CONNECTION_TYPE')) die(); ?>
 
-<div class="container view view-home">
+<div class="container view view-home" data-view="home">
 
 	<?php display_view('part/entry_list'); ?>
 

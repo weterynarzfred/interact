@@ -2,7 +2,7 @@
 $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 ?>
 
-<div class="container view view-edit_entry">
+<div class="container view view-edit_entry" data-view="edit_entry">
 	<div class="column-double">
 		<div class="rmin"></div>
 		<div class="return button">return</div>

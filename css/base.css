@@ -8,11 +8,11 @@ body {
 /* 	width:49.2em;
 	border:1px solid #000;
 	margin:3em auto; */
-	padding:2em 3em;
 }
 #content-bar {
 	display:flex;
 	width:100%;
+	overflow:hidden;
 }
 #content-bar-offset {
 	transition: margin .5s;
@@ -22,6 +22,7 @@ body {
 	width:100%;
 	transition:.3s;
 	flex-shrink:0;
+	padding:2em 3em;
 }
 .view {
 	position:relative;
@@ -64,8 +65,12 @@ body {
 	display:inline-block;
 	font-size:.62em;
 	padding:.25em;
-	/text-transform:uppercase;
 	letter-spacing:.05em;
+}
+.return-absolute {
+	position:absolute;
+	top:2em;
+	left:3em;
 }
 
 
@@ -364,4 +369,21 @@ input[type="text"]:focus {
 .madokami-file.downloaded .madokami-download-progress-bar .progress {
 	width:100%;
 	background-color:#796;
+}
+
+
+/*----- reader_chapter -----*/
+.reader-page .cake {
+	position:absolute !important;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	height:auto;
+	padding:0;
+	background-size:contain;
+	background-repeat:no-repeat;
+}
+.container.view-reader_chapter {
+	padding:0;
 }

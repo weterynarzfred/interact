@@ -1,8 +1,19 @@
 function previousView() {
 	if(currentScreen > 0) {
 		currentScreen--;
+		const previousView = currentView;
+		currentView = $('.container')
+			.eq(currentScreen)
+			.addClass('current')
+			.data('view');
+		window.dispatchEvent(
+			new CustomEvent('afterScreenChange', {detail: {
+				previousView,
+				currentView
+			}})
+		);
+
 		$('#content-bar-offset').css({marginLeft:(-currentScreen * 100) + '%'});
-		$('.container').eq(currentScreen).addClass('current');
 		$('.container').each(function(index) {
 			if(index > currentScreen) {
 				$(this).removeClass('current');
@@ -37,6 +48,7 @@ function getView(view, target, details, callback) {
 }
 
 let currentScreen = 0;
+let currentView = '';
 
 window.addEventListener('beforeGetView', function(event) {
 	if(event.detail.target === '.next-container') {
@@ -53,9 +65,20 @@ window.addEventListener('beforeGetView', function(event) {
 window.addEventListener('afterGetView', function(event) {
 	if(event.detail.target === '.next-container') {
 		currentScreen++;
-		$('#content-bar-offset').css({marginLeft:(-currentScreen * 100) + '%'});
-		$('.container').removeClass('current').eq(currentScreen).addClass('current');
+		const previousView = currentView;
+		currentView = $('.container')
+			.removeClass('current')
+			.eq(currentScreen)
+			.addClass('current')
+			.data('view');
+		window.dispatchEvent(
+			new CustomEvent('afterScreenChange', {detail: {
+				previousView,
+				currentView
+			}})
+		);
 
+		$('#content-bar-offset').css({marginLeft:(-currentScreen * 100) + '%'});
 		stopLoading($('.container.loading'));
 	}
 	else if(event.detail.view === 'part/download_progress') {
@@ -70,4 +93,4 @@ window.addEventListener('afterGetView', function(event) {
 	window.dispatchEvent(new CustomEvent("afterLayoutChange"));
 });
 
-$('.container').addClass('current');
+currentView = $('.container').addClass('current').data('view');

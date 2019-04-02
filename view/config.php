@@ -3,7 +3,7 @@
 <div class="container">
   <div class="rmin"></div>
   <div class="column-double">
-    <form action="" class="ajax-form" data-form-action="config">
+    <form class="ajax-form" data-form-action="config">
       <div class="input-line">
         <div class="input-label">db name:</div>
         <input type="text" name="db_name" placeholder="db_name" value="aaaa">

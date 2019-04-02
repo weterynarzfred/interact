@@ -22,6 +22,7 @@ set_option('scripts', array(
 	'/js/interactions.js',
 	'/js/lazy-cakes.js',
 	'/js/download.js',
+	'/js/reader-chapter.js',
 ), false);
 
 if(file_exists(HOME_DIR. '/config.json')) {
