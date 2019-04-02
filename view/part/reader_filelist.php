@@ -27,7 +27,13 @@ if(!isset($files)) {
 		?>
 		<div class="column">
 			<div
-				class="reader-file <?php echo implode(' ', $classes); ?>"
+				class="reader-file <?php echo implode(' ', $classes); ?> get-view"
+				data-view="reader_chapter"
+				data-details='<?php echo json_encode(array(
+					'entry'	=>	$entry->get_id(),
+					'filename'	=>	$file['name'],
+				)); ?>'
+				data-target=".next-container"
 			>
 				<div class="reader-filename">
 					<?php echo $file['name']; ?>
