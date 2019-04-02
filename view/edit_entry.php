@@ -1,13 +1,17 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables:
+int|Entry	$entry // creates a new Entry if empty
+*/
 $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 ?>
 
 <div class="container view view-edit_entry" data-view="edit_entry">
-	<div class="column-double">
+	<div class="column-double text-strip">
 		<div class="rmin"></div>
 		<div class="return button">return</div>
 	  <div class="rmin"></div>
-	  <form action="" class="ajax-form" data-form-action="update_entry">
+	  <form class="ajax-form" data-form-action="update_entry">
 
 			<input type="hidden" name="id" value="<?php echo $entry->get_id(); ?>">
 			<div class="input-line">

@@ -9,7 +9,13 @@
 		<link rel="shortcut icon" type="image/png" href="./favicon.png"/>
 		<link rel="stylesheet" type="text/css" href="./css/style.css" />
 		<link rel="stylesheet" type="text/css" href="./css/base.css" />
+		<link rel="stylesheet" type="text/css" href="./css/edit-entry.css" />
+		<link rel="stylesheet" type="text/css" href="./css/entry-list.css" />
 		<link rel="stylesheet" type="text/css" href="./css/lazy-cakes.css" />
+		<link rel="stylesheet" type="text/css" href="./css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="./css/madokami.css" />
+		<link rel="stylesheet" type="text/css" href="./css/reader-chapter.css" />
+		<link rel="stylesheet" type="text/css" href="./css/reader-filelist.css" />
 	</head>
 	<body data-ajax-url="<?php echo $_SERVER["REQUEST_URI"]; ?>ajax/index.php">
 		<div id="content">

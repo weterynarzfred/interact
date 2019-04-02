@@ -8,7 +8,7 @@ function reader_get_folder_url($entry) {
 	return $url;
 }
 
-function reader_get_folder($entry) {
+function reader_get_files($entry) {
 	$url = HOME_DIR . reader_get_folder_url($entry);
 	$files = array_diff(scandir($url), array('.', '..'));
 	$files = array_map(function($f) use ($url) {

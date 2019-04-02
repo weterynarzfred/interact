@@ -2,22 +2,23 @@
 /*
 used variables:
 int|Entry	$entry
-array			$files
+array			$files =
 */
 
 if(!isset($files)) {
 	$entry = get_entry($entry);
-	$files = reader_get_folder($entry);
+	$files = reader_get_files($entry);
 }
 ?>
 
 <div class="view view-part-reader_filelist">
 	<div class="column-double">
-		<div class="title">downloaded</div>
+		<div class="text-strip">
+			<div class="title">downloaded</div>
+		</div>
 	</div>
 
 	<div class="reader-filelist column">
-	<!-- <div class="reader-filelist flex flex-wrap flex-justify-space-between column"> -->
 		<?php
 		if($files) {
 			foreach ($files as $file) {

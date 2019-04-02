@@ -1,4 +1,7 @@
-<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+<?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables: none
+*/?>
 
 <div class="container view view-home" data-view="home">
 

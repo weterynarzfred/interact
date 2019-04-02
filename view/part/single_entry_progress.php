@@ -1,4 +1,11 @@
-<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+<?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables:
+int|Entry	$entry
+*/
+
+$entry = get_entry($entry);
+?>
 <div class="view view-part-single_entry_progress entry-progress flex">
 	<div class="entry-progress-col">
 		<span class="entry-progress-separator">r:</span>

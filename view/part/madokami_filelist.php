@@ -3,12 +3,12 @@
 used variables:
 int|Entry	$entry
 bool			$skip_check = false
-array			$files = reader_get_folder($entry)
+array			$files = reader_get_files($entry)
 */
 
 $entry = get_entry($entry);
 if(!isset($files)) {
-	$files = reader_get_folder($entry);
+	$files = reader_get_files($entry);
 }
 $filenames = array_map(function($e) {return $e['name'];}, $files);
 ?>

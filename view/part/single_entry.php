@@ -1,4 +1,8 @@
 <?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables:
+int|Entry	$entry
+*/
 $entry = get_entry($entry);
 ?>
 

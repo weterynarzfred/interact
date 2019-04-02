@@ -1,4 +1,8 @@
-<?php if(!defined('CONNECTION_TYPE')) die(); ?>
+<?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables: none
+*/
+?>
 
 <div class="view view-part-entry_list">
 	<div class="entry-list column">
