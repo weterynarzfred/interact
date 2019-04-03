@@ -8,7 +8,7 @@ $entry = get_entry($entry);
 
 <div class="view view-part-single_entry column" id="entry-<?php echo $entry->get_id(); ?>">
 	<div class="rmin"></div>
-	<div
+	<button
 		class="single-entry get-view"
 		data-view="reader"
 		data-details='<?php echo json_encode(array('entry'=>$entry->get_id())); ?>'
@@ -34,5 +34,5 @@ $entry = get_entry($entry);
 				data-target=".next-container"
 			>edit</div>
 		</div>
-	</div>
+	</button>
 </div>

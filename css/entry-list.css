@@ -13,8 +13,10 @@
 	transition:.2s;
 	cursor:pointer;
 }
-.single-entry:hover {
-	box-shadow:0 0 0 1px #f55;
+.single-entry:hover,
+.single-entry:focus {
+	box-shadow:0 0 0 1px #f55, 0 0 .5em 1px rgba(0, 0, 0, .5);
+	transform:scale(1.02);
 }
 .entry-name {
 	text-align:center;

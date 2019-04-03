@@ -1,3 +1,17 @@
+button {
+	background-color:transparent;
+	border:none;
+	padding:0;
+	margin:0;
+	font:inherit;
+	color:inherit;
+	display:block;	
+}
+button:focus {
+	outline:none;
+}
+
+
 body {
 	background-color:#f8f8f8;
 }
@@ -46,7 +60,8 @@ body {
 	font-weight:700;
 	letter-spacing:.05em;
 }
-.button:hover {
+.button:hover,
+.button:focus {
 	background-color:#f55;
 }
 .ajax-form {
