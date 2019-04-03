@@ -12,11 +12,10 @@ function Reader() {
       const readerPage = new ReaderPage(page, index, this);
       this.pages.push(readerPage);
     }.bind(this));
-    this.currentPage = this.view.data('last-read-page');
-    if(this.currentPage === undefined) this.currentPage = 0;
-    else this.showPage(this.currentPage);
 
-    updateEntry(this.entryId, {last_read_chapter: this.chapter});
+    this.resize();
+    this.markCurrent();
+
     window.addEventListener('layoutChange', this.resize);
     $window.on('keydown.reader-chapter', function(event) {
       if(event.which === 40 || event.which === 39 || event.which === 32) {
@@ -32,14 +31,35 @@ function Reader() {
       event.preventDefault();
       return false;
     });
-    $window.on('scroll.reader-chapter', function() {
+    $window.on('scroll.reader-chapter', throttle(1000, function() {
+      if(currentView !== 'reader_chapter') return;
       if(this.isScrolling) return;
       for(const readerPage of this.pages) {
-        if(readerPage.offset < window.scrollY + 10) {
-          this.currentPage = readerPage.index;
+        if(readerPage.offset + readerPage.height > window.scrollY - 10) {
+          if(this.currentPage != readerPage.index) {
+            this.currentPage = readerPage.index;
+            updateEntry(this.entryId, {last_read_page: this.currentPage});
+          }
+          break;
         }
       }
-    }.bind(this));
+    }.bind(this)));
+  };
+
+  this.markCurrent = function() {
+    const lastReadChapter = $('.reader-file.last-read .reader-filename').text();
+    if(this.chapter != lastReadChapter) {
+      this.currentPage = 0;
+      updateEntry(this.entryId, {
+        last_read_chapter: this.chapter,
+        last_read_page: 0,
+      });
+    }
+    else {
+      this.currentPage = this.view.data('last-read-page');
+      if(this.currentPage === undefined) this.currentPage = 0;
+      else this.showPage(this.currentPage, 500);
+    }
   };
 
   this.stopChapter = function() {
@@ -60,12 +80,14 @@ function Reader() {
     });
   }.bind(this);
 
-  this.showPage = function(index) {
+  this.showPage = function(index, time) {
     if(this.pages[index] !== undefined) {
+      if(time === undefined) time = 200;
       this.isScrolling = true;
       this.currentPage = index;
+      updateEntry(this.entryId, {last_read_page: this.currentPage});
       const target = this.pages[index].offset;
-      $html.stop().animate({scrollTop: target}, 200, function() {
+      $html.stop().animate({scrollTop: target}, time, function() {
         this.isScrolling = false;
       }.bind(this));
     }

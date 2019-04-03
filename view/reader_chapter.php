@@ -13,6 +13,7 @@ $entry = get_entry($entry);
 	data-view="reader_chapter"
 	data-entry="<?php echo $entry->get_id(); ?>"
 	data-chapter="<?php echo $filename; ?>"
+  data-last-read-page="<?php echo $entry->get_prop('last_read_page'); ?>"
 >
 	<div class="return return-absolute button">return</div>
 	<div class="reader-chapter-pages"><?php

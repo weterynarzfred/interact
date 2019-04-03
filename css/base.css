@@ -92,3 +92,6 @@ body {
 	left:3em;
 	z-index:2;
 }
+
+
+#messages {display:none;}

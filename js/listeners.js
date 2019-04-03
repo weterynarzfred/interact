@@ -23,5 +23,5 @@ window.addEventListener('afterScreenChange', function() {
 		}, 500);
 		return;
 	}
-	$('html').animate({scrollTop: 0}, 500);
+	// $html.animate({scrollTop: 0}, 500);
 });
