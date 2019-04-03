@@ -19,10 +19,12 @@ $entry = get_entry($entry);
 		$url = reader_get_folder_url($entry) . '/' . $filename;
 		$pages = array_diff(scandir(HOME_DIR . $url), array('.', '..'));
 		if($pages) {
-		foreach ($pages as $page) {
-		?>
+      $i = 0;
+  		foreach ($pages as $page) {
+  	?>
 		<div
 			class="reader-page lazy-cake rel"
+      id="reader-page-<?php echo $i; ?>"
 			data-bg="<?php echo '.' . $url . '/' . rawurlencode($page); ?>"
 		>
 			<div class="cake abs"></div>
@@ -30,7 +32,8 @@ $entry = get_entry($entry);
 				<circle cx="50" cy="50" r="40" />
 			</svg>
 		</div>
-		<?php
+  	<?php
+        $i++;
 			}
 		}
 		?></div>

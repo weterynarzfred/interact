@@ -18,7 +18,7 @@ window.addEventListener('afterScreenChange', function() {
 		viewScrollPositions[previousScreen] = window.scrollY;
 	}
 	if(event.detail.direction < 0) {
-		$('html').animate({
+		$html.animate({
 			scrollTop: viewScrollPositions[currentScreen]
 		}, 500);
 		return;
