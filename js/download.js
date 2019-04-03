@@ -42,5 +42,5 @@ function readDownloadProgress(state, id, url, fileSlug) {
     }
   };
 
-  getView(view, target, {entry: id, url}, callback);
+  getView(view, target, {entry: id, url, filename: fileSlug}, callback);
 }

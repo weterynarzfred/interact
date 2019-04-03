@@ -48,6 +48,7 @@ $filenames = array_map(function($e) {return $e['name'];}, $files);
 			<?php display_view('part/download_progress', array(
 				'entry'	=>	$entry,
 				'url'	=>	$madokami_file['url'],
+        'filename' => $madokami_file['filename'],
 			)); ?>
 		</div>
 	</div>

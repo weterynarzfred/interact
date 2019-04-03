@@ -3,14 +3,15 @@
 used variables:
 int|Entry	$entry
 string		$url
+string		$filename
 */
 
 $entry = get_entry($entry);
 $reader_folder_url = HOME_DIR . reader_get_folder_url($entry);
 
-$filename = explode('/', urldecode($url));
-$filename = end($filename);
-$progress_url = $reader_folder_url . '/progress - ' . urldecode($filename) . '.txt';
+$progress_filename = explode('/', urldecode($url));
+$progress_filename = end($progress_filename);
+$progress_url = $reader_folder_url . '/progress - ' . $progress_filename . '.txt';
 $progress = is_file($progress_url) ? file_get_contents($progress_url) : '';
 $progress = explode('/', $progress);
 
