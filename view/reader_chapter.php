@@ -15,23 +15,23 @@ $entry = get_entry($entry);
 	data-chapter="<?php echo $filename; ?>"
 >
 	<div class="return return-absolute button">return</div>
-	<?php
-	$url = reader_get_folder_url($entry) . '/' . $filename;
-	$pages = array_diff(scandir(HOME_DIR . $url), array('.', '..'));
-	if($pages) {
-	foreach ($pages as $page) {
-	?>
-	<div
-		class="reader-page lazy-cake rel"
-		data-bg="<?php echo '.' . $url . '/' . rawurlencode($page); ?>"
-	>
-		<div class="cake abs"></div>
-		<svg class="loading-icon" viewBox="-10 -10 120 120">
-			<circle cx="50" cy="50" r="40" />
-		</svg>
-	</div>
-	<?php
+	<div class="reader-chapter-pages"><?php
+		$url = reader_get_folder_url($entry) . '/' . $filename;
+		$pages = array_diff(scandir(HOME_DIR . $url), array('.', '..'));
+		if($pages) {
+		foreach ($pages as $page) {
+		?>
+		<div
+			class="reader-page lazy-cake rel"
+			data-bg="<?php echo '.' . $url . '/' . rawurlencode($page); ?>"
+		>
+			<div class="cake abs"></div>
+			<svg class="loading-icon" viewBox="-10 -10 120 120">
+				<circle cx="50" cy="50" r="40" />
+			</svg>
+		</div>
+		<?php
+			}
 		}
-	}
-	?>
+		?></div>
 </div>
