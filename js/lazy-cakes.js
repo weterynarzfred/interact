@@ -61,7 +61,6 @@ $window.load(function() {
 		if(fragments === void 0) return;
 		if(fragments.length === 0) return;
 		for(const f in fragments) {
-			if(!fragments.hasOwnProperty(f)) continue;
 			let element = fragments[f].element;
 			if(element === void 0) continue;
 			if(element === '.next-container') {
