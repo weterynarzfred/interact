@@ -13,5 +13,15 @@ window.addEventListener('afterLayoutChange', function() {
 
 // scroll window to top after screen change
 window.addEventListener('afterScreenChange', function() {
+	if(event.detail.direction > 0) {
+		const previousScreen = currentScreen - event.detail.direction;
+		viewScrollPositions[previousScreen] = window.scrollY;
+	}
+	if(event.detail.direction < 0) {
+		$('html').animate({
+			scrollTop: viewScrollPositions[currentScreen]
+		}, 500);
+		return;
+	}
 	$('html').animate({scrollTop: 0}, 500);
 });

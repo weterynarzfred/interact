@@ -8,6 +8,7 @@ function previousView() {
 			.data('view');
 		window.dispatchEvent(
 			new CustomEvent('afterScreenChange', {detail: {
+				direction	:	-1,
 				previousView,
 				currentView
 			}})
@@ -74,6 +75,7 @@ window.addEventListener('afterGetView', function(event) {
 			.data('view');
 		window.dispatchEvent(
 			new CustomEvent('afterScreenChange', {detail: {
+				direction	:	1,
 				previousView,
 				currentView
 			}})
