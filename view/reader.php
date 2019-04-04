@@ -12,6 +12,7 @@ $files = reader_get_files($entry);
 	class="container view view-reader"
 	data-view="reader"
 	data-entry="<?php echo $entry->get_id(); ?>"
+  data-read="<?php echo $entry->get_prop('read'); ?>"
 >
 
 	<div class="column-double">

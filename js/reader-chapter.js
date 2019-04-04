@@ -7,6 +7,7 @@ function Reader() {
   this.startChapter = function() {
     this.view = $('.view-reader_chapter.current');
     this.entryId = this.view.data('entry');
+    this.entryRead = $('.view-reader').data('read');
     this.chapter = this.view.data('chapter');
     this.view.find('.reader-page').map(function(index, page) {
       const readerPage = new ReaderPage(page, index, this);
@@ -31,11 +32,11 @@ function Reader() {
       event.preventDefault();
       return false;
     });
-    $window.on('scroll.reader-chapter', throttle(1000, function() {
+    $window.on('scroll.reader-chapter', throttle(100, function() {
       if(currentView !== 'reader_chapter') return;
       if(this.isScrolling) return;
       for(const readerPage of this.pages) {
-        if(readerPage.offset + readerPage.height > window.scrollY - 10) {
+        if(readerPage.offset > window.scrollY - 10) {
           if(this.currentPage != readerPage.index) {
             this.currentPage = readerPage.index;
             updateEntry(this.entryId, {last_read_page: this.currentPage});
@@ -63,6 +64,12 @@ function Reader() {
   };
 
   this.stopChapter = function() {
+    if(this.currentPage === this.pages.length - 1) {
+      if(this.chapter > this.entryRead) {
+        updateEntry(this.entryId, {read: this.chapter});
+        $('.view-reader').data({read: this.chapter});
+      }
+    }
     this.chapter = undefined;
     this.pages = [];
 
