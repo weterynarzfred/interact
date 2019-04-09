@@ -3,60 +3,71 @@ $document.on('submit', '.ajax-form', function(e) {
   e.preventDefault();
   const t = $(this);
   const action = t.data('form-action');
-	const details = t.data('details');
+  const details = t.data('details');
   let values = {};
-	startLoading(t);
+  startLoading(t);
   t.find('input').map(function(i, e) {
-		const $e = $(e);
-		const name = $e.attr('name');
-		values[name] = $e.val();
-	});
+    const $e = $(e);
+    const name = $e.attr('name');
+    values[name] = $e.val();
+  });
   doQuery({
     data  : {
       action,
       values,
     },
-		callback	: (function(action, details, values, t) {
-			return function(data) {
-				stopLoading(t);
-				window.dispatchEvent(
-					new CustomEvent('afterFormSubmit_'+action, {detail:{details, values, data}})
-				);
-			}
-		})(action, details, values, t),
+    callback	: (function(action, details, values, t) {
+      return function(data) {
+        stopLoading(t);
+        window.dispatchEvent(new CustomEvent('afterFormSubmit_'+action, {detail:{details, values, data}}));
+      };
+    })(action, details, values, t),
   });
 });
 
 // trigger return on esc key and return button
 $window.on('keydown', function(e) {
-	if(e.which === 27) {
-		previousView();
-	}
+  if (e.which === 27) {
+    previousView();
+  }
 });
 $document.on('click', '.return', function() {
-	previousView();
+  previousView();
 });
 
 // get-view links
 $document.on('click', '.get-view', function() {
-	const view = $(this).data('view');
-	const target = $(this).data('target');
-	const details = $(this).data('details');
-	getView(view, target, details);
+  const view = $(this).data('view');
+  const target = $(this).data('target');
+  const details = $(this).data('details');
+  getView(view, target, details);
+});
+
+// delete entry
+$(document).on('click', '.delete-button', function() {
+  const entry = $(this).parents('view').data('entry');
+  doQuery({
+    data: {
+      action: 'delete_entry',
+      values: {
+        entry,
+      },
+    },
+  });
 });
 
 // stop propagation on buttons
 $document.on('click', '.button', function(event) {
-	event.stopPropagation();
+  event.stopPropagation();
 });
 
 // show hidden sections
 $document.on('click', '.show-more', function() {
-	$($(this).toggleClass('active').data('target')).slideToggle(300);
+  $($(this).toggleClass('active').data('target')).slideToggle(300);
 });
 
 // download from madokami
 $document.on('click', '.madokami-file', function() {
-	const t = $(this);
-	download(t.data('id'), t.data('url'), t.data('file-slug'));
+  const t = $(this);
+  download(t.data('id'), t.data('url'), t.data('file-slug'));
 });

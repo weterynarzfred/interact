@@ -1,3 +1,5 @@
+/* exported ajaxUrl $window $document $html currentScreen currentView viewScrollPositions */
+
 const ajaxUrl = $('body').data('ajax-url');
 const $window = $(window);
 const $document = $(document);

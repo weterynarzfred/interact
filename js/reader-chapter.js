@@ -19,11 +19,11 @@ function Reader() {
 
     window.addEventListener('layoutChange', this.resize);
     $window.on('keydown.reader-chapter', function(event) {
-      if(event.which === 40 || event.which === 39 || event.which === 32) {
+      if (event.which === 40 || event.which === 39 || event.which === 32) {
         event.preventDefault();
         this.showPage(this.currentPage + 1);
       }
-      else if(event.which === 38 || event.which === 37 || event.which === 8) {
+      else if (event.which === 38 || event.which === 37 || event.which === 8) {
         event.preventDefault();
         this.showPage(this.currentPage - 1);
       }
@@ -33,11 +33,11 @@ function Reader() {
       return false;
     });
     $window.on('scroll.reader-chapter', throttle(100, function() {
-      if(currentView !== 'reader_chapter') return;
-      if(this.isScrolling) return;
-      for(const readerPage of this.pages) {
-        if(readerPage.offset > window.scrollY - 10) {
-          if(this.currentPage != readerPage.index) {
+      if (currentView !== 'reader_chapter') return;
+      if (this.isScrolling) return;
+      for (const readerPage of this.pages) {
+        if (readerPage.offset > window.scrollY - 10) {
+          if (this.currentPage != readerPage.index) {
             this.currentPage = readerPage.index;
             updateEntry(this.entryId, {last_read_page: this.currentPage});
           }
@@ -49,7 +49,7 @@ function Reader() {
 
   this.markCurrent = function() {
     const lastReadChapter = $('.reader-file.last-read .reader-filename').text();
-    if(this.chapter != lastReadChapter) {
+    if (this.chapter != lastReadChapter) {
       this.currentPage = 0;
       updateEntry(this.entryId, {
         last_read_chapter: this.chapter,
@@ -58,14 +58,14 @@ function Reader() {
     }
     else {
       this.currentPage = this.view.data('last-read-page');
-      if(this.currentPage === undefined) this.currentPage = 0;
+      if (this.currentPage === undefined) this.currentPage = 0;
       else this.showPage(this.currentPage, 500);
     }
   };
 
   this.stopChapter = function() {
-    if(this.currentPage === this.pages.length - 1) {
-      if(this.chapter > this.entryRead) {
+    if (this.currentPage === this.pages.length - 1) {
+      if (this.chapter > this.entryRead) {
         updateEntry(this.entryId, {read: this.chapter});
         $('.view-reader').data({read: this.chapter});
       }
@@ -88,8 +88,8 @@ function Reader() {
   }.bind(this);
 
   this.showPage = function(index, time) {
-    if(this.pages[index] !== undefined) {
-      if(time === undefined) time = 200;
+    if (this.pages[index] !== undefined) {
+      if (time === undefined) time = 200;
       this.isScrolling = true;
       this.currentPage = index;
       updateEntry(this.entryId, {last_read_page: this.currentPage});
@@ -109,10 +109,10 @@ function ReaderPage(element, index, reader) {
   this.height = 0;
 
   $document.on('mousedown.reader-chapter', '#' + this.el.attr('id'), function(event) {
-    if(event.which === 1) {
+    if (event.which === 1) {
       this.reader.showPage(this.index + 1);
     }
-    else if(event.which === 3) {
+    else if (event.which === 3) {
       this.reader.showPage(this.index - 1);
     }
   }.bind(this));
@@ -128,10 +128,10 @@ ReaderPage.prototype.onResize = function() {
 };
 
 window.addEventListener('afterScreenChange', function(event) {
-  if(event.detail.previousView === 'reader_chapter') {
+  if (event.detail.previousView === 'reader_chapter') {
     reader.stopChapter();
   }
-  if(event.detail.currentView === 'reader_chapter') {
+  if (event.detail.currentView === 'reader_chapter') {
     reader.startChapter();
   }
 });

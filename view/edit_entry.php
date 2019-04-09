@@ -51,6 +51,13 @@ $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 				<input type="submit" value="save" class="button">
 			</div>
 
+      <div class="text-center">
+        <div class="show-more" data-target="#danger-zone">more</div>
+      </div>
+      <div id="danger-zone" class="hidden text-right">
+        <div class="button delete-button">delete</div>
+      </div>
+
 		</form>
 		<div class="rmin"></div>
 	</div>

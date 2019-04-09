@@ -1,3 +1,5 @@
+/* exported createMessage */
+
 const createMessage = (function(){
   const messages = $('#messages');
   function Message(html) {
