@@ -139,13 +139,18 @@ function flatten_reader_folder($url, $name) {
 	}
 
 	if($all_files_determined) {
+    $created_dirs = array();
 		for($i = 0; $i < count($files); $i++) {
 			$chapter_number = $files[$i]['first'];
 			if($files[$i]['last'] > $files[$i]['first']) $chapter_number . '-' . $files[$i]['last'];
 			$files[$i]['new_path'] = $url . '/' . $chapter_number;
-			if(!file_exists($files[$i]['new_path'])) {
-				mkdir($files[$i]['new_path']);
-			}
+      if(!in_array($files[$i]['new_path'], $created_dirs)) {
+  			if(is_dir($files[$i]['new_path'])) {
+          delete_dir($files[$i]['new_path']);
+        }
+  			mkdir($files[$i]['new_path']);
+        $created_dirs[] = $files[$i]['new_path'];
+      }
 			rename(implode('/', $files[$i]['path']), $files[$i]['new_path'] . '/' . end($files[$i]['path']));
 		}
 
