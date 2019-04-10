@@ -150,6 +150,14 @@ class Entry {
 		}
 	}
 
+  public function delete() {
+    // delete storage
+    $url = HOME_DIR . reader_get_folder_url($this);
+    if(is_dir($url)) {
+      delete_dir($url);
+    }
+  }
+
 }
 
 function get_entries($options = array()) {

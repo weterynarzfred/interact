@@ -45,12 +45,12 @@ $document.on('click', '.get-view', function() {
 
 // delete entry
 $(document).on('click', '.delete-button', function() {
-  const entry = $(this).parents('view').data('entry');
+  const id = $(this).parents('.view').data('entry');
   doQuery({
     data: {
       action: 'delete_entry',
       values: {
-        entry,
+        id,
       },
     },
   });

@@ -23,7 +23,19 @@ $entry = get_entry($entry);
       $i = 0;
   		foreach ($pages as $page) {
   	?>
-		<div
+    <div
+      class="cake reader-page"
+      id="reader-page-<?php echo $i; ?>"
+      style="
+        background-image:url('<?php
+          echo '.' . $url . '/' . ($page);
+        ?>');
+        background-size: contain;
+        background-repeat: no-repeat;
+        padding-bottom: 0;
+        "
+    ></div>
+		<!-- <div
 			class="reader-page lazy-cake rel"
       id="reader-page-<?php echo $i; ?>"
 			data-bg="<?php echo '.' . $url . '/' . rawurlencode($page); ?>"
@@ -32,7 +44,7 @@ $entry = get_entry($entry);
 			<svg class="loading-icon" viewBox="-10 -10 120 120">
 				<circle cx="50" cy="50" r="40" />
 			</svg>
-		</div>
+		</div> -->
   	<?php
         $i++;
 			}

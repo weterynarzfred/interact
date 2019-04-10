@@ -9,24 +9,12 @@ try {
   }
 
 	$entry = get_entry($values['id']);
-	// $entry->update($values);
-	// $html_single_entry = get_view('part/single_entry', array('entry'=>$entry));
-	// $html_reader_filelist = get_view(
-	// 	'part/reader_filelist',
-	// 	array('entry'=>$entry)
-	// );
-	// $html_madokami_filelist = get_view(
-	// 	'part/madokami_filelist',
-	// 	array(
-	// 		'entry'	=>	$entry,
-	// 		'skip_check'	=>	true,
-	// 	)
-	// );
+	$entry->delete();
 
 	$success = true;
 }
 catch(Exception $e) {
-  SN()->create_error('ajax failed performing action "update_entry"; ' . $e);
+  SN()->create_error('ajax failed performing action "delete_entry"; ' . $e);
 }
 
 $response = array(
@@ -37,11 +25,10 @@ $response = array(
 
 if($success) {
   $response['fragments'] = array(
-		// array(
-    //   'type'  =>  'delete',
-    //   'element' =>  '.view-part-madokami_filelist',
-    //   'html'  => $html_madokami_filelist,
-    // ),
+		array(
+      'type'  =>  'delete',
+      'element' =>  '#entry-' . $values['id'],
+    ),
     array(
       'type'  =>  'message',
       'html'  =>  'the entry was removed',
