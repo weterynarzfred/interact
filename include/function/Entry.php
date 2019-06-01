@@ -156,6 +156,24 @@ class Entry {
     if(is_dir($url)) {
       delete_dir($url);
     }
+    try {
+      $sql = "
+        DELETE FROM `e_interact_entries`
+        WHERE `entry_id` = " . $this->entry_id
+      ;
+      $sql = SN()->db_connect()->prepare($sql);
+      $sql->execute();
+
+      $sql = "
+        DELETE FROM `e_interact_entries_meta`
+        WHERE `entry_id` = " . $this->entry_id
+      ;
+      $sql = SN()->db_connect()->prepare($sql);
+      $sql->execute();
+    }
+    catch(Exception $e) {
+      SN()->create_error('could not retrieve entries: ' . $e->getMessage());
+    }
   }
 
 }

@@ -54,6 +54,7 @@ $(document).on('click', '.delete-button', function() {
       },
     },
   });
+  previousView();
 });
 
 // stop propagation on buttons
