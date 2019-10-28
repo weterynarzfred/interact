@@ -19,7 +19,10 @@ $document.on('submit', '.ajax-form', function(e) {
     callback	: (function(action, details, values, t) {
       return function(data) {
         stopLoading(t);
-        window.dispatchEvent(new CustomEvent('afterFormSubmit_'+action, {detail:{details, values, data}}));
+        window.dispatchEvent(new CustomEvent(
+          'afterFormSubmit_' + action,
+          {detail: {details, values, data}}
+        ));
       };
     })(action, details, values, t),
   });
@@ -37,9 +40,10 @@ $document.on('click', '.return', function() {
 
 // get-view links
 $document.on('click', '.get-view', function() {
-  const view = $(this).data('view');
-  const target = $(this).data('target');
-  const details = $(this).data('details');
+  const $this = $(this);
+  const view = $this.data('view');
+  const target = $this.data('target');
+  const details = $this.data('details');
   getView(view, target, details);
 });
 

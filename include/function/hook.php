@@ -1,4 +1,4 @@
-<?php if(!defined('CONNECTION_TYPE')) die();
+<?php if (!defined('CONNECTION_TYPE')) die();
 
 class Hook {
 
@@ -6,15 +6,15 @@ class Hook {
   private $callbacks = array();
 
   public function __construct($name) {
-    $this->name = $name;
+    $this -> name = $name;
   }
 
   public function add_callback($callback) {
-    $this->callbacks[] = $callback;
+    $this -> callbacks[] = $callback;
   }
 
   public function apply($data, $additional = NULL) {
-    foreach($this->callbacks as $callback) {
+    foreach ($this -> callbacks as $callback) {
       $data = $callback($data, $additional);
     }
     return $data;
@@ -23,15 +23,15 @@ class Hook {
 }
 
 function add_to_hook($name, $callback) {
-  if(!isset(SN()->hooks[$name])) {
-    SN()->hooks[$name] = new Hook($name);
+  if (!isset(SN() -> hooks[$name])) {
+    SN() -> hooks[$name] = new Hook($name);
   }
-  SN()->hooks[$name]->add_callback($callback);
+  SN() -> hooks[$name] -> add_callback($callback);
 }
 
 function apply_hook($name, $data = NULL, $additional = NULL) {
-  if(!isset(SN()->hooks[$name])) {
-    SN()->hooks[$name] = new Hook($name);
+  if (!isset(SN() -> hooks[$name])) {
+    SN() -> hooks[$name] = new Hook($name);
   }
-  return SN()->hooks[$name]->apply($data, $additional);
+  return SN() -> hooks[$name] -> apply($data, $additional);
 }

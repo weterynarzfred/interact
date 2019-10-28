@@ -16,10 +16,10 @@ $progress = is_file($progress_url) ? file_get_contents($progress_url) : '';
 $progress = explode('/', $progress);
 
 $percentage = (count($progress) >= 2 && $progress[1] > 0) ?
-	$progress[0] / $progress[1] * 100 : 0;
+  $progress[0] / $progress[1] * 100 : 0;
 ?>
 <div
-	class="view view-part-download_progress hidden"
-	id="progress-<?php echo create_slug($filename); ?>"
-	data-percentage="<?php echo $percentage; ?>"
+  class="view view-part-download_progress hidden"
+  id="progress-<?php echo create_slug($filename); ?>"
+  data-percentage="<?php echo $percentage; ?>"
 ></div>

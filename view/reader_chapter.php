@@ -1,4 +1,4 @@
-<?php if(!defined('CONNECTION_TYPE')) die();
+<?php if (!defined('CONNECTION_TYPE')) die();
 /*
 used variables:
 int|Entry	$entry
@@ -9,20 +9,20 @@ $entry = get_entry($entry);
 ?>
 
 <div
-	class="container view view-reader_chapter"
-	data-view="reader_chapter"
-	data-entry="<?php echo $entry->get_id(); ?>"
-	data-chapter="<?php echo $filename; ?>"
-  data-last-read-page="<?php echo $entry->get_prop('last_read_page'); ?>"
+  class="container view view-reader_chapter"
+  data-view="reader_chapter"
+  data-entry="<?php echo $entry -> get_id(); ?>"
+  data-chapter="<?php echo $filename; ?>"
+  data-last-read-page="<?php echo $entry -> get_prop('last_read_page'); ?>"
 >
-	<div class="return return-absolute button">return</div>
-	<div class="reader-chapter-pages"><?php
-		$url = reader_get_folder_url($entry) . '/' . $filename;
-		$pages = array_diff(scandir(HOME_DIR . $url), array('.', '..'));
-		if($pages) {
+  <div class="return return-fixed button">return</div>
+  <div class="reader-chapter-pages"><?php
+    $url = reader_get_folder_url($entry) . '/' . $filename;
+    $pages = array_diff(scandir(HOME_DIR . $url), array('.', '..'));
+    if ($pages) {
       $i = 0;
-  		foreach ($pages as $page) {
-  	?>
+      foreach ($pages as $page) {
+    ?>
     <div
       class="cake reader-page"
       id="reader-page-<?php echo $i; ?>"
@@ -35,19 +35,9 @@ $entry = get_entry($entry);
         padding-bottom: 0;
         "
     ></div>
-		<!-- <div
-			class="reader-page lazy-cake rel"
-      id="reader-page-<?php echo $i; ?>"
-			data-bg="<?php echo '.' . $url . '/' . rawurlencode($page); ?>"
-		>
-			<div class="cake abs"></div>
-			<svg class="loading-icon" viewBox="-10 -10 120 120">
-				<circle cx="50" cy="50" r="40" />
-			</svg>
-		</div> -->
-  	<?php
+    <?php
         $i++;
-			}
-		}
-		?></div>
+      }
+    }
+    ?></div>
 </div>

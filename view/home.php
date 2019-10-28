@@ -11,7 +11,7 @@ used variables: none
 		<button
 			class="button get-view"
 			data-view="edit_entry"
-			data-details='<?php echo json_encode(array('entry'=>-1)); ?>'
+			data-details='<?php echo json_encode(array('entry' => -1)); ?>'
 			data-target=".next-container"
 		>add new</button>
 	</div>
