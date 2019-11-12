@@ -177,7 +177,10 @@ class Entry {
 function get_entries($options = array()) {
   $sort_by = 'state';
   if(isset($options['sort_by'])) {
-    if(in_array($options['sort_by'], array('entry_id', 'name', 'type', 'state'))) {
+    if(in_array(
+        $options['sort_by'],
+        array('entry_id', 'name', 'type', 'state')
+      )) {
       $sort_by = $options['sort_by'];
     }
   }
@@ -194,13 +197,13 @@ function get_entries($options = array()) {
     $sql -> execute();
     $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
     $entries = array();
-    for ($i=0; $i < count($result); $i++) {
+    for ($i = 0; $i < count($result); $i++) {
       $entries[] = new Entry($result[$i]);
     }
     return $entries;
   }
   catch(Exception $e) {
-    SN()->create_error('could not retrieve entries: ' . $e->getMessage());
+    SN() -> create_error('could not retrieve entries: ' . $e -> getMessage());
   }
 }
 
@@ -214,16 +217,16 @@ function get_entry($entry_id) {
       WHERE `entry_id` = :entry_id
     ";
 
-    $sql = SN()->db_connect()->prepare($sql);
-    $sql->bindParam(':entry_id', $entry_id);
+    $sql = SN() -> db_connect() -> prepare($sql);
+    $sql -> bindParam(':entry_id', $entry_id);
 
-    $sql->execute();
-    $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $sql -> execute();
+    $result = $sql -> fetchAll(PDO::FETCH_ASSOC);
     if(!$result) return false;
     return new Entry($result[0]);
   }
   catch(Exception $e) {
-    SN()->create_error('could not retrieve entries: ' . $e->getMessage());
+    SN() -> create_error('could not retrieve entries: ' . $e -> getMessage());
   }
 }
 
@@ -234,14 +237,14 @@ function create_entry() {
       VALUES (:name)
     ";
 
-    $sql = SN()->db_connect()->prepare($sql);
+    $sql = SN() -> db_connect() -> prepare($sql);
     $name = 'tempname';
-    $sql->bindParam(':name', $name);
-    $sql->execute();
+    $sql -> bindParam(':name', $name);
+    $sql -> execute();
 
-    return get_entry(SN()->db_connect()->lastInsertId());
+    return get_entry(SN() -> db_connect() -> lastInsertId());
   }
   catch(Exception $e) {
-    SN()->create_error('could not create an entry: ' . $e->getMessage());
+    SN() -> create_error('could not create an entry: ' . $e -> getMessage());
   }
 }

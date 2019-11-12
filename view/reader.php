@@ -46,19 +46,14 @@ $files = reader_get_files($entry);
     </div>
   </div>
 
-  <?php display_view('part/reader_filelist', array(
+  <?php
+  $content_arr = array(
     'entry' => $entry,
     'files' => $files,
-  )); ?>
+  );
+  display_view('part/reader_filelist', $content_arr);
 
-  <div class="column-double">
-    <div class="text-strip">
-      <?php display_view('part/madokami_filelist', array(
-        'entry'       =>  $entry,
-        'skip_check'  =>  true,
-        'files'       =>  $files,
-      )); ?>
-    </div>
-  </div>
+  apply_hook('after_single_entry_reader', NULL, $content_arr);
+  ?>
 
 </div>

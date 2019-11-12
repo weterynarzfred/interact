@@ -15,6 +15,12 @@ function get_option($name, $data = NULL) {
 }
 
 function set_option($name, $value, $save = true) {
+  $result = apply_hook('set_option_' . $name, array(
+    'value' => $value,
+    'save'  => $save,
+  ));
+  $value = $result['value'];
+  $save = $result['save'];
   SN() -> options[$name] = $value;
   if ($save) {
     try {

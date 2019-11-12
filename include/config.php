@@ -1,5 +1,23 @@
 <?php
 
+set_option('active_plugins', array(
+  'madokami',
+), false);
+
+// load plugins
+call_user_func(function() {
+  $url = HOME_DIR . '/include/plugin';
+  if (is_dir($url)) {
+    $plugins = get_option('active_plugins');
+    for ($i = 0; $i < count($plugins); $i++) {
+      $url = HOME_DIR . '/include/plugin/' . $plugins[$i] . '/' . $plugins[$i] . '.php';
+      if (file_exists($url)) {
+        include $url;
+      }
+    }
+  }
+});
+
 $url = HOME_DIR . '/config.json';
 $string = file_get_contents($url);
 $config = json_decode($string, true);
@@ -15,25 +33,9 @@ set_option('entry_properties', array(
   ['downloaded', true],
   ['is_finished', true],
   ['cover', true],
-  ['madokami_url', true],
-  ['madokami_filelist', false],
-  ['madokami_last_check', false],
   ['last_read_chapter', false],
   ['last_read_page', false],
 ), false);
-
-// decode json when accessing madokami filelist
-add_to_hook('get_prop_madokami_filelist', function($value, $entry) {
-  return json_decode($value, true);
-});
-
-// encode json when changing madokami filelist
-add_to_hook('update_entry', function($values, $entry) {
-  if (isset($values['madokami_filelist'])) {
-    $values['madokami_filelist'] = json_encode($values['madokami_filelist']);
-  }
-  return $values;
-});
 
 try {
   $sql = "
@@ -53,22 +55,6 @@ catch (Exception $e) {
   SN() -> create_error('could not retrieve options: ' . $e -> getMessage());
 }
 
-// load plugins
-call_user_func(function() {
-  $url = HOME_DIR . '/include/plugin';
-  if (is_dir($url)) {
-    $d = scandir($url);
-    $plugins = array_filter($d, function($f) {return is_dir(HOME_DIR . '/include/plugin/' . $f);});
-    if ($plugins) {
-      for ($i = 0; $i < count($plugins); $i++) {
-        $url = HOME_DIR . '/include/plugin/' . $plugins[$i] . '/' . $plugins[$i] . '.php';
-        if (file_exists($url)) {
-          include $url;
-        }
-      }
-    }
-  }
-});
 
 if (!isset_option('manga_url')) {
   set_option('manga_url', '/storage/');
