@@ -13,6 +13,7 @@ $files = reader_get_files($entry);
   data-view="reader"
   data-entry="<?php echo $entry -> get_id(); ?>"
   data-read="<?php echo $entry -> get_prop('read'); ?>"
+  data-downloaded="<?php echo $entry -> get_prop('downloaded'); ?>"
 >
 
   <div class="column-double">

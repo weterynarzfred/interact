@@ -1,18 +1,22 @@
 /*----- entry-list -----*/
 .entry-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 15em);
-  justify-content: space-between;
-  grid-row-gap: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.view-part-single_entry {
+  padding: 1em;
+  width: 100%;
+  max-width: 35em;
 }
 
 .single-entry {
   position: relative;
-  width: 15em;
-  border-bottom: .5em solid #f55;
   overflow: hidden;
-  transition: .2s;
   cursor: pointer;
+  border-bottom: .5em solid #f55;
+  display: flex;
 }
 
 .single-entry:hover, .single-entry:focus {
@@ -20,12 +24,19 @@
   transform: scale(1.02);
 }
 
+.single-entry-info {
+  background-color: #333;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .entry-name {
   text-align: center;
-  background-color: #333;
   color: #f8f8f8;
-  padding: .25em 1em;
-  font-size: .8em;
+  padding: .25em 2em;
+  font-weight: 700;
   min-height: 4.3em;
   display: flex;
   align-items: center;
@@ -62,6 +73,8 @@
 .entry-image {
   position: relative;
   background-color: #eee;
+  width: 12em;
+  flex-shrink: 0;
 }
 
 .entry-image:after {
@@ -77,7 +90,7 @@
 
 .entry-buttons {
   position: absolute;
-  bottom: .5em;
+  top: .5em;
   right: .5em;
   opacity: 0;
   transition: .2s;

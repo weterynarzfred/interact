@@ -1,5 +1,7 @@
 <?php if (!defined('CONNECTION_TYPE')) die();
 /*
+Displays pages of a single chapter to be read.
+
 used variables:
 int|Entry	$entry
 string		$filename

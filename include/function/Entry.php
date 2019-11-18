@@ -103,22 +103,22 @@ class Entry {
       $sql -> execute();
 
       // get newly created id
-      if(!$this->entry_id) {
-        $this->entry_id = SN() -> db_connect() -> lastInsertId();
+      if (!$this -> entry_id) {
+        $this -> entry_id = SN() -> db_connect() -> lastInsertId();
       }
-      $this->name = $values['name'];
-      $this->type = $values['type'];
-      $this->state = $values['state'];
+      $this -> name = $values['name'];
+      $this -> type = $values['type'];
+      $this -> state = $values['state'];
 
       $entry_properties = get_option('entry_properties');
-      if($entry_properties) {
+      if ($entry_properties) {
         $set = array();
         for ($i = 0; $i < count($entry_properties); $i++) {
           if(isset($values[$entry_properties[$i][0]])) {
             $set[] = '(\'' . $this -> entry_id . '\', \'' . $entry_properties[$i][0] . '\', :' . $entry_properties[$i][0] . ')';
           }
         }
-        if(count($set)) {
+        if (count($set)) {
           $set_string = 'VALUES ' . implode(', ', $set);
           $sql = "
             INSERT INTO e_interact_entries_meta (`entry_id`, `name`, `value`)
@@ -128,13 +128,13 @@ class Entry {
           ";
           $sql = SN() -> db_connect() -> prepare($sql);
           for ($i = 0; $i < count($entry_properties); $i++) {
-            if(isset($values[$entry_properties[$i][0]])) {
+            if (isset($values[$entry_properties[$i][0]])) {
               $sql -> bindParam(':' . $entry_properties[$i][0], $values[$entry_properties[$i][0]]);
             }
           }
           $sql -> execute();
           for ($i = 0; $i < count($entry_properties); $i++) {
-            if(isset($values[$entry_properties[$i][0]])) {
+            if (isset($values[$entry_properties[$i][0]])) {
               $this -> props[$entry_properties[$i][0]] = $values[$entry_properties[$i][0]];
             }
           }

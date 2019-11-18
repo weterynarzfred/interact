@@ -1,13 +1,31 @@
-<?php if(!defined('CONNECTION_TYPE')) die();
+<?php if (!defined('CONNECTION_TYPE')) die();
 /*
+Displays a list of available chapters.
+
 used variables:
 int|Entry	$entry
-array			$files = reader_get_files($entry)
+array	    $files = reader_get_files($entry)
 */
 
-if(!isset($files)) {
+if (!isset($files)) {
   $entry = get_entry($entry);
   $files = reader_get_files($entry);
+}
+
+// todo: move to js
+$downloaded = $entry -> get_prop('downloaded');
+if ($files) {
+  $last_downloaded = intval($files[0]['name']);
+  if ($last_downloaded > $downloaded) {
+    $entry -> update(array(
+      'downloaded' => $last_downloaded,
+    ));
+  }
+}
+elseif ($downloaded != 0 || $downloaded === '') {
+  $entry -> update(array(
+    'downloaded' => 0,
+  ));
 }
 ?>
 
@@ -20,16 +38,16 @@ if(!isset($files)) {
 
   <div class="reader-filelist column">
     <?php
-    if($files) {
+    if ($files) {
       foreach ($files as $file) {
         $classes = array(
           'reader-file',
           'get-view',
         );
-        if($file['name'] <= $entry->get_prop('read')) {
+        if ($file['name'] <= $entry -> get_prop('read')) {
           $classes[] = 'read';
         }
-        if($file['name'] == $entry->get_prop('last_read_chapter')) {
+        if ($file['name'] == $entry -> get_prop('last_read_chapter')) {
           $classes[] = 'last-read';
         }
     ?>
@@ -38,8 +56,8 @@ if(!isset($files)) {
         class="<?php echo implode(' ', $classes); ?>"
         data-view="reader_chapter"
         data-details='<?php echo json_encode(array(
-          'entry'	=>	$entry->get_id(),
-          'filename'	=>	$file['name'],
+          'entry'     =>  $entry -> get_id(),
+          'filename'  =>  $file['name'],
         )); ?>'
         data-target=".next-container"
       >

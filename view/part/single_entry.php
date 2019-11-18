@@ -7,10 +7,9 @@ $entry = get_entry($entry);
 ?>
 
 <div
-  class="view view-part-single_entry column"
+  class="view view-part-single_entry"
   id="entry-<?php echo $entry -> get_id(); ?>"
 >
-  <div class="rmin"></div>
   <div
     class="single-entry get-view"
     data-view="reader"
@@ -19,12 +18,7 @@ $entry = get_entry($entry);
     ?>'
     data-target=".next-container"
   >
-    <div class="entry-name"><?php echo $entry -> get_name(); ?></div>
-    <?php display_view(
-      'part/single_entry_progress',
-      array('entry' => $entry)
-    ); ?>
-    <?php $cover = $entry->get_prop('cover'); ?>
+    <?php $cover = $entry -> get_prop('cover'); ?>
     <div
       class="entry-image<?php echo $cover ? ' lazy-cake' : ''; ?>"
       data-bg="<?php echo $cover; ?>"
@@ -33,6 +27,14 @@ $entry = get_entry($entry);
       <svg class="loading-icon" viewBox="-10 -10 120 120">
         <circle cx="50" cy="50" r="40" />
       </svg>
+    </div>
+    <div class="single-entry-info">
+      <div></div>
+      <div class="entry-name"><?php echo $entry -> get_name(); ?></div>
+      <?php display_view(
+        'part/single_entry_progress',
+        array('entry' => $entry)
+      ); ?>
     </div>
     <div class="entry-buttons">
       <div
