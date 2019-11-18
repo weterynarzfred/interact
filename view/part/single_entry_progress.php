@@ -12,11 +12,11 @@ $entry = get_entry($entry);
     <span class="entry-progress-value"><?php echo $entry -> get_prop('read'); ?></span>
   </div>
   <div class="entry-progress-col">
-    <span class="entry-progress-separator">downloaded:</span>
+    <span class="entry-progress-separator">down:</span>
     <span class="entry-progress-value"><?php echo $entry -> get_prop('downloaded'); ?></span>
   </div>
   <div class="entry-progress-col">
-    <span class="entry-progress-separator">???:</span>
+    <span class="entry-progress-separator">ready:</span>
     <span class="entry-progress-value"><?php echo $entry -> get_prop('ready'); ?></span>
   </div>
   <?php apply_hook('after_single_entry_progress', $entry); ?>

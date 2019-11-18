@@ -33,6 +33,7 @@ set_option('entry_properties', array(
   ['downloaded', true],
   ['is_finished', true],
   ['cover', true],
+  ['last_read_date', true],
   ['last_read_chapter', false],
   ['last_read_page', false],
 ), false);

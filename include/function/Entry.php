@@ -75,6 +75,18 @@ class Entry {
     if (!isset($values['type'])) $values['type'] = $this -> type;
     if (!isset($values['state'])) $values['state'] = $this -> state;
 
+    if (!isset($values['last_read_date'])) {
+      if (isset($values['read']) && $values['read'] > $this -> get_prop('read')) {
+        $values['last_read_date'] = time();
+      }
+    }
+
+    if (!isset($values['ready'])) {
+      if (isset($values['downloaded']) && $values['downloaded'] > $this -> get_prop('ready')) {
+        $values['ready'] = $values['downloaded'];
+      }
+    }
+
     try {
       // if entry already in the database
       if ($this -> entry_id) {
@@ -115,7 +127,15 @@ class Entry {
         $set = array();
         for ($i = 0; $i < count($entry_properties); $i++) {
           if(isset($values[$entry_properties[$i][0]])) {
-            $set[] = '(\'' . $this -> entry_id . '\', \'' . $entry_properties[$i][0] . '\', :' . $entry_properties[$i][0] . ')';
+            $set[] = implode('', array(
+              '(\'',
+              $this -> entry_id,
+              '\', \'',
+              $entry_properties[$i][0],
+              '\', :',
+              $entry_properties[$i][0],
+              ')',
+            ));
           }
         }
         if (count($set)) {
@@ -129,13 +149,17 @@ class Entry {
           $sql = SN() -> db_connect() -> prepare($sql);
           for ($i = 0; $i < count($entry_properties); $i++) {
             if (isset($values[$entry_properties[$i][0]])) {
-              $sql -> bindParam(':' . $entry_properties[$i][0], $values[$entry_properties[$i][0]]);
+              $sql -> bindParam(
+                ':' . $entry_properties[$i][0],
+                $values[$entry_properties[$i][0]]
+              );
             }
           }
           $sql -> execute();
           for ($i = 0; $i < count($entry_properties); $i++) {
             if (isset($values[$entry_properties[$i][0]])) {
-              $this -> props[$entry_properties[$i][0]] = $values[$entry_properties[$i][0]];
+              $this -> props[$entry_properties[$i][0]] =
+                $values[$entry_properties[$i][0]];
             }
           }
         }
@@ -155,10 +179,10 @@ class Entry {
     try {
       $sql = "
         DELETE FROM `e_interact_entries`
-        WHERE `entry_id` = " . $this->entry_id
+        WHERE `entry_id` = " . $this -> entry_id
       ;
-      $sql = SN()->db_connect()->prepare($sql);
-      $sql->execute();
+      $sql = SN() -> db_connect() -> prepare($sql);
+      $sql -> execute();
 
       $sql = "
         DELETE FROM `e_interact_entries_meta`
@@ -176,8 +200,8 @@ class Entry {
 
 function get_entries($options = array()) {
   $sort_by = 'state';
-  if(isset($options['sort_by'])) {
-    if(in_array(
+  if (isset($options['sort_by'])) {
+    if (in_array(
         $options['sort_by'],
         array('entry_id', 'name', 'type', 'state')
       )) {
@@ -188,7 +212,7 @@ function get_entries($options = array()) {
     $sql = "
       SELECT `entry_id`, `name`, `type`, `state`
       FROM `e_interact_entries`
-      ORDER BY " . $sort_by . " DESC
+      ORDER BY " . $sort_by . " ASC
       LIMIT 50 OFFSET 0
     ";
 
@@ -199,6 +223,21 @@ function get_entries($options = array()) {
     $entries = array();
     for ($i = 0; $i < count($result); $i++) {
       $entries[] = new Entry($result[$i]);
+    }
+    
+    if (isset($options['sort_by'])) {
+      if (in_array(
+          $options['sort_by'],
+          array_map(
+            function($e) {return $e[0];},
+            get_option('entry_properties')
+          )
+        )) {
+        usort($entries, function($a, $b) use ($options) {
+          return $a -> get_prop($options['sort_by']) <
+            $b -> get_prop($options['sort_by']);
+        });
+      }
     }
     return $entries;
   }
