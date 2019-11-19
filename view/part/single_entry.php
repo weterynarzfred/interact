@@ -1,9 +1,16 @@
-<?php if(!defined('CONNECTION_TYPE')) die();
+<?php if (!defined('CONNECTION_TYPE')) die();
 /*
 used variables:
 int|Entry	$entry
 */
 $entry = get_entry($entry);
+$classes = array(
+  'single-entry',
+  'get-view',
+);
+if ($entry -> get_prop('ready') > $entry -> get_prop('read')) {
+  $classes[] = 'single-entry-unread';
+}
 ?>
 
 <div
@@ -11,7 +18,7 @@ $entry = get_entry($entry);
   id="entry-<?php echo $entry -> get_id(); ?>"
 >
   <div
-    class="single-entry get-view"
+    class="<?php echo implode(' ', $classes); ?>"
     data-view="reader"
     data-details='<?php
       echo json_encode(array('entry' => $entry -> get_id()));
@@ -46,5 +53,6 @@ $entry = get_entry($entry);
         data-target=".next-container"
       >edit</div>
     </div>
+    <?php apply_hook('after_single_entry', $entry); ?>
   </div>
 </div>

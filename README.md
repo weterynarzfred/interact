@@ -91,6 +91,20 @@ called in:
 
 Called when searching for files handling ajax requests.
 
+### `before_entry_list`
+called in:
+- `view/part/entry_list.php`
+  - `{Array[Entry]} list of entries being displayed`
+
+Called before entry archive is displayed.
+
+### `after_single_entry`
+called in:
+- `view/part/single_entry.php`
+  - `{Entry} entry being displayed`
+
+Called after single entry was displayed in the archive.
+
 ### `after_single_entry_progress`
 called in:
 - `view/part/single_entry_progress.php`

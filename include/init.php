@@ -14,6 +14,15 @@ call_user_func(function() {
   }
 });
 
+// check for configuration file
+if (file_exists(HOME_DIR . '/config.json')) {
+  include HOME_DIR . '/include/config.php';
+  set_view('home');
+}
+else {
+  set_view('config');
+}
+
 // register scripts
 set_option('scripts', array(
   '/vendor/jquery.timeago.js',
@@ -30,15 +39,6 @@ set_option('scripts', array(
   '/js/updateEntry.js',
   '/js/reader-chapter.js',
 ), false);
-
-// check for configuration file
-if (file_exists(HOME_DIR . '/config.json')) {
-  include HOME_DIR . '/include/config.php';
-  set_view('home');
-}
-else {
-  set_view('config');
-}
 
 // display output
 if (CONNECTION_TYPE === 'manual') {

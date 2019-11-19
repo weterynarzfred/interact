@@ -2,6 +2,7 @@
 
 set_option('active_plugins', array(
   'madokami',
+  'mangaupdates',
 ), false);
 
 // load plugins

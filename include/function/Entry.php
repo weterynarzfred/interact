@@ -1,4 +1,4 @@
-<?php if(!defined('CONNECTION_TYPE')) die();
+<?php if (!defined('CONNECTION_TYPE')) die();
 
 class Entry {
 

@@ -29,9 +29,9 @@ function previousView() {
 function getView(view, target, details, callback) {
   window.dispatchEvent(new CustomEvent('beforeGetView', {detail:{view, target, details}}));
   doQuery({
-    data  : {
-      action  : 'get_view',
-      values	:	{
+    data: {
+      action: 'get_view',
+      values: {
         view,
         target,
         details,

@@ -24,6 +24,7 @@ input[type="text"] {
   border: none;
   background: none;
   font: inherit;
+  font-size: .7em;
   padding: .25em.5em;
   box-shadow: 0 1px 0 0 #f55;
   transition: .2s
