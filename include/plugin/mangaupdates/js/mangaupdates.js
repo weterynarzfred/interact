@@ -1,7 +1,7 @@
 const mangaupdatesLastUpdate = $('#mangaupdates-data').data('last-update');
-let idElements = [];
+const idElements = [];
 
-if (mangaupdatesLastUpdate < new Date().getTime() / 1000 - 3600) {
+if (mangaupdatesLastUpdate < new Date().getTime() / 1000 / 60 / 60 - 24) {
   $('.entry-mangaupdates-data').map(function() {
     const t = $(this);
     if (t.parents('.entry-is-finished').length === 0) {
@@ -14,6 +14,7 @@ if (mangaupdatesLastUpdate < new Date().getTime() / 1000 - 3600) {
   });
   shuffleArray(idElements);
   check_mangaupdates();
+  createMessage('checking mangaupdates');
 }
 
 function check_mangaupdates() {

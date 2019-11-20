@@ -42,7 +42,7 @@ const doQuery = (function() {
         window.history.pushState({}, '', fragment.url);
         break;
       case 'message':
-        createMessage(fragment.html);
+        createMessage(fragment.html, fragment.message_meta);
         break;
       case 'refresh':
         location.reload();

@@ -23,6 +23,10 @@ try {
       'skip_check'  =>  true,
     )
   );
+  $message_meta = '';
+  if (isset($values['last_read_page']) && count($values) >= 2) {
+    $message_meta = 'page_update';
+  }
 
   $success = true;
 }
@@ -61,6 +65,7 @@ if($success) {
     array(
       'type'  =>  'message',
       'html'  =>  'the entry was updated',
+      'message_meta'  => $message_meta,
     ),
   );
   if($values['id'] == '') {

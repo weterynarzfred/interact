@@ -11,22 +11,6 @@ if (!isset($files)) {
   $entry = get_entry($entry);
   $files = reader_get_files($entry);
 }
-
-// todo: move to js
-$downloaded = $entry -> get_prop('downloaded');
-if ($files) {
-  $last_downloaded = intval($files[0]['name']);
-  if ($last_downloaded > $downloaded) {
-    $entry -> update(array(
-      'downloaded' => $last_downloaded,
-    ));
-  }
-}
-elseif ($downloaded != 0 || $downloaded === '') {
-  $entry -> update(array(
-    'downloaded' => 0,
-  ));
-}
 ?>
 
 <div class="view view-part-reader_filelist">

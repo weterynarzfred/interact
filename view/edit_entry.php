@@ -19,15 +19,15 @@ $entry = (($entry == -1) ? new Entry() : get_entry($entry));
 
       <input type="hidden" name="id" value="<?php echo $entry -> get_id(); ?>">
       <div class="input-line">
-        <div class="input-label">name:</div>
+        <div class="input-label">name</div>
         <input type="text" name="name" value="<?php echo $entry -> get_name(); ?>">
       </div>
       <div class="input-line">
-        <div class="input-label">type:</div>
+        <div class="input-label">type</div>
         <input type="text" name="type" value="<?php echo $entry -> get_type(); ?>">
       </div>
       <div class="input-line">
-        <div class="input-label">state:</div>
+        <div class="input-label">state</div>
         <input type="text" name="state" value="<?php echo $entry -> get_state(); ?>">
       </div>
 

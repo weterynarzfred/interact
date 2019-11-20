@@ -75,15 +75,28 @@ class Entry {
     if (!isset($values['type'])) $values['type'] = $this -> type;
     if (!isset($values['state'])) $values['state'] = $this -> state;
 
+    // update last read date
     if (!isset($values['last_read_date'])) {
       if (isset($values['read']) && $values['read'] > $this -> get_prop('read')) {
         $values['last_read_date'] = time();
       }
     }
 
+    // update ready while updating downloaded
     if (!isset($values['ready'])) {
       if (isset($values['downloaded']) && $values['downloaded'] > $this -> get_prop('ready')) {
         $values['ready'] = $values['downloaded'];
+      }
+    }
+
+    // update is_finished
+    if (!isset($values['is_finished'])) {
+      if (isset($values['read']) || isset($values['ready'])) {
+        $read = isset($values['read']) ?
+          $values['read'] : $this -> get_prop('read');
+        $ready = isset($values['ready']) ?
+          $values['ready'] : $this -> get_prop('ready');
+        $values['is_finished'] = $read >= $ready;
       }
     }
 
@@ -234,8 +247,11 @@ function get_entries($options = array()) {
           )
         )) {
         usort($entries, function($a, $b) use ($options) {
-          return $a -> get_prop($options['sort_by']) <
-            $b -> get_prop($options['sort_by']);
+          if ($a -> get_prop('is_finished') === $b -> get_prop('is_finished')) {
+            return $a -> get_prop($options['sort_by']) <
+              $b -> get_prop($options['sort_by']);
+          }
+          return (bool)($a -> get_prop('is_finished'));
         });
       }
     }

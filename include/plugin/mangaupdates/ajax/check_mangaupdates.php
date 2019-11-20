@@ -44,7 +44,10 @@ try {
         'entry_id'  =>  $e['entry'],
         'name'      =>  $entry -> get_name(),
         'newest'    =>  $newest,
-        'html'      =>  get_view('part/single_entry', ['entry' => $entry]),
+        'html'      =>  get_view('part/single_entry', array(
+          'entry' => $entry,
+          'classes'  => array('single-entry-updated'),
+        )),
       );
     }
   }, $values);

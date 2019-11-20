@@ -106,8 +106,8 @@ function reader_get_madokami_files($entry) {
       'madokami_filelist'	  =>  $results,
       'madokami_last_check'	=>  time(),
     );
-    if ($results[0]['chapter'] > $entry -> get_prop('ready')) {
-      $update_array['ready'] = $results[0]['chapter'];
+    if ($results[0]['chapter'] > $entry -> get_prop('downloaded')) {
+      $update_array['downloaded'] = $results[0]['chapter'];
     }
 
     $entry -> update($update_array);

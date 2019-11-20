@@ -8,7 +8,7 @@
 .view-part-single_entry {
   padding: .3em;
   width: 100%;
-  max-width: 23em;
+  max-width: 20em;
 }
 
 .single-entry {
@@ -35,8 +35,7 @@
 .entry-name {
   text-align: center;
   color: #f8f8f8;
-  padding: .25em 2em;
-  font-weight: 700;
+  padding: 1em 1em;
   font-size: .7em;
   min-height: 4.3em;
   display: flex;
@@ -61,7 +60,7 @@
 }
 
 .entry-progress-separator {
-  color: #f55;
+  color: #bbb;
   font-size: .62em;
   padding-left: .5em;
 }
@@ -104,8 +103,6 @@
   opacity: 1;
 }
 
-
-
 .single-entry.single-entry-unread {
   border-color: #f55;
 }
@@ -114,6 +111,22 @@
   background-color: #333;
 }
 
+.single-entry.single-entry-unread .entry-progress-separator {
+  color: #f77;
+}
+
 .single-entry.single-entry-unread .entry-image {
   opacity: 1;
+}
+
+.single-entry.single-entry-updated {
+  border-color: #fb5;
+}
+
+.single-entry.single-entry-updated .single-entry-info {
+  background-color: #543;
+}
+
+.single-entry.single-entry-updated .entry-progress-separator {
+  color: #fb5;
 }

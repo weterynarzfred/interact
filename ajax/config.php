@@ -1,11 +1,11 @@
-<?php if(!defined('CONNECTION_TYPE')) die();
+<?php if (!defined('CONNECTION_TYPE')) die();
 
 $values = $_POST['values'];
 $success = false;
 $tables_just_created = false;
 
 try {
-  if(
+  if (
     !isset($values['db_host']) ||
     !isset($values['db_name']) ||
     !isset($values['db_user']) ||
@@ -14,11 +14,11 @@ try {
     throw new Exception('correct data not provided');
   }
 }
-catch(Exception $e) {
-  SN()->create_error('ajax failed performing action "config"; ' . $e);
+catch (Exception $e) {
+  SN() -> create_error('ajax failed performing action "config"; ' . $e);
 }
 
-if(SN()->test_db_connection(
+if (SN() -> test_db_connection(
   $values['db_host'],
   $values['db_name'],
   $values['db_user'],
@@ -30,19 +30,19 @@ if(SN()->test_db_connection(
     'db_user' =>  $values['db_user'],
     'db_password' =>  $values['db_password'],
   ];
-  $success = SN()->save_config($data);
-  if($success) {
-    $tables_just_created = SN()->test_db_tables();
+  $success = SN() -> save_config($data);
+  if ($success) {
+    $tables_just_created = SN() -> test_db_tables();
   }
 }
 
 $response = array(
-  'success'  =>  $success,
+  'success' =>  $success,
   'errors'  =>  SN()->get_errors(),
-	'type'	=>	'config',
+	'type'    =>  'config',
 );
 
-if($success) {
+if ($success) {
   $response['fragments'] = array(
     array(
       'type'  =>  'refresh',
