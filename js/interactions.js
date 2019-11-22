@@ -76,3 +76,16 @@ $document.on('click', '.madokami-file', function() {
   const t = $(this);
   download(t.data('id'), t.data('url'), t.data('file-slug'));
 });
+
+
+// reader chapter page size
+$document.on('click', '.reader-chapter-plus', function() {
+  currentZoom *= 1.1;
+  window.dispatchEvent(new CustomEvent('layoutChange'));
+  window.dispatchEvent(new CustomEvent('afterLayoutChange'));
+});
+$document.on('click', '.reader-chapter-minus', function() {
+  currentZoom /= 1.1;
+  window.dispatchEvent(new CustomEvent('layoutChange'));
+  window.dispatchEvent(new CustomEvent('afterLayoutChange'));
+});

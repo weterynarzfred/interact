@@ -23,7 +23,7 @@ add_to_hook('ajax_urls', function($urls) {
   return $urls;
 });
 
-// add js scripts
+// add js scripts location
 add_to_hook('set_option_scripts', function($data) {
   $data['value'][] = '/include/plugin/mangaupdates/js/mangaupdates.js';
   return $data;

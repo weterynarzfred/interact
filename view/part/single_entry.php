@@ -19,7 +19,10 @@ if (!$entry -> get_prop('is_finished')) $classes[] = 'single-entry-unread';
     class="<?php echo implode(' ', $classes); ?>"
     data-view="reader"
     data-details='<?php
-      echo json_encode(array('entry' => $entry -> get_id()));
+      echo json_encode(array(
+        'entry' => $entry -> get_id(),
+        'madokami_last_check'  =>  $entry -> get_prop('madokami_last_check'),
+      ));
     ?>'
     data-target=".next-container"
   >

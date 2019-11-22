@@ -3,8 +3,8 @@
 Displays pages of a single chapter to be read.
 
 used variables:
-int|Entry	$entry
-string		$filename
+int|Entry $entry
+string    $filename
 */
 
 $entry = get_entry($entry);
@@ -17,7 +17,11 @@ $entry = get_entry($entry);
   data-chapter="<?php echo $filename; ?>"
   data-last-read-page="<?php echo $entry -> get_prop('last_read_page'); ?>"
 >
-  <div class="return return-fixed button">return</div>
+  <div class="reader-chapter-buttons">
+    <div class="return button">return</div>
+    <div class="button reader-chapter-plus">+</div>
+    <div class="button reader-chapter-minus">-</div>
+  </div>
   <div class="reader-chapter-pages"><?php
     $url = reader_get_folder_url($entry) . '/' . $filename;
     $pages = array_diff(scandir(HOME_DIR . $url), array('.', '..'));

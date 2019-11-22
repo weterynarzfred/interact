@@ -19,7 +19,12 @@ $(window).resize(throttle(100, f3.sizeCheck));
 $(window).load(f3.sizeCheck);
 $(document).ready(f3.sizeCheck);
 
-
+/**
+ * Returns a function that will call the callback unless the last call was called too recently.
+ * @param {number} ms 
+ * @param {function} callback 
+ * @returns {function} function to be called
+ */
 function throttle(ms, callback) {
   var lastCall = 0;
   var timeout;
@@ -44,6 +49,10 @@ function throttle(ms, callback) {
   };
 }
 
+/**
+ * Randomizes the order within an array.
+ * @param {any[]} array 
+ */
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));

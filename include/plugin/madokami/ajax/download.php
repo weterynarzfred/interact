@@ -94,9 +94,9 @@ catch(Exception $e) {
 }
 
 $response = array(
-  'success'  =>  $success,
+  'success' =>  $success,
   'errors'  =>  SN() -> get_errors(),
-  'type'	=>	'download',
+  'type'    =>  'download',
 );
 
 echo json_encode($response);

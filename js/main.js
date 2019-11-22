@@ -1,4 +1,14 @@
-/* exported ajaxUrl $window $document $html currentScreen currentView viewScrollPositions */
+/*
+exported
+  ajaxUrl
+  $window
+  $document
+  $html
+  currentScreen
+  currentView
+  currentZoom
+  viewScrollPositions
+*/
 
 const ajaxUrl = $('body').data('ajax-url');
 const $window = $(window);
@@ -7,4 +17,5 @@ const $html = $('html');
 
 let currentScreen = 0;
 let currentView = $('.container').addClass('current').data('view');
+let currentZoom = 1;
 const viewScrollPositions = [0];

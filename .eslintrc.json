@@ -43,6 +43,7 @@
     "createMessage": "readonly",
     "viewScrollPositions": "readonly",
     "currentView": "writable",
-    "currentScreen": "writable"
+    "currentScreen": "writable",
+    "currentZoom": "writable"
   }
 }

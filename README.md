@@ -1,5 +1,8 @@
 # interact
 
+## Clientside functions
+???
+
 ## Serverside globals
 `HOME_DIR`
 

@@ -12,12 +12,10 @@ add_to_hook('set_option_entry_properties', function($array) {
   );
 });
 
-
 // decode json when accessing madokami filelist
 add_to_hook('get_prop_madokami_filelist', function($value, $entry) {
   return json_decode($value, true);
 });
-
 
 // encode json when changing madokami filelist
 add_to_hook('update_entry', function($values, $entry) {
@@ -27,13 +25,11 @@ add_to_hook('update_entry', function($values, $entry) {
   return $values;
 });
 
-
 // add view files location
 add_to_hook('display_view_urls', function($urls) {
   array_push($urls, __DIR__ . '/view/');
   return $urls;
 });
-
 
 // add ajax scripts location
 add_to_hook('ajax_urls', function($urls) {
@@ -41,6 +37,11 @@ add_to_hook('ajax_urls', function($urls) {
   return $urls;
 });
 
+// add js scripts location
+add_to_hook('set_option_scripts', function($data) {
+  $data['value'][] = '/include/plugin/madokami/js/madokami.js';
+  return $data;
+});
 
 // display madokami filelist
 add_to_hook('after_single_entry_reader', function($data, $content) { ?>
@@ -69,7 +70,7 @@ function reader_get_madokami_files($entry) {
 
   $output = array();
   $madokami_url = $entry -> get_prop('madokami_url');
-  if($madokami_url != '') {
+  if ($madokami_url != '') {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $madokami_url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -84,6 +85,7 @@ function reader_get_madokami_files($entry) {
 
     $results = array();
     $table = preg_split('/<table id="index-table.*?>/is', $output, 2);
+    if (!isset($table[1]) || !isset($table[0])) return false;
     $table = preg_split('/<\/table>/is', $table[1], 2);
     preg_replace_callback(
       '/<tr data-record="[0-9]*">[^<]*<td>[^<]*<a href="([^"]*)"[^>]*>(([^<]*)\.[^<.]+)<\/a>/is',
