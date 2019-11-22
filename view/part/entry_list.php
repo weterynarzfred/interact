@@ -1,13 +1,22 @@
-<?php if(!defined('CONNECTION_TYPE')) die(); ?>
-<div class="entries">
-<?php
-apply_hook('before_entry_list', $data);
-if($data) {
-  foreach ($data as $entry) {
-    display_view('part/single_entry', $entry); ?>
-  <?php }
-}
+<?php if(!defined('CONNECTION_TYPE')) die();
+/*
+used variables: none
+*/
+
+$entries = get_entries(array(
+  'sort_by' => 'last_read_date',
+));
 ?>
+
+<div class="view view-part-entry_list">
+  <?php apply_hook('before_entry_list', $entries); ?>
+  <div class="entry-list column">
+    <?php
+    if ($entries) {
+      foreach ($entries as $entry) {
+        display_view('part/single_entry', array('entry' => $entry));
+      }
+    }
+    ?>
+  </div>
 </div>
-<div class="rmin"></div>
-<div class="button add-entry">add a new entry</div>

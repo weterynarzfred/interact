@@ -1,0 +1,42 @@
+/*----- reader_chapter -----*/
+.reader-page .cake {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: auto;
+  padding: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.container.view-reader_chapter {
+  padding: 0;
+}
+
+.reader-chapter-buttons {
+  position: fixed;
+  top: 0em;
+  left: 0em;
+  display: flex;
+  padding: 2em;
+}
+
+.reader-chapter-plus, .reader-chapter-minus {
+  width: 1.6em;
+  text-align: center;
+  margin-left: 1em;
+}
+
+.reader-chapter-buttons .return,
+.reader-chapter-plus,
+.reader-chapter-minus {
+  opacity: 0;
+}
+
+.reader-chapter-buttons:hover .return,
+.reader-chapter-buttons:hover .reader-chapter-plus,
+.reader-chapter-buttons:hover .reader-chapter-minus {
+  opacity: 1;
+}

@@ -1,0 +1,117 @@
+/*----- reader filelist -----*/
+.reader-entry-name {
+  font-size: 1.62em;
+  font-weight: 700;
+}
+
+.reader-filelist {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.reader-filelist > .column {
+  padding-top: 1em;
+}
+
+.reader-file {
+  position: relative;
+  width: 11em;
+  padding-bottom: 5px;
+  cursor: pointer;
+  transition: .2s;
+  box-shadow: 0 -5px 0 0px #f55 inset;
+  opacity: .85;
+}
+
+.reader-file.read {
+  box-shadow: 0 -5px 0 0px #333 inset;
+  opacity: .5;
+}
+
+.reader-file.last-read {
+  box-shadow: 0 -5px 0 0px #59f inset;
+}
+
+.reader-file:hover {
+  box-shadow: 0 -5px 0 1px #f55 inset, 0 0 0 1px #f55;
+  opacity: 1;
+}
+
+.reader-file.last-read:hover {
+  box-shadow: 0 -5px 0 1px #59f inset, 0 0 0 1px #59f;
+  opacity: 1;
+}
+
+.reader-filename {
+  position: absolute;
+  z-index: 2;
+  height: 1.6em;
+  min-width: 1.6em;
+  padding: 0 .2em;
+  top: .5em;
+  left: .5em;
+  background-color: #f55;
+  color: #fff;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: .8em;
+  transition: .2s;
+}
+
+.reader-file.read .reader-filename {
+  background-color: #333;
+}
+
+.reader-file:hover .reader-filename {
+  background-color: #f55;
+}
+
+.reader-file.last-read .reader-filename {
+  background-color: #59f;
+}
+
+.reader-cover {
+  overflow: hidden;
+}
+
+.reader-cover .cake {
+  box-shadow: 0 0 5em 0 rgba(142, 56, 0, .1) inset;
+}
+
+.file {
+  font-size: .79em;
+  cursor: pointer;
+  transition: .2s;
+  margin-bottom: .5em;
+  padding: .25em .5em;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.file:hover {
+  color: #f55;
+  background-color: #eee;
+}
+
+.chapter-number {
+  font-size: .79em;
+  margin-right: 1em;
+  min-width: 1.6em;
+  background-color: #333;
+  height: 1.6em;
+  padding: 0 .2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: .8em;
+  transition: .2s;
+}
+
+.file:hover .chapter-number {
+  background-color: #f55;
+}

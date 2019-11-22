@@ -1,0 +1,41 @@
+/*----- madokami -----*/
+.madokami-file {
+  padding-bottom: .35em;
+}
+
+.madokami-file.read .madokami-chapter-number {
+  background-color: #999;
+}
+
+.madokami-file.downloaded .madokami-chapter-number {
+  background-color: #796;
+}
+
+.madokami-download-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transition: .2s;
+}
+
+.madokami-file:hover .madokami-download-progress-bar {
+  background-color: #fcc;
+}
+
+.madokami-download-progress-bar .progress {
+  width: 0;
+  height: 100%;
+  background-color: #f55;
+  transition: 1s linear;
+}
+
+.madokami-file.downloaded, .madokami-file.read {
+  color: #999;
+}
+
+.madokami-file.downloaded .madokami-download-progress-bar .progress {
+  width: 100%;
+  background-color: #796;
+}

@@ -1,0 +1,49 @@
+{
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": true
+  },
+  "rules": {
+    "linebreak-style": [1, "windows"],
+    "brace-style": [1, "stroustrup", {"allowSingleLine": true}],
+    "keyword-spacing": 1,
+    "eol-last": 1,
+    "padded-blocks": 1,
+    "quotes": [1, "single", { "allowTemplateLiterals": true }],
+    "no-mixed-spaces-and-tabs": 1,
+    "indent": 1,
+    "no-unused-vars": 1,
+    "array-bracket-newline": [1, {"minItems": 2, "multiline": true}],
+    "array-bracket-spacing": [1, "never"],
+    "space-in-parens": [1, "never"],
+    "comma-dangle": [1, "always-multiline"],
+    "func-call-spacing": 1,
+    "function-paren-newline": 1,
+    "indent": [1, 2],
+    "padded-blocks": [1, "never"],
+    "semi": 1
+  },
+  "globals": {
+    "$window": "readonly",
+    "$document": "readonly",
+    "$html": "readonly",
+    "f3": "readonly",
+    "throttle": "readonly",
+    "shuffleArray": "readonly",
+    "ajaxUrl": "readonly",
+    "doQuery": "readonly",
+    "startLoading": "readonly",
+    "stopLoading": "readonly",
+    "getView": "readonly",
+    "previousView": "readonly",
+    "updateEntry": "readonly",
+    "download": "readonly",
+    "createMessage": "readonly",
+    "viewScrollPositions": "readonly",
+    "currentView": "writable",
+    "currentScreen": "writable",
+    "currentZoom": "writable"
+  }
+}

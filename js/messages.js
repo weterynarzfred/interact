@@ -1,19 +1,24 @@
-const createMessage = (function(){
-  const messages = $('#messages');
-  function Message(html) {
-    this.html = html;
-    this.el = $(document.createElement('div'))
+/* exported createMessage */
+/* exported clearMessages */
+
+const createMessage = (function() {
+  return function(html, meta) {
+    if (meta === 'page_update') return;
+    const el = $(document.createElement('div'))
       .addClass('message')
-      .html(this.html);
-    messages.append(this.el);
-    setTimeout(function() {
-      this.el.addClass('removing');
-      setTimeout(function() {
-        this.el.remove();
-      }.bind(this), 300);
-    }.bind(this), 10000);
-  }
-  return function(html) {
-    return new Message(html);
+      .html(html)
+      .appendTo('#messages')
+      .click(() => {
+        el.slideUp(300);
+        setTimeout(() => el.remove(), 300);
+      });
   };
 })();
+
+const clearMessages = () => {
+  const messages = $('.message');
+  messages.slideUp(300);
+  setTimeout(() => messages.remove(), 300);
+};
+
+window.addEventListener('afterGetView', clearMessages);

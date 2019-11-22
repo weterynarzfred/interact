@@ -1,0 +1,132 @@
+/*----- entry-list -----*/
+.entry-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.view-part-single_entry {
+  padding: .3em;
+  width: 100%;
+  max-width: 20em;
+}
+
+.single-entry {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-bottom: .3em solid #777;
+  display: flex;
+}
+
+.single-entry:hover, .single-entry:focus {
+  box-shadow: 0 0 .5em 1px rgba(0, 0, 0, .5);
+  transform: scale(1.02);
+}
+
+.single-entry-info {
+  background-color: #555;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.entry-name {
+  text-align: center;
+  color: #f8f8f8;
+  padding: 1em 1em;
+  font-size: .7em;
+  min-height: 4.3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.entry-progress {
+  text-transform: uppercase;
+  padding-bottom: .2em;
+  font-size: .7em;
+}
+
+.entry-progress-col {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  padding: .15em;
+  min-height: 1.49em;
+  display: flex;
+  justify-content: center;
+}
+
+.entry-progress-separator {
+  color: #bbb;
+  font-size: .62em;
+  padding-left: .5em;
+}
+
+.entry-progress-value {
+  padding: 0 .25em;
+  color: #f8f8f8;
+}
+
+.entry-image {
+  position: relative;
+  background-color: #eee;
+  width: 8em;
+  flex-shrink: 0;
+  opacity: .7;
+}
+
+.entry-image:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 0 10em 0 rgba(142, 56, 0, 0.1) inset;
+  z-index: 1;
+}
+
+.entry-buttons {
+  position: absolute;
+  top: .5em;
+  right: .5em;
+  opacity: 0;
+  transition: .2s;
+  z-index: 1;
+}
+
+.single-entry:hover .entry-buttons,
+.single-entry:hover .entry-image {
+  opacity: 1;
+}
+
+.single-entry.single-entry-unread {
+  border-color: #f55;
+}
+
+.single-entry.single-entry-unread .single-entry-info {
+  background-color: #333;
+}
+
+.single-entry.single-entry-unread .entry-progress-separator {
+  color: #f77;
+}
+
+.single-entry.single-entry-unread .entry-image {
+  opacity: 1;
+}
+
+.single-entry.single-entry-updated {
+  border-color: #fb5;
+}
+
+.single-entry.single-entry-updated .single-entry-info {
+  background-color: #543;
+}
+
+.single-entry.single-entry-updated .entry-progress-separator {
+  color: #fb5;
+}
