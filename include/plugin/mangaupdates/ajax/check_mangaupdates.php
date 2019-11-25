@@ -46,7 +46,7 @@ try {
         'newest'    =>  $newest,
         'html'      =>  get_view('part/single_entry', array(
           'entry' => $entry,
-          'classes'  => array('single-entry-updated'),
+          'classes'  => array('single-entry-new-ready'),
         )),
       );
     }

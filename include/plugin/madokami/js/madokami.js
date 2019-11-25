@@ -10,17 +10,26 @@ $('.single-entry').map(function() {
   }
 });
 
-if (scrapeMadokamiList.length > 0) scrapeMadokami();
+if (scrapeMadokamiList.length > 0) {
+  shuffleArray(scrapeMadokamiList);
+  scrapeMadokami();
+  createMessage('checking madokami');
+}
 
 function scrapeMadokami() {
-  let id = scrapeMadokamiList.pop();
-  doQuery({
-    data: {
-      action: 'madokami_scrape',
-      values: {id},
-    },
-    callback: function(data) {
-      setTimeout(scrapeMadokami, 500);
-    },
-  });
+  if (scrapeMadokamiList.length > 0) {
+    let id = scrapeMadokamiList.pop();
+    doQuery({
+      data: {
+        action: 'madokami_scrape',
+        values: {id},
+      },
+      callback: function() {
+        setTimeout(scrapeMadokami, 500);
+      },
+    });
+  }
+  else {
+    createMessage('finished checking madokami');
+  }
 }

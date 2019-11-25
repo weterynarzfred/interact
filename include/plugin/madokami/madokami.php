@@ -65,7 +65,7 @@ add_to_hook('after_single_entry_reader', function($data, $content) { ?>
  * 'chapter'  => {int}
  * ```
  */
-function reader_get_madokami_files($entry) {
+function reader_get_madokami_files($entry, &$was_updated) {
   $entry = get_entry($entry);
 
   $output = array();
@@ -110,6 +110,10 @@ function reader_get_madokami_files($entry) {
     );
     if ($results[0]['chapter'] > $entry -> get_prop('downloaded')) {
       $update_array['downloaded'] = $results[0]['chapter'];
+      $was_updated = true;
+    }
+    else {
+      $was_updated = false;
     }
 
     $entry -> update($update_array);

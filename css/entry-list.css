@@ -119,14 +119,26 @@
   opacity: 1;
 }
 
-.single-entry.single-entry-updated {
+.single-entry.single-entry-new-ready {
   border-color: #fb5;
 }
 
-.single-entry.single-entry-updated .single-entry-info {
+.single-entry.single-entry-new-ready .single-entry-info {
   background-color: #543;
 }
 
-.single-entry.single-entry-updated .entry-progress-separator {
+.single-entry.single-entry-new-ready .entry-progress-separator {
   color: #fb5;
+}
+
+.single-entry.single-entry-new-downloaded {
+  border-color: #bf5;
+}
+
+.single-entry.single-entry-new-downloaded .single-entry-info {
+  background-color: #453;
+}
+
+.single-entry.single-entry-new-downloaded .entry-progress-separator {
+  color: #bf5;
 }

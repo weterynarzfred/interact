@@ -19,12 +19,16 @@ class Reader {
     window.addEventListener('layoutChange', this.resize);
     $window.on('keydown.reader-chapter', function (event) {
       if (event.which === 40 || event.which === 39 || event.which === 32) {
-        event.preventDefault();
-        this.showPage(this.currentPage + 1);
+        if (currentZoom === 1) {
+          event.preventDefault();
+          this.showPage(this.currentPage + 1);
+        }
       }
       else if (event.which === 38 || event.which === 37 || event.which === 8) {
-        event.preventDefault();
-        this.showPage(this.currentPage - 1);
+        if (currentZoom === 1) {
+          event.preventDefault();
+          this.showPage(this.currentPage - 1);
+        }
       }
     }.bind(this));
     $window.on('contextmenu.reader-chapter', function (event) {

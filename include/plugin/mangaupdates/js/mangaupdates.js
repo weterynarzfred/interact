@@ -34,6 +34,6 @@ function check_mangaupdates() {
     });
   }
   else {
-    createMessage('mangaupdates finished checking');
+    createMessage('finished checking mangaupdates');
   }
 }

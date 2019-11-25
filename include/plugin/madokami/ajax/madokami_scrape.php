@@ -10,7 +10,8 @@ try {
     throw new Exception('correct data not provided');
   }
 
-  $madokami_files = reader_get_madokami_files($values['id']);
+  $was_updated;
+  $madokami_files = reader_get_madokami_files($values['id'], $was_updated);
 
   $success = true;
 }
@@ -24,12 +25,20 @@ $response = array(
   'type'    =>  'madokami_scrape',
 );
 
-if ($success) {
-  $response['debug'] = $madokami_files;
+if ($success && $was_updated) {
+  $html = get_view('part/single_entry', array(
+    'entry' => $values['id'],
+    'classes'  => array('single-entry-new-downloaded'),
+  ));
   $response['fragments'] = array(
     array(
       'type'  =>  'message',
-      'html'  =>  'checked madokami for ' . get_entry($values['id']) -> get_name(),
+      'html'  =>  'found new files on madokami for ' . get_entry($values['id']) -> get_name(),
+    ),
+    array(
+      'type'    =>  'replace',
+      'element' =>  '#entry-' . $values['id'],
+      'html'    =>  $e['html'],
     ),
   );
 }
