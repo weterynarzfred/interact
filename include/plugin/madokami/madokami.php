@@ -7,6 +7,7 @@ add_to_hook('set_option_entry_properties', function($array) {
       ['madokami_url', true],
       ['madokami_filelist', false],
       ['madokami_last_check', false],
+      ['madokami_is_downloadable', false],
     )),
     'save' => $array['save'],
   );
@@ -55,6 +56,23 @@ add_to_hook('after_single_entry_reader', function($data, $content) { ?>
   </div>
 </div>
 <?php });
+
+// update is_downloadable
+add_to_hook('update_entry', function($values, $entry) {
+  if (
+    (
+      !isset($values['read']) &&
+      !isset($values['downloaded'])
+    ) ||
+    isset($values['madokami_is_downloadable'])
+  ) return $values;
+  $downloaded = isset($values['downloaded']) ?
+    $values['downloaded'] :
+    $entry -> get_prop('downloaded');
+  $read = isset($values['read']) ? $values['read'] : $entry -> get_prop('read');
+  $values['madokami_is_downloadable'] = $downloaded > $read;
+  return $values;
+});
 
 /**
  * Scrapes madokami for downloadable chapters. Returns an array containing:

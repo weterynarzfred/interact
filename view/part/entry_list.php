@@ -3,9 +3,7 @@
 used variables: none
 */
 
-$entries = get_entries(array(
-  'sort_by' => 'last_read_date',
-));
+$entries = get_entries();
 ?>
 
 <div class="view view-part-entry_list">

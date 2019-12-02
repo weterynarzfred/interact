@@ -9,6 +9,9 @@ if (!isset($classes)) $classes = array();
 $classes[] = 'single-entry';
 $classes[] = 'get-view';
 if (!$entry -> get_prop('is_finished')) $classes[] = 'single-entry-unread';
+if ($entry -> get_prop('madokami_is_downloadable')) {
+  $classes[] = 'single-entry-madokami-downloadable';
+}
 ?>
 
 <div

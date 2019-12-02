@@ -247,13 +247,24 @@ function get_entries($options = array()) {
           )
         )) {
         usort($entries, function($a, $b) use ($options) {
-          if ($a -> get_prop('is_finished') === $b -> get_prop('is_finished')) {
-            return $a -> get_prop($options['sort_by']) <
-              $b -> get_prop($options['sort_by']);
-          }
-          return (bool)($a -> get_prop('is_finished'));
+          return $a -> get_prop($options['sort_by']) <
+            $b -> get_prop($options['sort_by']);
         });
       }
+    }
+    else {
+      usort($entries, function($a, $b) use ($options) {
+        if ($a -> get_prop('is_finished') !== $b -> get_prop('is_finished')) {
+          return $a -> get_prop('is_finished');
+        }
+
+        if ($a -> get_prop('madokami_is_downloadable') !== $b -> get_prop('madokami_is_downloadable')) {
+          return $b -> get_prop('madokami_is_downloadable');
+        }
+
+        return $a -> get_prop('last_read_date') <
+          $b -> get_prop('last_read_date');
+      });
     }
     return $entries;
   }
