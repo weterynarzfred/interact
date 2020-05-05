@@ -1,7 +1,8 @@
 # interact
+Manga tracker and reader. Requires PHP and MySQL.
 
 ## Clientside functions
-???
+// todo
 
 ## Serverside globals
 `HOME_DIR`
